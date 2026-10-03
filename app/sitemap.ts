@@ -1,25 +1,27 @@
 import type { MetadataRoute } from 'next';
-import { docsNav } from '@/content/architecture';
+import { PRODUCT, DOCS } from '@/lib/m31a/product';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://m31a.dev';
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${baseUrl}/docs`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/roadmap`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/changelog`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contributing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+  const base = PRODUCT.canonicalUrl.replace(/\/$/, '');
+  const staticRoutes = [
+    '', '/features', '/architecture', '/security', '/docs',
+    '/cli', '/download', '/changelog', '/roadmap', '/community', '/about',
   ];
 
-  const docRoutes: MetadataRoute.Sitemap = docsNav.flatMap((section) =>
-    section.items.map((item) => ({
-      url: `${baseUrl}/docs/${item.slug}`,
-      lastModified: new Date(),
+  const routes = [
+    ...staticRoutes.map((r) => ({
+      url: `${base}${r}`,
+      lastModified: new Date('2026-10-02'),
+      changeFrequency: 'weekly' as const,
+      priority: r === '' ? 1 : 0.8,
+    })),
+    ...DOCS.map((d) => ({
+      url: `${base}/docs/${d.slug}`,
+      lastModified: new Date('2026-10-02'),
       changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    }))
-  );
+      priority: 0.6,
+    })),
+  ];
 
-  return [...staticRoutes, ...docRoutes];
+  return routes;
 }
