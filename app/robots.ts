@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { PRODUCT } from '@/lib/m31a/product';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://m31a.dev/sitemap.xml',
+    sitemap: `${PRODUCT.canonicalUrl}sitemap.xml`,
   };
 }
