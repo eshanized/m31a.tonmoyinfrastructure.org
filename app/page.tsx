@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Download, ShieldCheck, Terminal, BookOpen, Layers, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Download, ShieldCheck, Terminal, BookOpen, Layers, CheckCircle2 } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { SignatureVisual } from '@/components/site/signature-visual';
 import { ProductStory } from '@/components/home/product-story';
@@ -68,6 +68,21 @@ export default function HomePage() {
                 >
                   <span>Read the security model</span>
                   <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="mt-8 flex items-center gap-4 border-l-2 border-[#E8523F] pl-4">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-widest text-[#6B6965]">
+                  Sponsored by
+                </span>
+                <Link
+                  href="https://tonmoyinfrastructure.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#F0EDE8] transition-colors hover:text-[#E8523F]"
+                >
+                  {PRODUCT.orgName}
+                  <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 text-[#E8523F]" />
                 </Link>
               </div>
 

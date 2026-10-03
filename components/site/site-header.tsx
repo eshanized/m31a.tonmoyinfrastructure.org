@@ -4,11 +4,17 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { LogoMark, GithubMark } from './logo';
 import { NAV_ITEMS } from '@/lib/m31a/nav';
-import { Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
+
+type LatestRelease = {
+  tag_name: string;
+  html_url: string;
+};
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [latestRelease, setLatestRelease] = useState<LatestRelease | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +22,35 @@ export function SiteHeader() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch('https://api.github.com/repos/eshanized/M31A/releases/latest', {
+      headers: { Accept: 'application/vnd.github+json' },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('Unable to load the latest release');
+        return response.json() as Promise<Partial<LatestRelease>>;
+      })
+      .then((release) => {
+        if (
+          active &&
+          typeof release.tag_name === 'string' &&
+          typeof release.html_url === 'string' &&
+          release.html_url.startsWith('https://github.com/eshanized/M31A/releases/')
+        ) {
+          setLatestRelease({ tag_name: release.tag_name, html_url: release.html_url });
+        }
+      })
+      .catch(() => {
+        if (active) setLatestRelease(null);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
@@ -26,6 +61,24 @@ export function SiteHeader() {
           : 'bg-transparent py-5'
       }`}
     >
+      {latestRelease && (
+        <div className="border-b border-[#222226] bg-[#111113] px-4 py-2 text-center">
+          <a
+            href={latestRelease.html_url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`M31A ${latestRelease.tag_name} release notes on GitHub`}
+            className="inline-flex max-w-full items-center justify-center gap-2 text-xs font-medium text-[#D6D2CC] transition-colors hover:text-white sm:text-sm"
+          >
+            <span className="shrink-0 rounded-sm bg-[#E8523F]/15 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#E8523F]">
+              Latest release
+            </span>
+            <span className="truncate">M31A {latestRelease.tag_name} is out</span>
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-[#E8523F]" />
+          </a>
+        </div>
+      )}
+
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
