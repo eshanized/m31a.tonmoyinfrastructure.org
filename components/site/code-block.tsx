@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -20,25 +20,25 @@ export function CodeBlock({ code, language, filename, className }: CodeBlockProp
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* clipboard unavailable — no-op */
+      /* clipboard unavailable */
     }
   };
 
   return (
-    <div className={cn('tick-panel overflow-hidden', className)}>
-      <div className="flex items-center justify-between border-b border-[#2A2721] bg-[#1B1A17] px-3 py-1.5">
-        <span className="mono-val text-[11px] text-[#6E6860]">
-          {filename ?? language ?? 'code'}
+    <div className={cn('rounded-lg border border-[#222226] bg-[#111113] overflow-hidden text-sm', className)}>
+      <div className="flex items-center justify-between border-b border-[#222226] bg-[#18181B]/60 px-4 py-2.5">
+        <span className="font-mono text-xs text-[#A3A09B]">
+          {filename ?? language ?? 'bash'}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[#6E6860] transition-colors hover:text-[#ECE7DC]"
+          className="flex items-center gap-1.5 text-xs text-[#A3A09B] hover:text-[#F0EDE8] transition-colors"
           aria-label="Copy code to clipboard"
         >
           {copied ? (
             <>
-              <Check className="h-3.5 w-3.5 text-[#4CC38A]" aria-hidden="true" />
-              <span className="text-[#4CC38A]">Copied</span>
+              <Check className="h-3.5 w-3.5 text-[#3ECF8E]" aria-hidden="true" />
+              <span className="text-[#3ECF8E]">Copied</span>
             </>
           ) : (
             <>
@@ -48,7 +48,7 @@ export function CodeBlock({ code, language, filename, className }: CodeBlockProp
           )}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-[13px] leading-relaxed text-[#ECE7DC]" tabIndex={0}>
+      <pre className="overflow-x-auto p-4 font-mono text-xs sm:text-sm leading-relaxed text-[#F0EDE8]" tabIndex={0}>
         <code>{code}</code>
       </pre>
     </div>

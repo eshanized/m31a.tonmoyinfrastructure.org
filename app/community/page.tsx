@@ -1,38 +1,91 @@
+import React from 'react';
+import Link from 'next/link';
+import { ExternalLink, MessageSquare, ShieldAlert, GitPullRequest, HelpCircle } from 'lucide-react';
+import { GithubMark } from '@/components/site/logo';
+import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
 
 export default function CommunityPage() {
-  const rows = [
-    ['GITHUB REPOSITORY', PRODUCT.repositoryUrl, 'Source, releases, CI evidence'],
-    ['ISSUE TRACKER', PRODUCT.issuesUrl, 'Bugs, proposals, qualification reports'],
-    ['DISCUSSIONS', PRODUCT.discussionsUrl, 'Design questions, usage, provider parity'],
-    ['SECURITY ADVISORIES', PRODUCT.securityReportUrl, 'Private vulnerability reports — preferred route'],
-    ['CONTRIBUTING', PRODUCT.contributingUrl, 'Mandatory release gates + testing pipelines'],
+  const channels = [
+    {
+      title: 'GitHub Repository',
+      url: PRODUCT.repositoryUrl,
+      description: 'Source code, CI release qualification matrices, and published standalone artifacts.',
+      icon: GithubMark,
+    },
+    {
+      title: 'Issue Tracker',
+      url: PRODUCT.issuesUrl,
+      description: 'Bug reports, architectural change proposals, and platform qualification diagnostics.',
+      icon: HelpCircle,
+    },
+    {
+      title: 'Discussions & Design Forums',
+      url: PRODUCT.discussionsUrl,
+      description: 'Design feedback, role state machine experiments, and provider qualification discussions.',
+      icon: MessageSquare,
+    },
+    {
+      title: 'Security Vulnerability Reporting',
+      url: PRODUCT.securityReportUrl,
+      description: 'Confidential security advisories and coordinated vulnerability disclosure channels.',
+      icon: ShieldAlert,
+    },
+    {
+      title: 'Contributing Guidelines',
+      url: PRODUCT.contributingUrl,
+      description: 'Mandatory verification gates, coding conventions, and PR validation suites.',
+      icon: GitPullRequest,
+    },
   ];
+
   return (
-    <>
-      <div className="border-b border-[#2A2721]">
-        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
-          <p className="meta text-[#FF6B4A]">[12] COMMUNITY — CHANNELS</p>
-          <h1 className="display-lg mt-3 max-w-3xl text-4xl text-[#ECE7DC] sm:text-5xl">
-            Work in the open.
+    <div className="py-16 sm:py-24">
+      {/* Header */}
+      <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
+        <Container>
+          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
+            COMMUNITY &amp; COLLABORATION
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#F0EDE8] max-w-3xl">
+            Work in the Open.
           </h1>
-        </div>
+          <p className="mt-4 text-[#A3A09B] text-base sm:text-lg leading-relaxed max-w-2xl">
+            M31A is open-source software dual-licensed under MIT and Apache-2.0. Explore our code,
+            participate in architectural discussions, and contribute to the runtime.
+          </p>
+        </Container>
       </div>
-      <div className="mx-auto max-w-[900px] px-4 py-10 sm:px-6">
-        <ul className="overflow-hidden rounded-[3px] border border-[#2A2721]">
-          {rows.map(([k, href, d]) => (
-            <li key={k} className="border-b border-[#2A2721]/60 bg-[#141311] last:border-0 hover:bg-[#1B1A17]">
-              <a href={href} target="_blank" rel="noopener noreferrer" className="block px-4 py-3.5">
-                <span className="flex items-center justify-between gap-3">
-                  <span className="font-mono text-[13px] font-bold tracking-wider text-[#ECE7DC]">{k}</span>
-                  <span className="font-mono text-[12px] text-[#FF6B4A]">↗</span>
-                </span>
-                <span className="mt-0.5 block text-[13px] text-[#A8A198]">{d}</span>
-              </a>
-            </li>
+
+      <Container className="max-w-4xl">
+        <div className="space-y-4">
+          {channels.map((ch) => (
+            <a
+              key={ch.title}
+              href={ch.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#E8523F]/50 transition-all flex items-start justify-between gap-4 block"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-2.5 rounded-lg bg-[#18181B] text-[#E8523F] shrink-0 group-hover:scale-105 transition-transform">
+                  <ch.icon className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold text-[#F0EDE8] group-hover:text-[#E8523F] transition-colors">
+                    {ch.title}
+                  </h2>
+                  <p className="text-sm text-[#A3A09B] leading-relaxed mt-1">
+                    {ch.description}
+                  </p>
+                </div>
+              </div>
+
+              <ExternalLink className="w-4 h-4 text-[#6B6965] group-hover:text-[#E8523F] transition-colors shrink-0 mt-1" />
+            </a>
           ))}
-        </ul>
-      </div>
-    </>
+        </div>
+      </Container>
+    </div>
   );
 }

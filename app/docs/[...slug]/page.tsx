@@ -40,31 +40,34 @@ export default async function DocPage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6">
-      <div className="flex gap-8">
+      <div className="flex gap-10">
         <DocSidebar currentSlug={slug} />
 
         <div className="min-w-0 max-w-3xl flex-1">
-          <nav className="meta mb-3 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
-            <Link href="/docs" className="hover:text-[#ECE7DC]">
-              DOCS
+          {/* Breadcrumbs */}
+          <nav className="mb-4 flex flex-wrap items-center gap-2 text-xs font-mono text-[#6B6965]" aria-label="Breadcrumb">
+            <Link href="/docs" className="hover:text-[#E8523F] transition-colors">
+              Docs
             </Link>
             <span aria-hidden="true">/</span>
-            <span>{doc.section.replace('-', ' ').toUpperCase()}</span>
+            <span className="capitalize">{doc.section.replace('-', ' ')}</span>
             <span aria-hidden="true">/</span>
-            <span className="text-[#ECE7DC]">{doc.title.toUpperCase()}</span>
-            <span className="ml-auto hidden sm:inline">v{PRODUCT.version}</span>
+            <span className="text-[#F0EDE8]">{doc.title}</span>
+            <span className="ml-auto hidden sm:inline text-[#E8523F]">v{PRODUCT.version}</span>
           </nav>
 
-          <h1 className="display-lg text-3xl text-[#ECE7DC] sm:text-4xl">{doc.title}</h1>
-          <p className="mt-2 max-w-2xl text-[0.95rem] leading-relaxed text-[#A8A198]">{doc.description}</p>
-          <hr className="rule my-6" />
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F0EDE8]">{doc.title}</h1>
+          <p className="mt-2 text-base text-[#A3A09B] leading-relaxed">{doc.description}</p>
+          <hr className="border-[#222226] my-6" />
 
-          <div className="doc-body mt-2">{article.content}</div>
+          <div className="prose prose-invert max-w-none text-sm leading-relaxed text-[#A3A09B]">
+            {article.content}
+          </div>
 
           <DocPagination currentSlug={slug} />
         </div>
 
-        <div className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 overflow-y-auto border-l border-[#2A2721] pl-4 xl:block">
+        <div className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 overflow-y-auto border-l border-[#222226] pl-6 xl:block">
           <DocToc items={article.toc} />
         </div>
       </div>

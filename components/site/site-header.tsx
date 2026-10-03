@@ -1,130 +1,109 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Menu, X, Download } from 'lucide-react';
-import { NAV_ITEMS } from '@/lib/m31a/nav';
-import { PRODUCT } from '@/lib/m31a/product';
 import { LogoMark, GithubMark } from './logo';
-import { cn } from '@/lib/utils';
+import { NAV_ITEMS } from '@/lib/m31a/nav';
+import { Menu, X } from 'lucide-react';
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-  const [dense, setDense] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setDense(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#2A2721] bg-[#0D0C0A]/95 backdrop-blur-sm">
-      {/* system strip */}
-      <div className="hidden border-b border-[#2A2721] md:block">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-1">
-          <p className="meta">
-            M31A / M31 AUTONOMOUS · RUST-NATIVE SOFTWARE-ENGINEERING RUNTIME
-          </p>
-          <p className="mono-val text-[11px] text-[#6E6860]">
-            v{PRODUCT.version} · PRODUCTION · LINUX x86_64 QUALIFIED
-          </p>
-        </div>
-      </div>
-      {/* control bar */}
-      <div
-        className={cn(
-          'mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 transition-all sm:px-6',
-          dense ? 'h-11' : 'h-[52px]'
-        )}
-      >
-        <div className="flex min-w-0 items-center gap-6">
-          <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="M31A home">
-            <LogoMark className="h-6 w-6" />
-            <span className="font-display text-[15px] font-bold tracking-tight">
-              <span className="text-[#FF4B2C]">M31</span>
-              <span className="text-[#ECE7DC]">A</span>
-            </span>
-            <span className="meta hidden lg:inline">M31 AUTONOMOUS</span>
-          </Link>
-          <nav className="hidden items-center gap-0.5 md:flex" aria-label="Primary">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href + item.label}
-                href={item.href}
-                className="group flex items-center gap-1.5 rounded-[2px] px-2.5 py-1.5 font-mono text-[11px] tracking-wider text-[#A8A198] transition-colors hover:bg-[#1B1A17] hover:text-[#ECE7DC]"
-              >
-                <span className="text-[#6E6860] group-hover:text-[#FF6B4A]">{item.index}</span>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled 
+          ? 'bg-[#0A0A0B]/80 backdrop-blur-md border-b border-[#222226] py-3' 
+          : 'bg-transparent py-5'
+      }`}
+    >
+      <div className="container mx-auto px-6 flex items-center justify-between">
+        {/* Left: Logo */}
+        <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+          <LogoMark className="w-8 h-8" />
+          <span className="font-sans font-semibold text-xl tracking-wide text-[#F0EDE8]">M31A</span>
+        </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
-          <a
-            href={PRODUCT.repositoryUrl}
+        {/* Center: Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium text-[#A3A09B] hover:text-[#E8523F] transition-colors"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right: Actions */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link
+            href="https://github.com/eshanized/M31A"
             target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-[2px] px-2.5 py-1.5 font-mono text-[11px] tracking-wider text-[#A8A198] transition-colors hover:text-[#ECE7DC]"
+            rel="noreferrer"
+            className="text-[#A3A09B] hover:text-[#F0EDE8] transition-colors"
           >
-            <GithubMark className="h-3.5 w-3.5" />
-            GITHUB
-          </a>
+            <GithubMark className="w-5 h-5" />
+            <span className="sr-only">GitHub</span>
+          </Link>
           <Link
             href="/download"
-            className="flex items-center gap-1.5 rounded-[2px] border border-[#3B362C] bg-[#1B1A17] px-3 py-1.5 font-mono text-[11px] tracking-wider text-[#ECE7DC] transition-colors hover:border-[#FF4B2C] hover:text-white"
+            className="px-4 py-2 bg-[#E8523F] hover:bg-[#D4432F] text-white text-sm font-medium rounded-md transition-colors"
           >
-            <Download className="h-3.5 w-3.5" aria-hidden="true" />
-            DOWNLOAD
+            Download
           </Link>
         </div>
 
+        {/* Mobile menu toggle */}
         <button
-          className="flex items-center rounded-[2px] border border-[#2A2721] p-1.5 text-[#A8A198] md:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? 'Close navigation' : 'Open navigation'}
-          aria-expanded={open}
+          className="md:hidden text-[#F0EDE8] p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {open && (
-        <div className="border-t border-[#2A2721] bg-[#0D0C0A] md:hidden">
-          <nav className="mx-auto grid max-w-[1280px] gap-1 px-4 py-3" aria-label="Mobile">
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#0A0A0B] border-b border-[#222226] shadow-xl p-6 flex flex-col gap-6 slide-up">
+          <nav className="flex flex-col gap-4">
             {NAV_ITEMS.map((item) => (
               <Link
-                key={item.href + item.label}
+                key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
-                className="flex items-baseline gap-3 rounded-[2px] px-3 py-2.5 font-mono text-xs tracking-wider text-[#A8A198] transition-colors hover:bg-[#1B1A17] hover:text-[#ECE7DC]"
+                className="text-lg font-medium text-[#F0EDE8] hover:text-[#E8523F]"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <span className="text-[#FF6B4A]">[{item.index}]</span>
                 {item.label}
               </Link>
             ))}
-            <div className="mt-2 flex gap-2 border-t border-[#2A2721] pt-3">
-              <a
-                href={PRODUCT.repositoryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-[2px] border border-[#2A2721] px-3 py-2.5 font-mono text-xs text-[#A8A198]"
-              >
-                <GithubMark className="h-4 w-4" />
-                GITHUB
-              </a>
-              <Link
-                href="/download"
-                onClick={() => setOpen(false)}
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-[2px] bg-[#FF4B2C] px-3 py-2.5 text-sm font-semibold text-white"
-              >
-                <Download className="h-4 w-4" aria-hidden="true" />
-                Download
-              </Link>
-            </div>
           </nav>
+          <div className="flex flex-col gap-4 pt-4 border-t border-[#222226]">
+            <Link
+              href="https://github.com/eshanized/M31A"
+              className="flex items-center gap-3 text-lg font-medium text-[#F0EDE8]"
+            >
+              <GithubMark className="w-6 h-6" />
+              GitHub
+            </Link>
+            <Link
+              href="/download"
+              className="px-6 py-3 bg-[#E8523F] text-white text-center text-lg font-medium rounded-md"
+            >
+              Download
+            </Link>
+          </div>
         </div>
       )}
     </header>

@@ -1,6 +1,8 @@
+import React from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
-import { StatusBadge } from '@/components/site/section';
+import { Container, StatusBadge } from '@/components/site/section';
 
 const GROUPS: Record<string, typeof FEATURES> = {};
 for (const f of FEATURES) {
@@ -9,46 +11,92 @@ for (const f of FEATURES) {
 
 export default function FeaturesPage() {
   return (
-    <>
-      <div className="border-b border-[#2A2721]">
-        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
-          <p className="meta text-[#FF6B4A]">[09] FEATURES — SUBSYSTEM REGISTER</p>
-          <h1 className="display-lg mt-3 max-w-3xl text-4xl text-[#ECE7DC] sm:text-5xl">
-            What the runtime owns.
+    <div className="py-16 sm:py-24">
+      {/* Header */}
+      <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
+        <Container>
+          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
+            FEATURES &amp; CAPABILITIES
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#F0EDE8] max-w-3xl">
+            What the Runtime Owns.
           </h1>
-          <p className="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-[#A8A198]">
-            Every entry below names its source module. Features are grouped by the
-            subsystem that implements them — not by marketing persona.
+          <p className="mt-4 text-[#A3A09B] text-base sm:text-lg leading-relaxed max-w-2xl">
+            Every feature below is implemented and governed by the Rust runtime. Subsystem boundaries
+            are strictly enforced; authority never leaks to upstream models.
           </p>
-        </div>
+        </Container>
       </div>
-      <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6">
-        {Object.entries(GROUPS).map(([cat, items], gi) => (
-          <div key={cat} className="mb-10">
-            <div className="mb-3 flex items-baseline gap-3">
-              <span className="tech-num">G{String(gi + 1).padStart(2, '0')}</span>
-              <h2 className="font-mono text-xs font-bold tracking-[0.14em] text-[#ECE7DC]">{cat.toUpperCase()}</h2>
-              <span className="h-px flex-1 bg-[#2A2721]" aria-hidden="true" />
+
+      <Container>
+        <div className="space-y-16">
+          {Object.entries(GROUPS).map(([category, items]) => (
+            <div key={category}>
+              <div className="flex items-center gap-3 mb-6 pb-2 border-b border-[#222226]">
+                <h2 className="text-xl font-bold text-[#F0EDE8] tracking-tight">
+                  {category}
+                </h2>
+                <span className="text-xs font-mono text-[#6B6965]">
+                  ({items.length} features)
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {items.map((feature) => (
+                  <div
+                    key={feature.id}
+                    className="p-6 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#2C2C31] transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h3 className="text-base font-bold text-[#F0EDE8] tracking-tight">
+                          {feature.title}
+                        </h3>
+                        <StatusBadge status={feature.status} />
+                      </div>
+
+                      <p className="text-sm text-[#A3A09B] leading-relaxed mb-4">
+                        {feature.description}
+                      </p>
+
+                      {feature.details && (
+                        <p className="text-xs text-[#6B6965] leading-relaxed border-t border-[#222226] pt-3">
+                          {feature.details}
+                        </p>
+                      )}
+                    </div>
+
+                    {feature.sourceRef && (
+                      <div className="mt-4 pt-3 border-t border-[#222226]/50 flex items-center justify-between text-xs font-mono">
+                        <span className="text-[#6B6965]">Source Module</span>
+                        <span className="text-[#F0EDE8]">{feature.sourceRef}</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-            <dl className="overflow-hidden rounded-[3px] border border-[#2A2721]">
-              {items.map((f) => (
-                <div key={f.id} className="grid gap-1 border-b border-[#2A2721]/60 bg-[#141311] px-4 py-3 last:border-0 hover:bg-[#1B1A17] md:grid-cols-12 md:gap-4">
-                  <dt className="md:col-span-3">
-                    <span className="block text-sm font-semibold text-[#ECE7DC]">{f.title}</span>
-                    <span className="mono-val mt-0.5 block text-[11px] text-[#6E6860]">{f.sourceRef}</span>
-                  </dt>
-                  <dd className="text-[13.5px] leading-relaxed text-[#A8A198] md:col-span-7">{f.description}</dd>
-                  <dd className="md:col-span-2 md:text-right"><StatusBadge status={f.status} /></dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        ))}
-        <div className="flex flex-wrap gap-2 border-t border-[#2A2721] pt-6">
-          <Link href="/architecture" className="btn-ghost !text-xs">EXPLORE ARCHITECTURE</Link>
-          <Link href="/docs" className="btn-quiet !text-xs">OPEN DOCUMENTATION →</Link>
+          ))}
         </div>
-      </div>
-    </>
+
+        <div className="mt-20 pt-8 border-t border-[#222226] flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href="/architecture"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#F0EDE8] hover:text-[#E8523F] transition-colors"
+          >
+            <span>Explore Runtime Architecture L0–L9</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+
+          <Link
+            href="/docs"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#A3A09B] hover:text-[#F0EDE8] transition-colors"
+          >
+            <span>Open Documentation</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </Container>
+    </div>
   );
 }

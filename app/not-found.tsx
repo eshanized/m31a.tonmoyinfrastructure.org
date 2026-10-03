@@ -1,27 +1,39 @@
+import React from 'react';
 import Link from 'next/link';
-import { Home, Terminal } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
+import { Container } from '@/components/site/section';
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4">
-      <div className="text-center">
-        <Terminal className="mx-auto mb-6 h-12 w-12 text-primary" />
-        <div className="font-mono text-sm text-muted-foreground">m31a: error</div>
-        <h1 className="mt-4 text-6xl font-bold tracking-tight">404</h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          The runtime could not find this path.
+    <div className="min-h-[70vh] flex items-center justify-center py-20">
+      <Container className="text-center max-w-xl">
+        <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-4">
+          ERROR 404
+        </span>
+        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-[#F0EDE8] mb-4">
+          Path Not Found.
+        </h1>
+        <p className="text-base text-[#A3A09B] leading-relaxed mb-8">
+          The requested route does not exist in the M31A runtime namespace.
         </p>
-        <div className="mt-8 font-mono text-sm text-muted-foreground">
-          <span className="text-red-400">error[E0404]</span>: route not found
+
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#E8523F] hover:bg-[#D4432F] text-white text-sm font-medium transition-colors"
+          >
+            <Home className="w-4 h-4" />
+            <span>Return to Homepage</span>
+          </Link>
+
+          <Link
+            href="/docs"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[#2C2C31] bg-[#111113] hover:bg-[#18181B] text-[#F0EDE8] text-sm font-medium transition-colors"
+          >
+            <span>Open Documentation</span>
+          </Link>
         </div>
-        <Link
-          href="/"
-          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          <Home className="h-4 w-4" />
-          Return home
-        </Link>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -1,10 +1,68 @@
+import React, { type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import type { ReactNode } from 'react';
 
-/**
- * Numbered editorial section shell.
- * Left-anchored index rail + title block; right side is free composition.
- */
+export function Container({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('mx-auto max-w-6xl px-6 sm:px-8', className)}>
+      {children}
+    </div>
+  );
+}
+
+export function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  align = 'left',
+  className,
+}: {
+  eyebrow?: string;
+  title: string | ReactNode;
+  description?: string | ReactNode;
+  align?: 'left' | 'center';
+  className?: string;
+}) {
+  return (
+    <div className={cn('flex flex-col gap-3', align === 'center' ? 'items-center text-center' : 'items-start text-left', className)}>
+      {eyebrow && (
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#E8523F]">
+          {eyebrow}
+        </span>
+      )}
+      <h2 className="text-3xl font-bold tracking-tight text-[#F0EDE8] sm:text-4xl">
+        {title}
+      </h2>
+      {description && (
+        <div className="max-w-2xl text-base leading-relaxed text-[#A3A09B]">
+          {description}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Section({
+  children,
+  className,
+  id,
+}: {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  return (
+    <section id={id} className={cn('py-20 sm:py-28 border-t border-[#222226]', className)}>
+      <Container>{children}</Container>
+    </section>
+  );
+}
+
 export function SysSection({
   index,
   id,
@@ -15,7 +73,7 @@ export function SysSection({
   className,
   aside,
 }: {
-  index: string;
+  index?: string;
   id?: string;
   eyebrow: string;
   title: ReactNode;
@@ -28,120 +86,62 @@ export function SysSection({
     <section
       id={id}
       aria-labelledby={id ? `${id}-title` : undefined}
-      className={cn('border-t border-[#2A2721]', className)}
+      className={cn('py-20 sm:py-28 border-t border-[#222226]', className)}
     >
-      <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-20">
-        <div className="sys-grid">
-          {/* index rail */}
-          <div className="col-span-12 md:col-span-2">
-            <div className="flex items-baseline gap-3 md:sticky md:top-20 md:flex-col md:gap-1">
-              <span className="tech-num text-base">[{index}]</span>
-              <span className="meta">{eyebrow}</span>
+      <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              {index && (
+                <span className="text-xs font-mono text-[#E8523F] font-semibold">{index}</span>
+              )}
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#E8523F]">
+                {eyebrow}
+              </span>
             </div>
-          </div>
-          {/* title + body */}
-          <div className="col-span-12 md:col-span-10">
-            <div className="grid gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <h2
-                  id={id ? `${id}-title` : undefined}
-                  className="display-lg text-3xl text-[#ECE7DC] sm:text-4xl"
-                >
-                  {title}
-                </h2>
-                {lede && (
-                  <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[#A8A198]">
-                    {lede}
-                  </p>
-                )}
-                {aside && <div className="mt-6">{aside}</div>}
+            <h2
+              id={id ? `${id}-title` : undefined}
+              className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F0EDE8] leading-tight"
+            >
+              {title}
+            </h2>
+            {lede && (
+              <div className="text-base leading-relaxed text-[#A3A09B]">
+                {lede}
               </div>
-              <div className="lg:col-span-7">{children}</div>
-            </div>
+            )}
+            {aside && <div className="mt-4">{aside}</div>}
           </div>
+          <div className="lg:col-span-8">{children}</div>
         </div>
-      </div>
+      </Container>
     </section>
-  );
-}
-
-export function Container({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn('mx-auto max-w-[1280px] px-4 sm:px-6', className)}>
-      {children}
-    </div>
-  );
-}
-
-/** Legacy compat shims — route files may still import these names. */
-export function Section({
-  children,
-  className,
-  id,
-}: {
-  children: ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <section id={id} className={cn('border-t border-[#2A2721] py-14 sm:py-20', className)}>
-      {children}
-    </section>
-  );
-}
-
-export function SectionHeader({
-  eyebrow,
-  title,
-  description,
-  align = 'left',
-  className,
-}: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-  align?: 'left' | 'center';
-  className?: string;
-}) {
-  return (
-    <div className={cn('flex flex-col gap-3', className)}>
-      {eyebrow && <span className="meta text-[#FF6B4A]">{eyebrow}</span>}
-      <h2
-        className={cn(
-          'display-lg max-w-2xl text-3xl text-[#ECE7DC] sm:text-4xl',
-          align === 'center' && 'mx-auto text-center'
-        )}
-      >
-        {title}
-      </h2>
-      {description && (
-        <p
-          className={cn(
-            'max-w-2xl text-[0.95rem] leading-relaxed text-[#A8A198]',
-            align === 'center' && 'mx-auto text-center'
-          )}
-        >
-          {description}
-        </p>
-      )}
-    </div>
   );
 }
 
 export function StatusBadge({ status, className }: { status: string; className?: string }) {
-  const kind =
-    status === 'Available' || status === 'Completed' || status === 'SUPPORTED' || status === 'Stable'
-      ? 'st-ok'
-      : status === 'In Progress' || status === 'Experimental' || status === 'CONDITIONALLY SUPPORTED' || status === 'Development'
-        ? 'st-pend'
-        : status === 'Planned' || status === 'Future' || status === 'COMPILE-ONLY'
-          ? 'st-info'
-          : 'st-idle';
-  return <span className={cn('st', kind, className)}>{status}</span>;
+  const isAvailable = status === 'Available' || status === 'Completed' || status === 'SUPPORTED' || status === 'Stable';
+  const isPending = status === 'In Progress' || status === 'Experimental' || status === 'CONDITIONALLY SUPPORTED' || status === 'Development';
+  
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border',
+        isAvailable
+          ? 'bg-[#3ECF8E]/10 border-[#3ECF8E]/30 text-[#3ECF8E]'
+          : isPending
+          ? 'bg-[#EAB308]/10 border-[#EAB308]/30 text-[#EAB308]'
+          : 'bg-[#1E1E22] border-[#2C2C31] text-[#A3A09B]',
+        className
+      )}
+    >
+      <span
+        className={cn(
+          'w-1.5 h-1.5 rounded-full',
+          isAvailable ? 'bg-[#3ECF8E]' : isPending ? 'bg-[#EAB308]' : 'bg-[#6B6965]'
+        )}
+      />
+      {status}
+    </span>
+  );
 }
