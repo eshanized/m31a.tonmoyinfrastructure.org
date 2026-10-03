@@ -1,79 +1,45 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
+import { SiteHeader } from '@/components/site/site-header';
+import { SiteFooter } from '@/components/site/site-footer';
+import { PRODUCT } from '@/lib/m31a/product';
 
-const supercellMagic = localFont({
-  src: '../public/fonts/Supercell-Magic.ttf',
-  variable: '--font-supercell',
-  display: 'swap',
-});
-
-const jetbrains = JetBrains_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
+  variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://m31a.dev'),
+  metadataBase: new URL(PRODUCT.canonicalUrl),
   title: {
-    default: 'M31A — Autonomous Software Engineering in Your Terminal',
-    template: '%s · M31A',
+    default: 'M31A — Autonomous Coding Agent for the Terminal',
+    template: '%s — M31A',
   },
   description:
-    'M31A is a terminal-native software engineering agent that understands your codebase, plans and executes work, verifies changes, and preserves engineering state across sessions.',
-  keywords: [
-    'autonomous coding agent',
-    'terminal coding agent',
-    'AI coding CLI',
-    'agentic software engineering',
-    'autonomous software engineering',
-    'codebase intelligence',
-    'AI coding terminal',
-    'developer agent',
-    'engineering agent',
-    'Git AI agent',
-    'terminal AI coding tool',
-  ],
-  authors: [{ name: 'M31A Contributors' }],
+    'A Rust-native autonomous software-engineering runtime with non-bypassable policy gates and verifiable execution. The model proposes. The runtime decides.',
+  keywords: [...PRODUCT.keywords, 'rust', 'terminal', 'autonomous agent', 'coding agent'],
+  authors: [{ name: PRODUCT.orgName }],
+  creator: PRODUCT.orgName,
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://m31a.dev',
+    url: PRODUCT.canonicalUrl,
     siteName: 'M31A',
-    title: 'M31A — Autonomous Software Engineering in Your Terminal',
+    title: 'M31A — Autonomous Coding Agent for the Terminal',
     description:
-      'A terminal-native software engineering agent that understands your codebase, plans and executes work, verifies changes, and preserves engineering state across sessions.',
-    images: [
-      {
-        url: '/og/m31a-og.svg',
-        width: 1200,
-        height: 630,
-        alt: 'M31A — Autonomous Software Engineering',
-      },
-    ],
+      'A Rust-native autonomous software-engineering runtime with non-bypassable policy gates and verifiable execution.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'M31A — Autonomous Software Engineering in Your Terminal',
+    title: 'M31A — Autonomous Coding Agent for the Terminal',
     description:
-      'A terminal-native software engineering agent that understands your codebase, plans and executes work, verifies changes, and preserves engineering state across sessions.',
-    images: ['/og/m31a-og.svg'],
+      'A Rust-native autonomous software-engineering runtime with non-bypassable policy gates and verifiable execution.',
   },
   robots: {
     index: true,
     follow: true,
   },
-  alternates: {
-    canonical: 'https://m31a.dev',
-  },
-};
-
-export const viewport = {
-  themeColor: '#0a0e0c',
-  width: 'device-width',
-  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -83,8 +49,43 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${supercellMagic.variable} ${jetbrains.variable} font-sans antialiased`}>
-        {children}
+      <body
+        className={`${jetbrainsMono.variable} font-mono antialiased`}
+      >
+        <div className="relative min-h-screen flex flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'SoftwareApplication',
+                name: 'M31A',
+                applicationCategory: 'DeveloperApplication',
+                operatingSystem: 'Linux, macOS, Windows',
+                description: PRODUCT.description,
+                url: PRODUCT.canonicalUrl,
+                downloadUrl: `${PRODUCT.canonicalUrl}download`,
+                author: { '@type': 'Organization', name: PRODUCT.orgName },
+                license: `https://github.com/eshanized/M31A/blob/master/LICENSE`,
+                offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+              }),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'M31A',
+                url: PRODUCT.canonicalUrl,
+              }),
+            }}
+          />
+        </div>
       </body>
     </html>
   );
