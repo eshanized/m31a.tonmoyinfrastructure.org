@@ -1,46 +1,107 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { docsNav } from '@/content/architecture';
-import { FileText, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import {
+  FileText,
+  BookOpen,
+  Terminal,
+  Cpu,
+  ShieldCheck,
+  Wrench,
+  GitBranch,
+  CheckCircle2,
+  Monitor,
+  Settings2,
+  Lock,
+  Workflow,
+  Radio,
+  Layers,
+  Database,
+  Github,
+} from 'lucide-react';
+import { Section, Container, SectionHeader } from '@/components/site/section';
+import { DOCS, DOC_SECTIONS } from '@/lib/m31a/product';
 
 export const metadata: Metadata = {
-  title: 'Documentation',
-  description: 'Technical documentation for the M31A autonomous software engineering runtime.',
+  title: 'M31A Documentation — Runtime Guides & References',
+  description:
+    'Official documentation for M31 Autonomous (M31A): getting started, runtime architecture, 12-stage autonomy loop, 28 core tools, policy gates, verification, and CLI reference.',
 };
 
-export default function DocsPage() {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Documentation</h1>
-      <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-        Technical documentation for the M31A autonomous software engineering runtime.
-      </p>
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  introduction: FileText,
+  installation: Terminal,
+  'quick-start': BookOpen,
+  'platform-support': Monitor,
+  concepts: Cpu,
+  architecture: Layers,
+  'autonomy-loop': Workflow,
+  'agent-swarm': Cpu,
+  policies: ShieldCheck,
+  tools: Wrench,
+  models: Radio,
+  'git-worktree': GitBranch,
+  verification: CheckCircle2,
+  checkpoints: Database,
+  tui: Terminal,
+  configuration: Settings2,
+  'cli-reference': Terminal,
+  security: Lock,
+  contributing: Github,
+};
 
-      <div className="mt-10 space-y-10">
-        {docsNav.map((section) => (
-          <div key={section.section}>
-            <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-widest text-primary">
-              {section.section}
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {section.items.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/docs/${item.slug}`}
-                  className="group rounded-lg border border-border bg-card/40 p-4 transition-all hover:border-primary/30 hover:bg-primary/5"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <FileText className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary" />
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/40 transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
+export default function DocsIndexPage() {
+  return (
+    <>
+      <Section className="relative overflow-hidden border-b border-border/40">
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="absolute inset-0 radial-glow" />
+        <Container className="relative">
+          <SectionHeader
+            eyebrow="Documentation Hub"
+            title="M31A Systems Documentation"
+            description="Authoritative operational guides, runtime architecture specifications, and API/CLI references for M31 Autonomous."
+          />
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="space-y-12">
+            {DOC_SECTIONS.map((section) => {
+              const pages = DOCS.filter((d) => d.section === section.id).sort((a, b) => a.order - b.order);
+              return (
+                <div key={section.id}>
+                  <h2 className="mb-4 font-mono text-sm uppercase tracking-wider text-primary font-bold">
+                    {section.label}
+                  </h2>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {pages.map((page) => {
+                      const Icon = iconMap[page.slug] ?? FileText;
+                      return (
+                        <Link
+                          key={page.slug}
+                          href={`/docs/${page.slug}`}
+                          className="group rounded-xl border border-border bg-card/40 p-5 transition-all hover:border-primary/40 hover:bg-card/70"
+                        >
+                          <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
+                            <Icon className="h-4.5 w-4.5 text-primary" />
+                          </div>
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {page.title}
+                          </h3>
+                          <p className="mt-1 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                            {page.description}
+                          </p>
+                        </Link>
+                      );
+                    })}
                   </div>
-                  <h3 className="mt-2 font-sans text-sm font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">{item.description}</p>
-                </Link>
-              ))}
-            </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
-    </div>
+        </Container>
+      </Section>
+    </>
   );
 }
