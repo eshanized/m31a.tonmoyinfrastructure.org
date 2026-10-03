@@ -1,15 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Archivo, JetBrains_Mono } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import { SiteHeader } from '@/components/site/site-header';
 import { SiteFooter } from '@/components/site/site-footer';
 import { PRODUCT } from '@/lib/m31a/product';
-
-const display = Archivo({
-  subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['500', '600', '700', '800'],
-});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -52,9 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${display.variable} ${jetbrainsMono.variable} font-sans antialiased`}
-      >
+      <body className={`${jetbrainsMono.variable} font-sans antialiased`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-[#FF4B2C] focus:px-3 focus:py-2 focus:text-sm focus:text-white"

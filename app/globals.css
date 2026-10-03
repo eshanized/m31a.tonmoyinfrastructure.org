@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
@@ -11,6 +12,7 @@
 
 @layer base {
   :root {
+    --font-display: 'Google Sans', 'Segoe UI', sans-serif;
     --background: 30 8% 5%;
     --foreground: 42 20% 91%;
     --card: 30 7% 7%;
@@ -66,6 +68,7 @@
     @apply bg-background text-foreground;
     background-color: var(--s00);
     color: var(--ink);
+    font-family: var(--font-display);
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
