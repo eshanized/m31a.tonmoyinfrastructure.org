@@ -1,41 +1,46 @@
 export interface NavItem {
+  index: string;
   label: string;
   href: string;
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Features', href: '/features' },
-  { label: 'Architecture', href: '/architecture' },
-  { label: 'Security', href: '/security' },
-  { label: 'Docs', href: '/docs' },
-  { label: 'CLI', href: '/cli' },
-  { label: 'Changelog', href: '/changelog' },
-  { label: 'Roadmap', href: '/roadmap' },
+  { index: '01', label: 'OVERVIEW', href: '/#overview' },
+  { index: '02', label: 'RUNTIME', href: '/#runtime' },
+  { index: '03', label: 'ARCHITECTURE', href: '/architecture' },
+  { index: '04', label: 'SECURITY', href: '/security' },
+  { index: '05', label: 'DOCS', href: '/docs' },
+  { index: '06', label: 'CLI', href: '/cli' },
+];
+
+export const NAV_MORE: NavItem[] = [
+  { index: '07', label: 'CHANGELOG', href: '/changelog' },
+  { index: '08', label: 'ROADMAP', href: '/roadmap' },
+  { index: '09', label: 'FEATURES', href: '/features' },
+  { index: '10', label: 'DOWNLOAD', href: '/download' },
 ];
 
 export const FOOTER_LINKS = {
-  product: [
-    { label: 'Features', href: '/features' },
-    { label: 'Architecture', href: '/architecture' },
-    { label: 'Security', href: '/security' },
-    { label: 'Docs', href: '/docs' },
-    { label: 'Download', href: '/download' },
-    { label: 'CLI Reference', href: '/cli' },
+  runtime: [
+    { label: 'Overview', href: '/#overview' },
+    { label: 'Runtime monitor', href: '/#runtime' },
+    { label: 'Architecture L0–L9', href: '/architecture' },
+    { label: 'Policy engine', href: '/#policy' },
+    { label: 'Verification', href: '/#verification' },
+  ],
+  assurance: [
+    { label: 'Security model', href: '/security' },
+    { label: 'CLI reference', href: '/cli' },
+    { label: 'Documentation', href: '/docs' },
     { label: 'Changelog', href: '/changelog' },
     { label: 'Roadmap', href: '/roadmap' },
   ],
-  community: [
-    { label: 'GitHub Repository', href: 'https://github.com/eshanized/M31A' },
-    { label: 'Issue Tracker', href: 'https://github.com/eshanized/M31A/issues' },
-    { label: 'Discussions', href: 'https://github.com/eshanized/M31A/discussions' },
-    { label: 'Security Advisories', href: 'https://github.com/eshanized/M31A/security/advisories/new' },
-    { label: 'Contributing Guide', href: 'https://github.com/eshanized/M31A/blob/master/CONTRIBUTING.md' },
-    { label: 'Community Overview', href: '/community' },
-    { label: 'About M31A', href: '/about' },
-  ],
-  legal: [
-    { label: 'MIT / Apache-2.0 License', href: 'https://github.com/eshanized/M31A/blob/master/LICENSE' },
-    { label: 'Security Policy', href: 'https://github.com/eshanized/M31A/blob/master/SECURITY.md' },
-    { label: 'Code of Conduct', href: 'https://github.com/eshanized/M31A/blob/master/CODE_OF_CONDUCT.md' },
+  source: [
+    { label: 'GitHub repository', href: 'https://github.com/eshanized/M31A' },
+    { label: 'Issue tracker', href: 'https://github.com/eshanized/M31A/issues' },
+    { label: 'Contributing guide', href: 'https://github.com/eshanized/M31A/blob/master/CONTRIBUTING.md' },
+    { label: 'Code of conduct', href: 'https://github.com/eshanized/M31A/blob/master/CODE_OF_CONDUCT.md' },
+    { label: 'MIT / Apache-2.0 license', href: 'https://github.com/eshanized/M31A/blob/master/LICENSE' },
+    { label: 'Security policy', href: 'https://github.com/eshanized/M31A/blob/master/SECURITY.md' },
   ],
 };

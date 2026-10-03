@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { PRODUCT, DOCS } from '@/lib/m31a/product';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = PRODUCT.canonicalUrl.replace(/\/$/, '');
   const staticRoutes = [

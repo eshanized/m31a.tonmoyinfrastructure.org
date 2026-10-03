@@ -14,42 +14,41 @@ interface CodeBlockProps {
 export function CodeBlock({ code, language, filename, className }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — no-op */
+    }
   };
 
   return (
-    <div
-      className={cn(
-        'overflow-hidden rounded-lg border border-border bg-card/80',
-        className
-      )}
-    >
-      <div className="flex items-center justify-between border-b border-border/60 bg-secondary/40 px-4 py-2">
-        <span className="font-mono text-xs text-muted-foreground">
+    <div className={cn('tick-panel overflow-hidden', className)}>
+      <div className="flex items-center justify-between border-b border-[#2A2721] bg-[#1B1A17] px-3 py-1.5">
+        <span className="mono-val text-[11px] text-[#6E6860]">
           {filename ?? language ?? 'code'}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
-          aria-label="Copy code"
+          className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[#6E6860] transition-colors hover:text-[#ECE7DC]"
+          aria-label="Copy code to clipboard"
         >
           {copied ? (
             <>
-              <Check className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="text-emerald-400">Copied</span>
+              <Check className="h-3.5 w-3.5 text-[#4CC38A]" aria-hidden="true" />
+              <span className="text-[#4CC38A]">Copied</span>
             </>
           ) : (
             <>
-              <Copy className="h-3.5 w-3.5" />
+              <Copy className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Copy</span>
             </>
           )}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-sm leading-relaxed text-foreground">
+      <pre className="overflow-x-auto p-4 font-mono text-[13px] leading-relaxed text-[#ECE7DC]" tabIndex={0}>
         <code>{code}</code>
       </pre>
     </div>

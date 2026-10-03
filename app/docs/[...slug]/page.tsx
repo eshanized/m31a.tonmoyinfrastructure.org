@@ -5,9 +5,10 @@ import { DocSidebar, DocPagination } from '@/components/docs/doc-sidebar';
 import { DocToc } from '@/components/docs/doc-toc';
 import { DOCS } from '@/lib/m31a/product';
 import { getDocArticle } from '@/lib/docs/content';
+import { PRODUCT } from '@/lib/m31a/product';
 
 interface PageProps {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }
 
 function getDoc(slug: string) {
@@ -18,8 +19,9 @@ export function generateStaticParams() {
   return DOCS.map((d) => ({ slug: [d.slug] }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const slug = params.slug.join('/');
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug: parts } = await params;
+  const slug = parts.join('/');
   const doc = getDoc(slug);
   if (!doc) return { title: 'Not Found' };
   return {
@@ -28,45 +30,41 @@ export function generateMetadata({ params }: PageProps): Metadata {
   };
 }
 
-export default function DocPage({ params }: PageProps) {
-  const slug = params.slug.join('/');
+export default async function DocPage({ params }: PageProps) {
+  const { slug: parts } = await params;
+  const slug = parts.join('/');
   const doc = getDoc(slug);
   if (!doc) notFound();
 
   const article = getDocArticle(slug);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6">
       <div className="flex gap-8">
-        {/* Left Column: Fixed Sidebar */}
         <DocSidebar currentSlug={slug} />
 
-        {/* Center Column: Main Article Content */}
-        <div className="min-w-0 flex-1 max-w-3xl">
-          {/* Breadcrumbs */}
-          <div className="mb-3 flex items-center gap-2 text-xs text-muted-foreground font-mono">
-            <Link href="/docs" className="hover:text-foreground">
-              Docs
+        <div className="min-w-0 max-w-3xl flex-1">
+          <nav className="meta mb-3 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
+            <Link href="/docs" className="hover:text-[#ECE7DC]">
+              DOCS
             </Link>
-            <span>/</span>
-            <span className="capitalize">{doc.section.replace('-', ' ')}</span>
-            <span>/</span>
-            <span className="text-foreground font-semibold">{doc.title}</span>
-          </div>
+            <span aria-hidden="true">/</span>
+            <span>{doc.section.replace('-', ' ').toUpperCase()}</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-[#ECE7DC]">{doc.title.toUpperCase()}</span>
+            <span className="ml-auto hidden sm:inline">v{PRODUCT.version}</span>
+          </nav>
 
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">{doc.title}</h1>
-          <p className="mt-2 text-base text-muted-foreground">{doc.description}</p>
+          <h1 className="display-lg text-3xl text-[#ECE7DC] sm:text-4xl">{doc.title}</h1>
+          <p className="mt-2 max-w-2xl text-[0.95rem] leading-relaxed text-[#A8A198]">{doc.description}</p>
+          <hr className="rule my-6" />
 
-          <div className="mt-8">
-            {article.content}
-          </div>
+          <div className="doc-body mt-2">{article.content}</div>
 
-          {/* Bottom Pagination */}
           <DocPagination currentSlug={slug} />
         </div>
 
-        {/* Right Column: In-page TOC */}
-        <div className="hidden xl:block w-56 shrink-0 sticky top-20 h-[calc(100vh-6rem)] overflow-y-auto pl-4 border-l border-border/40">
+        <div className="sticky top-24 hidden h-[calc(100vh-7rem)] w-56 shrink-0 overflow-y-auto border-l border-[#2A2721] pl-4 xl:block">
           <DocToc items={article.toc} />
         </div>
       </div>

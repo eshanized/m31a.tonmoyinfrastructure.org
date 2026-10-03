@@ -1,111 +1,80 @@
 import Link from 'next/link';
-import { Github } from 'lucide-react';
-import { Logo, LogoMark } from './logo';
+import { LogoMark } from './logo';
 import { FOOTER_LINKS } from '@/lib/m31a/nav';
 import { PRODUCT } from '@/lib/m31a/product';
 
+function LinkList({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="meta mb-3">{title}</h3>
+      <ul className="space-y-1.5">
+        {links.map((link) => {
+          const external = link.href.startsWith('http');
+          const cls =
+            'font-mono text-xs tracking-wide text-[#A8A198] transition-colors hover:text-[#ECE7DC]';
+          return (
+            <li key={link.label + link.href}>
+              {external ? (
+                <a href={link.href} target="_blank" rel="noopener noreferrer" className={cls}>
+                  {link.label}
+                </a>
+              ) : (
+                <Link href={link.href} className={cls}>
+                  {link.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/60 bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5">
-              <LogoMark className="h-7 w-7" />
-              <Logo className="text-lg" />
+    <footer className="border-t border-[#2A2721] bg-[#0D0C0A]">
+      <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link href="/" className="flex items-center gap-2" aria-label="M31A home">
+              <LogoMark className="h-6 w-6" />
+              <span className="font-display text-base font-bold tracking-tight">
+                <span className="text-[#FF4B2C]">M31</span>
+                <span className="text-[#ECE7DC]">A</span>
+              </span>
+              <span className="meta ml-1">M31 AUTONOMOUS</span>
             </Link>
-            <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Autonomous software engineering, from the terminal.
+            <p className="display-lg mt-5 max-w-sm text-xl leading-snug text-[#ECE7DC]">
+              THE MODEL PROPOSES.
+              <br />
+              <span className="text-[#FF4B2C]">THE RUNTIME DECIDES.</span>
             </p>
-            <p className="mt-2 text-xs text-muted-foreground/70">
-              v{PRODUCT.version} · {PRODUCT.orgName}
+            <p className="mono-val mt-4 text-[11px] leading-relaxed text-[#6E6860]">
+              v{PRODUCT.version} · PRODUCTION · {PRODUCT.canonicalProvider}
+              <br />
+              RUST {PRODUCT.rustVersion} · {PRODUCT.licenses.join(' / ')}
             </p>
           </div>
-
-          <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Product
-            </h3>
-            <ul className="space-y-2">
-              {FOOTER_LINKS.product.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Community
-            </h3>
-            <ul className="space-y-2">
-              {FOOTER_LINKS.community.map((link) => {
-                const isExternal = link.href.startsWith('http');
-                return (
-                  <li key={link.href}>
-                    {isExternal ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Legal
-            </h3>
-            <ul className="space-y-2">
-              {FOOTER_LINKS.legal.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
+            <LinkList title="RUNTIME" links={FOOTER_LINKS.runtime} />
+            <LinkList title="ASSURANCE" links={FOOTER_LINKS.assurance} />
+            <LinkList title="SOURCE" links={FOOTER_LINKS.source} />
           </div>
         </div>
-
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-6 sm:flex-row">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} {PRODUCT.orgName}. Dual-licensed under MIT OR Apache-2.0.
+        <div className="mt-10 flex flex-col gap-2 border-t border-[#2A2721] pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="mono-val text-[11px] text-[#6E6860]">
+            © {new Date().getFullYear()} {PRODUCT.orgName} · DUAL-LICENSED MIT / APACHE-2.0
           </p>
-          <a
-            href={PRODUCT.repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Github className="h-3.5 w-3.5" />
-            github.com/eshanized/M31A
-          </a>
+          <p className="mono-val text-[11px] text-[#6E6860]">
+            BUILD M31A-{PRODUCT.version} · CHANNEL PRODUCTION · REPO eshanized/M31A
+          </p>
         </div>
       </div>
     </footer>

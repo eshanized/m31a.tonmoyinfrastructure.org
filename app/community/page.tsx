@@ -1,109 +1,38 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Github, MessageSquare, Bug, Shield, BookOpen, Code2 } from 'lucide-react';
-import { Section, Container, SectionHeader } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
 
-export const metadata: Metadata = {
-  title: 'M31A Community',
-  description:
-    'Join the M31A community: GitHub, issues, discussions, security reporting, and contributing.',
-};
-
-const CHANNELS = [
-  {
-    icon: Github,
-    title: 'GitHub Repository',
-    desc: 'Source code, releases, and documentation.',
-    href: PRODUCT.repositoryUrl,
-    label: 'View repository',
-  },
-  {
-    icon: Bug,
-    title: 'Issues',
-    desc: 'Report bugs, request features, and track work.',
-    href: PRODUCT.issuesUrl,
-    label: 'Browse issues',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Discussions',
-    desc: 'Ask questions, share workflows, and discuss architecture.',
-    href: PRODUCT.discussionsUrl,
-    label: 'Join discussions',
-  },
-  {
-    icon: Shield,
-    title: 'Security Reporting',
-    desc: 'Report security vulnerabilities through GitHub advisories following our security policy.',
-    href: PRODUCT.securityReportUrl,
-    label: 'Report a vulnerability',
-  },
-  {
-    icon: Code2,
-    title: 'Contributing',
-    desc: 'Read the contributing guidelines, development workflow, and PR checklist.',
-    href: PRODUCT.contributingUrl,
-    label: 'Contributing guide',
-  },
-  {
-    icon: Shield,
-    title: 'Code of Conduct',
-    desc: 'Review the Contributor Covenant standards for participating in M31A.',
-    href: PRODUCT.codeOfConductUrl,
-    label: 'Read standards',
-  },
-  {
-    icon: BookOpen,
-    title: 'Documentation',
-    desc: 'Read the technical manuals, architecture contracts, and subsystem guides.',
-    href: '/docs',
-    label: 'Read docs',
-  },
-];
-
 export default function CommunityPage() {
+  const rows = [
+    ['GITHUB REPOSITORY', PRODUCT.repositoryUrl, 'Source, releases, CI evidence'],
+    ['ISSUE TRACKER', PRODUCT.issuesUrl, 'Bugs, proposals, qualification reports'],
+    ['DISCUSSIONS', PRODUCT.discussionsUrl, 'Design questions, usage, provider parity'],
+    ['SECURITY ADVISORIES', PRODUCT.securityReportUrl, 'Private vulnerability reports — preferred route'],
+    ['CONTRIBUTING', PRODUCT.contributingUrl, 'Mandatory release gates + testing pipelines'],
+  ];
   return (
     <>
-      <Section className="relative overflow-hidden border-b border-border/40">
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute inset-0 radial-glow" />
-        <Container className="relative">
-          <SectionHeader
-            eyebrow="Community"
-            title="Join the M31A community"
-            description="M31A is open source under MIT OR Apache-2.0. All community channels are hosted on GitHub."
-          />
-        </Container>
-      </Section>
-
-      <Section>
-        <Container>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {CHANNELS.map((channel) => {
-              const Icon = channel.icon;
-              const isExternal = channel.href.startsWith('http');
-              return (
-                <Link
-                  key={channel.title}
-                  href={channel.href}
-                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="group rounded-xl border border-border bg-card/40 p-6 transition-all hover:border-primary/30"
-                >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
-                    <Icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <h3 className="mb-2 font-semibold">{channel.title}</h3>
-                  <p className="text-sm text-muted-foreground">{channel.desc}</p>
-                  <span className="mt-3 inline-block text-sm text-primary transition-colors group-hover:text-primary/80">
-                    {channel.label} →
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </Container>
-      </Section>
+      <div className="border-b border-[#2A2721]">
+        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
+          <p className="meta text-[#FF6B4A]">[12] COMMUNITY — CHANNELS</p>
+          <h1 className="display-lg mt-3 max-w-3xl text-4xl text-[#ECE7DC] sm:text-5xl">
+            Work in the open.
+          </h1>
+        </div>
+      </div>
+      <div className="mx-auto max-w-[900px] px-4 py-10 sm:px-6">
+        <ul className="overflow-hidden rounded-[3px] border border-[#2A2721]">
+          {rows.map(([k, href, d]) => (
+            <li key={k} className="border-b border-[#2A2721]/60 bg-[#141311] last:border-0 hover:bg-[#1B1A17]">
+              <a href={href} target="_blank" rel="noopener noreferrer" className="block px-4 py-3.5">
+                <span className="flex items-center justify-between gap-3">
+                  <span className="font-mono text-[13px] font-bold tracking-wider text-[#ECE7DC]">{k}</span>
+                  <span className="font-mono text-[12px] text-[#FF6B4A]">↗</span>
+                </span>
+                <span className="mt-0.5 block text-[13px] text-[#A8A198]">{d}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }

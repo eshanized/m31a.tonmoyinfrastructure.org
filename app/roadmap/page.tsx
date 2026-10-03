@@ -1,69 +1,30 @@
-import type { Metadata } from 'next';
-import { Section, Container, SectionHeader, StatusBadge } from '@/components/site/section';
-import { ROADMAP } from '@/lib/m31a/product';
-
-export const metadata: Metadata = {
-  title: 'M31A Roadmap',
-  description:
-    'The M31A technical roadmap: completed, in progress, planned, and future milestones.',
-};
-
-const STATUS_ORDER = ['Completed', 'In Progress', 'Planned', 'Future'];
+import Link from 'next/link';
+import { RoadmapMatrix } from '@/components/system/content-matrices';
 
 export default function RoadmapPage() {
   return (
     <>
-      <Section className="relative overflow-hidden border-b border-border/40">
-        <div className="absolute inset-0 grid-bg opacity-30" />
-        <div className="absolute inset-0 radial-glow" />
-        <Container className="relative">
-          <SectionHeader
-            eyebrow="Roadmap"
-            title="Where M31A is heading"
-            description="A technical roadmap grounded in current project state. No aggressive promises — only verified statuses."
-          />
-        </Container>
-      </Section>
-
-      <Section>
-        <Container className="max-w-4xl">
-          <div className="space-y-12">
-            {STATUS_ORDER.map((status) => {
-              const items = ROADMAP.filter((r) => r.status === status);
-              if (items.length === 0) return null;
-
-              return (
-                <div key={status}>
-                  <div className="mb-6 flex items-center gap-3">
-                    <h2 className="text-xl font-bold tracking-tight">{status}</h2>
-                    <StatusBadge status={status} />
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {items.map((item) => (
-                      <div
-                        key={item.title}
-                        className="rounded-xl border border-border/60 bg-card/40 p-5 transition-all hover:border-primary/30"
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="mb-2 font-semibold text-foreground">{item.title}</h3>
-                        </div>
-                        <p className="text-sm text-muted-foreground">{item.description}</p>
-                        {item.reference && (
-                          <div className="mt-4 pt-3 border-t border-border/40">
-                            <span className="font-mono text-xs text-primary">
-                              Ref: {item.reference}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </Section>
+      <div className="border-b border-[#2A2721]">
+        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6 sm:py-14">
+          <p className="meta text-[#FF6B4A]">[08] ROADMAP — ENGINEERING PLAN</p>
+          <h1 className="display-lg mt-3 max-w-3xl text-4xl text-[#ECE7DC] sm:text-5xl">
+            Completed is distinct from planned.
+          </h1>
+          <p className="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-[#A8A198]">
+            Phase, status, objective, deliverables, dependencies. Statuses below are
+            stated as they are — no startup-style timeline inflation.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-6">
+        <RoadmapMatrix />
+        <div className="mt-8 flex flex-wrap gap-2 border-t border-[#2A2721] pt-6">
+          <Link href="/changelog" className="btn-ghost !text-xs">VIEW CHANGELOG</Link>
+          <a href="https://github.com/eshanized/M31A/issues" target="_blank" rel="noopener noreferrer" className="btn-quiet !text-xs">
+            PROPOSE WORK VIA ISSUES ↗
+          </a>
+        </div>
+      </div>
     </>
   );
 }
