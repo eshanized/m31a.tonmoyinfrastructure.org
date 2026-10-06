@@ -12,7 +12,13 @@ import {
   Check, 
   Lock,
   GitBranch,
-  FileCheck
+  FileCheck,
+  Sparkles,
+  Workflow,
+  Eye,
+  ShieldCheck,
+  Copy,
+  ChevronRight
 } from 'lucide-react';
 import { Container } from '@/components/site/section';
 
@@ -23,6 +29,7 @@ interface FlowStage {
   summary: string;
   subsystem: string;
   layer: string;
+  icon: React.ComponentType<{ className?: string }>;
   details: string[];
   invariant: string;
   snippet: {
@@ -39,6 +46,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Understand the engineering goal without granting ambient authority.',
     subsystem: 'Model Intelligence Boundary',
     layer: 'L3 & L4',
+    icon: Sparkles,
     details: [
       'Decomposes human engineering requirements into structured tasks',
       'Model remains strictly unprivileged outside the trust boundary',
@@ -62,6 +70,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Construct an actionable, acyclic execution graph.',
     subsystem: 'PetGraph Topological Scheduler',
     layer: 'L5',
+    icon: Workflow,
     details: [
       'Decomposes mission into a directed acyclic task graph (DAG)',
       'Topological scheduling guarantees dependency satisfaction',
@@ -87,6 +96,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Modify files and invoke tools inside controlled sandboxes.',
     subsystem: 'Capability Registry & Sandbox',
     layer: 'L2 & L6',
+    icon: Cpu,
     details: [
       '28 core tools declare risk classes and JSON schema contracts',
       'Linux cgroups v2 & POSIX rlimits bound CPU time and memory RSS',
@@ -110,6 +120,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Inspect streaming outputs and system state with secret redaction.',
     subsystem: 'Spool Manager & Secret Redactor',
     layer: 'L6 & L3',
+    icon: Eye,
     details: [
       'Streaming output spools capture stdout/stderr with memory caps',
       '5-tier deterministic redactor scrubs NVIDIA, GitHub, AWS keys and JWTs',
@@ -133,6 +144,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Run tests, linters, and evaluate empirical evidence.',
     subsystem: 'Evidence Gate & Verifier',
     layer: 'L7',
+    icon: ShieldCheck,
     details: [
       'Multi-tier quality gates run clean test suites and static analysis',
       'Clippy and anti-fake-diff reviews reject todo!() or unimplemented!() stubs',
@@ -156,6 +168,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Respond to failures and continue safely with zero blind resumption.',
     subsystem: 'Differential Replanner & Rollback',
     layer: 'L7',
+    icon: RefreshCw,
     details: [
       '15 failure classifications distinguish transient faults from corruption',
       'Differential replanning preserves already-verified task nodes',
@@ -179,6 +192,7 @@ const FLOW_STAGES: FlowStage[] = [
     summary: 'Only finish when the result is proven and committed.',
     subsystem: 'Autonomy Controller & Two-Phase Store',
     layer: 'L8 & L0',
+    icon: CheckCircle2,
     details: [
       'Two-phase atomic checkpoint staging commits state to SQLite WAL',
       'RFC-compliant Git commit trailers created with agent audit signature',
@@ -199,17 +213,39 @@ const FLOW_STAGES: FlowStage[] = [
 
 export function ProductWorkflow() {
   const [selectedId, setSelectedId] = useState<string>('intent');
+  const [copied, setCopied] = useState(false);
   const current = FLOW_STAGES.find((s) => s.id === selectedId) ?? FLOW_STAGES[0];
   const currentIndex = FLOW_STAGES.findIndex((s) => s.id === selectedId);
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(current.snippet.command);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* ignore */
+    }
+  };
+
   return (
-    <section id="product-demo" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C]">
-      <Container>
+    <section id="product-demo" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C] relative overflow-hidden">
+      {/* ── Atmospheric Ambient Lighting & Tech Grid ── */}
+      <div 
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,82,63,0.12)_0%,transparent_70%)] blur-3xl opacity-80"
+        aria-hidden="true" 
+      />
+      <div 
+        className="pointer-events-none absolute inset-0 opacity-[0.025] bg-[radial-gradient(#F4F4F6_1px,transparent_1px)] [background-size:24px_24px]"
+        aria-hidden="true"
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-            AUTONOMOUS EXECUTION GRAPH
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F] animate-pulse" />
+            <span>AUTONOMOUS EXECUTION GRAPH</span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
             Give M31A a goal.
           </h2>
@@ -220,39 +256,43 @@ export function ProductWorkflow() {
           </p>
         </div>
 
-        {/* ── Sequence Pipeline Bar ── */}
+        {/* ── Sequence Pipeline Bar with Flow Indicators ── */}
         <div className="mb-10 overflow-x-auto no-scrollbar pb-2">
-          <div className="flex items-center min-w-[760px] gap-2 border-b border-[#222227] pb-6">
+          <div className="flex items-center min-w-[780px] gap-2 border-b border-[#222227] pb-6">
             {FLOW_STAGES.map((stage, idx) => {
               const isSelected = stage.id === selectedId;
               const isPast = idx < currentIndex;
+              const Icon = stage.icon;
 
               return (
                 <button
                   key={stage.id}
                   onClick={() => setSelectedId(stage.id)}
-                  className={`group relative flex-1 p-3 rounded-xl border text-left transition-all ${
+                  className={`group relative flex-1 p-3.5 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/30 shadow-lg'
+                      ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/40 shadow-[0_0_20px_rgba(232,82,63,0.2)]'
                       : isPast
-                      ? 'border-[#27272E] bg-[#101013] hover:border-[#3A3A44]'
+                      ? 'border-[#27272E] bg-[#101013] hover:border-[#3A3A44] hover:bg-[#141418]'
                       : 'border-[#1E1E24] bg-[#0E0E11]/60 hover:border-[#27272E] opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span
-                      className={`font-mono text-xs font-bold ${
-                        isSelected
-                          ? 'text-[#E8523F]'
-                          : isPast
-                          ? 'text-[#3ECF8E]'
-                          : 'text-[#65656E]'
-                      }`}
-                    >
-                      {stage.number}
-                    </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#E8523F]' : isPast ? 'text-[#3ECF8E]' : 'text-[#65656E]'}`} />
+                      <span
+                        className={`font-mono text-xs font-bold ${
+                          isSelected
+                            ? 'text-[#E8523F]'
+                            : isPast
+                            ? 'text-[#3ECF8E]'
+                            : 'text-[#65656E]'
+                        }`}
+                      >
+                        {stage.number}
+                      </span>
+                    </div>
                     {isPast && <Check className="w-3.5 h-3.5 text-[#3ECF8E]" />}
-                    {isSelected && <span className="w-2 h-2 rounded-full bg-[#E8523F] animate-pulse" />}
+                    {isSelected && <span className="w-2 h-2 rounded-full bg-[#E8523F] animate-pulse shadow-[0_0_8px_rgba(232,82,63,0.8)]" />}
                   </div>
                   <span
                     className={`block font-mono text-xs font-semibold tracking-wider ${
@@ -268,14 +308,15 @@ export function ProductWorkflow() {
         </div>
 
         {/* ── Detailed Stage Inspector ── */}
-        <div className="rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-xl">
+        <div className="rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-2xl transition-all hover:border-[#E8523F]/30">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             {/* Left: Stage Narrative & Subsystem Invariants (6 cols) */}
-            <div className="lg:col-span-6 p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222227]">
+            <div className="lg:col-span-6 p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222227] bg-[#0E0E12]">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#E8523F]/15 text-[#E8523F] border border-[#E8523F]/30">
-                    STAGE {current.number}
+                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#E8523F]/15 text-[#E8523F] border border-[#E8523F]/30 shadow-sm flex items-center gap-1.5">
+                    <current.icon className="w-3.5 h-3.5" />
+                    <span>STAGE {current.number}</span>
                   </span>
                   <span className="font-mono text-xs text-[#9E9EA8]">
                     Layer {current.layer} · {current.subsystem}
@@ -286,11 +327,11 @@ export function ProductWorkflow() {
                   {current.label}: {current.summary}
                 </h3>
 
-                <ul className="space-y-3 mt-6">
+                <ul className="space-y-3.5 mt-6">
                   {current.details.map((d, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-[#9E9EA8]">
                       <CheckCircle2 className="w-4 h-4 text-[#E8523F] mt-0.5 shrink-0" />
-                      <span>{d}</span>
+                      <span className="leading-relaxed">{d}</span>
                     </li>
                   ))}
                 </ul>
@@ -298,10 +339,10 @@ export function ProductWorkflow() {
 
               {/* Invariant Guarantee Box */}
               <div className="mt-8 pt-6 border-t border-[#222227]">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#65656E] block mb-1.5">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#65656E] block mb-2 font-semibold">
                   Runtime Security &amp; Correctness Invariant
                 </span>
-                <div className="p-3.5 rounded-xl border border-[#3ECF8E]/20 bg-[#3ECF8E]/5 font-mono text-xs text-[#3ECF8E]">
+                <div className="p-3.5 rounded-xl border border-[#3ECF8E]/25 bg-[#3ECF8E]/5 font-mono text-xs text-[#3ECF8E] shadow-sm">
                   ✓ {current.invariant}
                 </div>
 
@@ -331,19 +372,36 @@ export function ProductWorkflow() {
             </div>
 
             {/* Right: Authentic CLI / Subsystem Output (6 cols) */}
-            <div className="lg:col-span-6 bg-[#09090C] p-6 sm:p-10 font-mono text-xs flex flex-col justify-between">
+            <div className="lg:col-span-6 bg-[#070709] p-6 sm:p-10 font-mono text-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#222227] text-xs">
-                  <span className="text-[#65656E] uppercase tracking-wider">
-                    OPERATOR TRACE // {current.label}
+                  <span className="text-[#65656E] uppercase tracking-wider flex items-center gap-1.5">
+                    <Terminal className="w-3.5 h-3.5 text-[#E8523F]" />
+                    <span>OPERATOR TRACE // {current.label}</span>
                   </span>
-                  <span className="text-[#3ECF8E] font-medium">FAIL-CLOSED BOUNDED</span>
+                  <span className="text-[#3ECF8E] font-medium text-[11px] bg-[#3ECF8E]/10 px-2 py-0.5 rounded border border-[#3ECF8E]/20">
+                    FAIL-CLOSED BOUNDED
+                  </span>
                 </div>
 
-                {/* Simulated Command Execution */}
-                <div className="flex items-center gap-2 text-[#F4F4F6] pb-3 mb-4 border-b border-[#222227]/60">
-                  <span className="text-[#E8523F] font-bold select-none">$</span>
-                  <span className="font-semibold text-xs sm:text-sm">{current.snippet.command}</span>
+                {/* Simulated Command Execution with Copy Button */}
+                <div className="flex items-center justify-between gap-3 text-[#F4F4F6] pb-3 mb-4 border-b border-[#222227]/60">
+                  <div className="flex items-center gap-2 overflow-hidden truncate">
+                    <span className="text-[#E8523F] font-bold select-none text-sm">$</span>
+                    <span className="font-semibold text-xs sm:text-sm truncate select-all">{current.snippet.command}</span>
+                  </div>
+
+                  <button
+                    onClick={handleCopy}
+                    className="p-1.5 rounded-md hover:bg-[#18181D] hover:text-[#F4F4F6] text-[#9E9EA8] transition-colors shrink-0"
+                    title="Copy command"
+                  >
+                    {copied ? (
+                      <Check className="w-3.5 h-3.5 text-[#3ECF8E]" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                  </button>
                 </div>
 
                 {/* Output log lines */}
@@ -353,13 +411,13 @@ export function ProductWorkflow() {
                       key={idx}
                       className={
                         line.startsWith('[✓]') || line.startsWith('-->') || line.includes('SUCCESS') || line.includes('VERIFIED')
-                          ? 'text-[#3ECF8E]'
+                          ? 'text-[#3ECF8E] font-medium'
                           : line.startsWith('[!]')
                           ? 'text-[#EAB308]'
                           : line.startsWith('[*]')
                           ? 'text-[#F4F4F6]'
                           : line.includes('ALLOW')
-                          ? 'text-[#E8523F]'
+                          ? 'text-[#E8523F] font-semibold'
                           : 'text-[#9E9EA8]'
                       }
                     >
@@ -372,7 +430,7 @@ export function ProductWorkflow() {
               {/* Bottom Metadata */}
               <div className="mt-8 pt-4 border-t border-[#222227] text-[11px] text-[#65656E] flex items-center justify-between">
                 <span>Deterministic State Commitment</span>
-                <span className="text-[#9E9EA8]">SQLite WAL Engine</span>
+                <span className="text-[#3ECF8E] font-medium">SQLite WAL Engine</span>
               </div>
             </div>
           </div>

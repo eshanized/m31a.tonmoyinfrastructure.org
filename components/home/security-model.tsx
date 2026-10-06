@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Lock, ShieldAlert, Cpu, Network, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Lock, ShieldAlert, Cpu, Network, CheckCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 interface SecurityControl {
   id: string;
@@ -85,7 +85,7 @@ export function SecurityModel() {
       {/* 2-Column Product Architecture View */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Controls Navigation List */}
-        <div className="lg:col-span-6 space-y-2">
+        <div className="lg:col-span-6 space-y-2.5">
           {CONTROLS.map((ctrl) => {
             const isSelected = ctrl.id === activeId;
             const Icon = ctrl.icon;
@@ -94,32 +94,32 @@ export function SecurityModel() {
               <button
                 key={ctrl.id}
                 onClick={() => setActiveId(ctrl.id)}
-                className={`w-full p-4 rounded-xl border text-left transition-all flex items-start gap-4 ${
+                className={`w-full p-4.5 rounded-xl border text-left transition-all flex items-start gap-4 ${
                   isSelected
-                    ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/30'
-                    : 'border-[#222226] bg-[#111113] hover:border-[#2C2C31] hover:bg-[#141417]'
+                    ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/35 shadow-[0_0_20px_rgba(232,82,63,0.12)]'
+                    : 'border-[#27272E] bg-[#111115] hover:border-[#383842] hover:bg-[#141418]'
                 }`}
               >
                 <div
-                  className={`p-2 rounded-lg mt-0.5 shrink-0 ${
-                    isSelected ? 'bg-[#E8523F]/10 text-[#E8523F]' : 'bg-[#18181B] text-[#A3A09B]'
+                  className={`p-2.5 rounded-xl mt-0.5 shrink-0 transition-colors ${
+                    isSelected ? 'bg-[#E8523F]/20 text-[#E8523F] shadow-[0_0_10px_rgba(232,82,63,0.25)]' : 'bg-[#18181D] text-[#9E9EA8]'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-wider text-[#6B6965]">
+                  <div className="flex items-center justify-between mb-0.5">
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#E8523F] font-semibold">
                       {ctrl.category}
                     </span>
                     {isSelected && (
-                      <span className="text-[10px] font-mono uppercase text-[#E8523F] font-semibold">
+                      <span className="text-[10px] font-mono text-[#3ECF8E] font-bold bg-[#3ECF8E]/10 px-2 py-0.5 rounded border border-[#3ECF8E]/20">
                         Selected
                       </span>
                     )}
                   </div>
-                  <h4 className={`text-base font-semibold mt-0.5 tracking-tight ${
-                    isSelected ? 'text-[#F0EDE8]' : 'text-[#A3A09B]'
+                  <h4 className={`text-base font-bold tracking-tight ${
+                    isSelected ? 'text-[#F4F4F6]' : 'text-[#9E9EA8]'
                   }`}>
                     {ctrl.name}
                   </h4>
@@ -130,41 +130,41 @@ export function SecurityModel() {
         </div>
 
         {/* Selected Control Detail Architecture Card */}
-        <div className="lg:col-span-6 sticky top-28 rounded-2xl border border-[#222226] bg-[#111113] p-8">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#222226]">
-            <div className="p-2.5 rounded-lg bg-[#E8523F]/10 text-[#E8523F]">
+        <div className="lg:col-span-6 sticky top-28 rounded-2xl border border-[#27272E] bg-[#111115] p-8 shadow-2xl transition-all hover:border-[#E8523F]/30">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#222227]">
+            <div className="p-2.5 rounded-xl bg-[#E8523F]/15 text-[#E8523F] border border-[#E8523F]/25 shadow-sm">
               <activeControl.icon className="w-6 h-6" />
             </div>
             <div>
               <span className="text-xs font-mono uppercase tracking-wider text-[#E8523F] font-semibold">
                 {activeControl.category} Architecture
               </span>
-              <h3 className="text-xl font-bold tracking-tight text-[#F0EDE8]">
+              <h3 className="text-xl font-bold tracking-tight text-[#F4F4F6]">
                 {activeControl.name}
               </h3>
             </div>
           </div>
 
-          <p className="text-sm sm:text-base text-[#A3A09B] leading-relaxed mb-6">
+          <p className="text-sm sm:text-base text-[#9E9EA8] leading-relaxed mb-6 font-normal">
             {activeControl.description}
           </p>
 
-          <div className="space-y-4 pt-4 border-t border-[#222226]">
+          <div className="space-y-4 pt-4 border-t border-[#222227]">
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-[#6B6965] block mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#65656E] block mb-1 font-semibold">
                 Enforcement Mechanism
               </span>
-              <p className="text-sm font-medium text-[#F0EDE8]">
+              <p className="text-sm font-medium text-[#F4F4F6] leading-relaxed">
                 {activeControl.mechanism}
               </p>
             </div>
 
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-[#6B6965] block mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#65656E] block mb-1.5 font-semibold">
                 Security Invariant
               </span>
-              <p className="text-sm font-mono text-[#3ECF8E] bg-[#3ECF8E]/5 border border-[#3ECF8E]/20 p-2.5 rounded-lg">
-                {activeControl.invariant}
+              <p className="text-xs sm:text-sm font-mono text-[#3ECF8E] bg-[#3ECF8E]/5 border border-[#3ECF8E]/25 p-3 rounded-xl leading-relaxed shadow-sm">
+                ✓ {activeControl.invariant}
               </p>
             </div>
           </div>

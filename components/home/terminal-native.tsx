@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Container } from '@/components/site/section';
-import { Terminal, Copy, Check, ArrowRight, Keyboard } from 'lucide-react';
+import { Terminal, Copy, Check, ArrowRight, Keyboard, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 interface CommandItem {
@@ -132,14 +132,21 @@ export function TerminalNative() {
   };
 
   return (
-    <section id="cli" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E]">
-      <Container>
+    <section id="cli" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E] relative overflow-hidden">
+      {/* ── Ambient Radial Lighting ── */}
+      <div 
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.08)_0%,transparent_70%)] blur-3xl opacity-70"
+        aria-hidden="true" 
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-              OPERATOR COMMAND SURFACE
-            </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F]" />
+              <span>OPERATOR COMMAND SURFACE</span>
+            </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
               Terminal-Native by Design.
             </h2>
@@ -151,26 +158,31 @@ export function TerminalNative() {
 
           <Link
             href="/cli"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#27272E] bg-[#141418] hover:bg-[#1A1A20] hover:border-[#E8523F]/50 text-xs sm:text-sm font-mono text-[#F4F4F6] transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#27272E] bg-[#141418] hover:bg-[#1A1A20] hover:border-[#E8523F]/50 text-xs sm:text-sm font-mono text-[#F4F4F6] transition-all shrink-0 shadow-sm group"
           >
             <span>All 18 CLI Subcommands</span>
-            <ArrowRight className="w-4 h-4 text-[#E8523F]" />
+            <ArrowRight className="w-4 h-4 text-[#E8523F] group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
         {/* ── Terminal Simulator Window ── */}
-        <div className="rounded-2xl border border-[#27272E] bg-[#0A0A0C] overflow-hidden shadow-2xl">
+        <div className="rounded-2xl border border-[#27272E] bg-[#0A0A0C] overflow-hidden shadow-2xl transition-all hover:border-[#E8523F]/30">
           {/* Top Bar with Command Selector Tabs */}
           <div className="flex flex-wrap items-center justify-between border-b border-[#222227] bg-[#141418] px-4 py-2.5 gap-2">
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-              <Terminal className="w-4 h-4 text-[#E8523F] mr-1 shrink-0" />
+              <div className="flex items-center gap-1.5 mr-2" aria-hidden="true">
+                <span className="w-3 h-3 rounded-full bg-[#FF5F56]/80 inline-block border border-[#E0443E]/50" />
+                <span className="w-3 h-3 rounded-full bg-[#FFBD2E]/80 inline-block border border-[#DEA123]/50" />
+                <span className="w-3 h-3 rounded-full bg-[#27C93F]/80 inline-block border border-[#1AAB29]/50" />
+              </div>
+
               {COMMANDS.map((cmd) => (
                 <button
                   key={cmd.id}
                   onClick={() => setSelectedId(cmd.id)}
-                  className={`px-3 py-1 rounded text-xs font-mono transition-all shrink-0 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all shrink-0 ${
                     selectedId === cmd.id
-                      ? 'bg-[#18181D] text-[#F4F4F6] font-semibold border border-[#27272E] shadow-sm'
+                      ? 'bg-[#18181D] text-[#F4F4F6] font-semibold border border-[#E8523F]/40 text-[#E8523F] shadow-sm'
                       : 'text-[#65656E] hover:text-[#9E9EA8]'
                   }`}
                 >
@@ -181,17 +193,17 @@ export function TerminalNative() {
 
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono text-[#9E9EA8] hover:text-[#F4F4F6] bg-[#18181D] border border-[#27272E] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono text-[#9E9EA8] hover:text-[#F4F4F6] bg-[#18181D] border border-[#27272E] hover:border-[#383842] transition-colors"
               title="Copy command to clipboard"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-[#3ECF8E]" />
-                  <span className="text-[#3ECF8E]">Copied</span>
+                  <span className="text-[#3ECF8E] font-medium">Copied</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-[#9E9EA8]" />
                   <span>Copy</span>
                 </>
               )}
@@ -199,7 +211,7 @@ export function TerminalNative() {
           </div>
 
           {/* Terminal Command Header & Description */}
-          <div className="border-b border-[#222227] bg-[#101013] px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+          <div className="border-b border-[#222227] bg-[#101013] px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
             <div>
               <span className="text-[#9E9EA8]">{active.summary}</span>
             </div>
@@ -213,7 +225,7 @@ export function TerminalNative() {
           <div className="p-6 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto min-h-[280px]">
             {/* Command Prompt Line */}
             <div className="flex items-center gap-2 text-[#F4F4F6] mb-4 pb-3 border-b border-[#222227]/60">
-              <span className="text-[#E8523F] font-bold select-none">$</span>
+              <span className="text-[#E8523F] font-bold select-none text-base">$</span>
               <span className="font-semibold">{active.command}</span>
             </div>
 
@@ -224,13 +236,13 @@ export function TerminalNative() {
                   key={idx}
                   className={
                     line.type === 'success'
-                      ? 'text-[#3ECF8E]'
+                      ? 'text-[#3ECF8E] font-medium'
                       : line.type === 'coral'
-                      ? 'text-[#E8523F]'
+                      ? 'text-[#E8523F] font-semibold'
                       : line.type === 'warning'
                       ? 'text-[#EAB308]'
                       : line.type === 'error'
-                      ? 'text-[#EF4444]'
+                      ? 'text-[#FF453A]'
                       : 'text-[#9E9EA8]'
                   }
                 >
@@ -242,7 +254,10 @@ export function TerminalNative() {
 
           {/* Terminal Footer Info */}
           <div className="border-t border-[#222227] bg-[#101013] px-6 py-3 flex items-center justify-between text-xs font-mono text-[#65656E]">
-            <span>Channel: Production (m31a)</span>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#3ECF8E]" />
+              <span>Channel: Production (m31a)</span>
+            </span>
             <span>Single Rust Binary · Zero Foreign Dependencies</span>
           </div>
         </div>

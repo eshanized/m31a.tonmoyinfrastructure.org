@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShieldCheck, CheckCircle2, Box, RefreshCw, ArrowRight, Lock, Terminal, Cpu } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Box, RefreshCw, ArrowRight, Lock, Terminal, Cpu, X, ShieldAlert } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import Link from 'next/link';
 
@@ -16,6 +16,7 @@ interface Pillar {
   contrastM31A: string;
   evidence: string[];
   subsystemTag: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 const PILLARS: Pillar[] = [
@@ -35,6 +36,7 @@ const PILLARS: Pillar[] = [
       'Layer 0 built-in safety vetoes can never be weakened by prompts',
     ],
     subsystemTag: 'src/policy/matcher.rs',
+    icon: ShieldAlert,
   },
   {
     id: 'evidence-completion',
@@ -52,6 +54,7 @@ const PILLARS: Pillar[] = [
       'Cryptographic SHA-256 evidence digests committed to SQLite WAL',
     ],
     subsystemTag: 'src/verification/gate.rs',
+    icon: CheckCircle2,
   },
   {
     id: 'sandboxed-execution',
@@ -69,6 +72,7 @@ const PILLARS: Pillar[] = [
       'Fail-closed Git worktree isolation prevents corrupting primary branches',
     ],
     subsystemTag: 'src/sandbox/limits.rs',
+    icon: Box,
   },
   {
     id: 'recovery-oriented',
@@ -86,6 +90,7 @@ const PILLARS: Pillar[] = [
       'Clean rollback seams restore repository state on unrecoverable failures',
     ],
     subsystemTag: 'src/deployment/rollback.rs',
+    icon: RefreshCw,
   },
 ];
 
@@ -93,13 +98,20 @@ export function WhyM31A() {
   const [hoveredPillar, setHoveredPillar] = useState<string | null>(null);
 
   return (
-    <section className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E]">
-      <Container>
+    <section className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E] relative overflow-hidden">
+      {/* ── Ambient Radial Lighting ── */}
+      <div 
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.08)_0%,transparent_70%)] blur-3xl opacity-70"
+        aria-hidden="true" 
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-            ARCHITECTURAL DIFFERENTIATION
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F]" />
+            <span>ARCHITECTURAL DIFFERENTIATION</span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
             Why M31A is different.
           </h2>
@@ -113,6 +125,7 @@ export function WhyM31A() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {PILLARS.map((p) => {
             const isHovered = hoveredPillar === p.id;
+            const Icon = p.icon;
 
             return (
               <div
@@ -121,22 +134,27 @@ export function WhyM31A() {
                 onMouseLeave={() => setHoveredPillar(null)}
                 className={`group relative p-8 sm:p-10 rounded-2xl border transition-all flex flex-col justify-between ${
                   isHovered
-                    ? 'border-[#E8523F]/60 bg-[#141418] shadow-2xl ring-1 ring-[#E8523F]/20 -translate-y-0.5'
+                    ? 'border-[#E8523F]/60 bg-[#141418] shadow-[0_15px_40px_rgba(232,82,63,0.12)] ring-1 ring-[#E8523F]/25 -translate-y-1'
                     : 'border-[#27272E] bg-[#111114] hover:border-[#383842]'
                 }`}
               >
                 <div>
-                  {/* Top metadata */}
+                  {/* Top metadata with Icon Badge */}
                   <div className="flex items-center justify-between pb-6 mb-6 border-b border-[#222227]">
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-bold text-[#E8523F] bg-[#E8523F]/10 px-2 py-0.5 rounded">
-                        {p.number}
-                      </span>
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#9E9EA8] font-semibold">
-                        {p.title}
-                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-[#E8523F]/10 border border-[#E8523F]/25 flex items-center justify-center text-[#E8523F] shadow-sm">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="font-mono text-xs uppercase tracking-wider text-[#9E9EA8] font-bold block">
+                          {p.title}
+                        </span>
+                        <span className="font-mono text-[11px] text-[#65656E]">
+                          Pillar {p.number}
+                        </span>
+                      </div>
                     </div>
-                    <span className="font-mono text-[11px] text-[#65656E]">
+                    <span className="font-mono text-[11px] text-[#65656E] bg-[#18181D] px-2.5 py-1 rounded border border-[#27272E]">
                       {p.subsystemTag}
                     </span>
                   </div>
@@ -152,14 +170,14 @@ export function WhyM31A() {
                   </p>
 
                   {/* Concrete Contrast Card */}
-                  <div className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] mb-6 space-y-2 text-xs font-mono">
-                    <div className="flex items-start gap-2.5 text-[#EF4444]">
-                      <span className="font-bold select-none">✕</span>
-                      <span>{p.contrastChat}</span>
+                  <div className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] mb-6 space-y-2.5 text-xs font-mono shadow-inner">
+                    <div className="flex items-start gap-2.5 text-[#FF6961]">
+                      <span className="font-bold select-none text-sm leading-none mt-0.5">✕</span>
+                      <span className="leading-relaxed">{p.contrastChat}</span>
                     </div>
                     <div className="flex items-start gap-2.5 text-[#3ECF8E]">
-                      <span className="font-bold select-none">✓</span>
-                      <span>{p.contrastM31A}</span>
+                      <span className="font-bold select-none text-sm leading-none mt-0.5">✓</span>
+                      <span className="leading-relaxed font-semibold">{p.contrastM31A}</span>
                     </div>
                   </div>
 
@@ -167,8 +185,8 @@ export function WhyM31A() {
                   <ul className="space-y-2.5">
                     {p.evidence.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs text-[#9E9EA8]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F] mt-1.5 shrink-0" />
-                        <span>{item}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F] mt-1.5 shrink-0 shadow-[0_0_6px_rgba(232,82,63,0.6)]" />
+                        <span className="leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -179,7 +197,7 @@ export function WhyM31A() {
                   <span className="text-[#65656E]">Subsystem Specification</span>
                   <Link
                     href="/security"
-                    className="inline-flex items-center gap-1 text-[#E8523F] hover:underline group-hover:translate-x-1 transition-transform"
+                    className="inline-flex items-center gap-1.5 text-[#E8523F] hover:underline group-hover:translate-x-1 transition-transform font-semibold"
                   >
                     <span>Read Architectural Spec</span>
                     <ArrowRight className="w-3.5 h-3.5" />

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Container } from '@/components/site/section';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
-import { Terminal, Copy, Check, Download, ExternalLink, ShieldCheck, ArrowRight, GitBranch } from 'lucide-react';
+import { Terminal, Copy, Check, Download, ExternalLink, ShieldCheck, ArrowRight, GitBranch, Cpu, Lock } from 'lucide-react';
 import Link from 'next/link';
 
 export function InstallationSection() {
@@ -27,13 +27,20 @@ export function InstallationSection() {
   };
 
   return (
-    <section id="install" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C]">
-      <Container>
+    <section id="install" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C] relative overflow-hidden">
+      {/* ── Ambient Radial Lighting ── */}
+      <div 
+        className="pointer-events-none absolute top-1/3 left-1/4 w-[750px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.08)_0%,transparent_70%)] blur-3xl opacity-70"
+        aria-hidden="true" 
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-            DEPLOYMENT &amp; RUNTIME ARTIFACTS
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F]" />
+            <span>DEPLOYMENT &amp; RUNTIME ARTIFACTS</span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
             Install M31A in seconds.
           </h2>
@@ -46,7 +53,7 @@ export function InstallationSection() {
         {/* ── Installer Terminal Block & Platform Qualification ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left: Code Installer Box (7 cols) */}
-          <div className="lg:col-span-7 rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-2xl">
+          <div className="lg:col-span-7 rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-2xl transition-all hover:border-[#E8523F]/30">
             {/* Tab switchers */}
             <div className="flex items-center justify-between border-b border-[#222227] bg-[#141418] px-4 py-2.5">
               <div className="flex items-center gap-1 font-mono text-xs">
@@ -84,17 +91,17 @@ export function InstallationSection() {
 
               <button
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono text-[#9E9EA8] hover:text-[#F4F4F6] bg-[#18181D] border border-[#27272E] transition-colors"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs font-mono text-[#9E9EA8] hover:text-[#F4F4F6] bg-[#18181D] border border-[#27272E] hover:border-[#383842] transition-colors"
                 title="Copy install command"
               >
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-[#3ECF8E]" />
-                    <span className="text-[#3ECF8E]">Copied</span>
+                    <span className="text-[#3ECF8E] font-medium">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
+                    <Copy className="w-3.5 h-3.5 text-[#9E9EA8]" />
                     <span>Copy</span>
                   </>
                 )}
@@ -119,7 +126,7 @@ export function InstallationSection() {
           </div>
 
           {/* Right: Platform Support Qualification Card (5 cols) */}
-          <div className="lg:col-span-5 rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 shadow-xl">
+          <div className="lg:col-span-5 rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 shadow-2xl transition-all hover:border-[#E8523F]/30">
             <div className="flex items-center justify-between border-b border-[#222227] pb-4 mb-4">
               <span className="text-xs font-mono uppercase tracking-wider text-[#E8523F] font-semibold">
                 PLATFORM QUALIFICATION MATRIX
@@ -133,7 +140,7 @@ export function InstallationSection() {
               {PLATFORMS_MATRIX.slice(0, 3).map((p) => (
                 <div
                   key={p.targetTriple}
-                  className="p-3 rounded-xl border border-[#222227] bg-[#0A0A0C] flex items-center justify-between gap-3 text-xs"
+                  className="p-3.5 rounded-xl border border-[#222227] bg-[#0A0A0C] flex items-center justify-between gap-3 text-xs"
                 >
                   <div>
                     <span className="font-medium text-[#F4F4F6] block">
@@ -163,7 +170,7 @@ export function InstallationSection() {
             <div className="mt-6 pt-6 border-t border-[#222227] space-y-2.5">
               <Link
                 href="/download"
-                className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg bg-[#E8523F] hover:bg-[#D4432F] text-white text-xs sm:text-sm font-semibold transition-all shadow-md"
+                className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg bg-gradient-to-r from-[#E8523F] to-[#F04D3E] hover:from-[#F04D3E] hover:to-[#E8523F] text-white text-xs sm:text-sm font-semibold transition-all shadow-[0_0_20px_rgba(232,82,63,0.3)] hover:shadow-[0_0_30px_rgba(232,82,63,0.5)]"
               >
                 <Download className="w-4 h-4" />
                 <span>View All Platform Releases</span>

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ARCHITECTURE_LAYERS, ArchitectureLayerInfo } from '@/lib/m31a/product';
 import { Container } from '@/components/site/section';
-import { ArrowRight, ChevronRight, ExternalLink, ShieldAlert, Layers, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ChevronRight, ExternalLink, ShieldAlert, Layers, CheckCircle2, Cpu, Lock, Workflow } from 'lucide-react';
 import Link from 'next/link';
 
 export function ArchitectureDeepDive() {
@@ -14,8 +14,8 @@ export function ArchitectureDeepDive() {
 
   // Helper for trust boundary
   const getLayerClassification = (layer: string) => {
-    if (layer === 'L3') return { label: 'UNTRUSTED MODEL', color: 'text-[#EF4444] bg-[#EF4444]/10 border-[#EF4444]/25' };
-    if (layer === 'L1') return { label: 'TRUST BOUNDARY', color: 'text-[#E8523F] bg-[#E8523F]/15 border-[#E8523F]/30 font-bold' };
+    if (layer === 'L3') return { label: 'UNTRUSTED MODEL', color: 'text-[#FF453A] bg-[#FF453A]/10 border-[#FF453A]/25' };
+    if (layer === 'L1') return { label: 'TRUST BOUNDARY', color: 'text-[#E8523F] bg-[#E8523F]/15 border-[#E8523F]/35 font-bold shadow-[0_0_10px_rgba(232,82,63,0.15)]' };
     if (layer === 'L0') return { label: 'KERNEL ROOT', color: 'text-[#9E9EA8] bg-[#18181D] border-[#27272E]' };
     if (layer === 'L2') return { label: 'SANDBOX BOUNDARY', color: 'text-[#EAB308] bg-[#EAB308]/10 border-[#EAB308]/25' };
     if (layer === 'L7') return { label: 'EVIDENCE VERIFIER', color: 'text-[#3ECF8E] bg-[#3ECF8E]/10 border-[#3ECF8E]/25' };
@@ -50,14 +50,21 @@ export function ArchitectureDeepDive() {
   };
 
   return (
-    <section id="architecture" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E]">
-      <Container>
+    <section id="architecture" className="py-24 sm:py-32 border-b border-[#222227] bg-[#0C0C0E] relative overflow-hidden">
+      {/* ── Ambient Radial Lighting ── */}
+      <div 
+        className="pointer-events-none absolute top-10 left-1/3 w-[800px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.1)_0%,transparent_70%)] blur-3xl opacity-70"
+        aria-hidden="true" 
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-              SYSTEMS ARCHITECTURE // L0 TO L9
-            </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F]" />
+              <span>SYSTEMS ARCHITECTURE // L0 TO L9</span>
+            </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
               Under the interface is a runtime built for control.
             </h2>
@@ -69,10 +76,10 @@ export function ArchitectureDeepDive() {
 
           <Link
             href="/architecture"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#27272E] bg-[#141418] hover:bg-[#1A1A20] hover:border-[#E8523F]/50 text-xs sm:text-sm font-mono text-[#F4F4F6] transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#27272E] bg-[#141418] hover:bg-[#1A1A20] hover:border-[#E8523F]/50 text-xs sm:text-sm font-mono text-[#F4F4F6] transition-all shrink-0 shadow-sm group"
           >
             <span>Full Architecture Map</span>
-            <ArrowRight className="w-4 h-4 text-[#E8523F]" />
+            <ArrowRight className="w-4 h-4 text-[#E8523F] group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
@@ -81,7 +88,10 @@ export function ArchitectureDeepDive() {
           {/* Left: Layer Stack (L9 down to L0) (7 cols) */}
           <div className="lg:col-span-7 rounded-2xl border border-[#27272E] bg-[#111114] overflow-hidden divide-y divide-[#222227] shadow-xl">
             <div className="bg-[#141418] px-4 py-2.5 flex items-center justify-between text-xs font-mono text-[#65656E]">
-              <span>LAYER HIERARCHY (STRICT DOWNWARD FLOW)</span>
+              <span className="flex items-center gap-2">
+                <Layers className="w-3.5 h-3.5 text-[#E8523F]" />
+                <span>LAYER HIERARCHY (STRICT DOWNWARD FLOW)</span>
+              </span>
               <span>10 CONCURRENT TIERS</span>
             </div>
 
@@ -95,7 +105,7 @@ export function ArchitectureDeepDive() {
                   onClick={() => setSelectedLayerId(layer.layer)}
                   className={`w-full flex items-center justify-between py-3.5 px-4 text-left transition-all ${
                     isSelected
-                      ? 'bg-[#18181D] text-[#F4F4F6] border-l-4 border-l-[#E8523F]'
+                      ? 'bg-[#18181D] text-[#F4F4F6] border-l-4 border-l-[#E8523F] shadow-sm'
                       : 'hover:bg-[#141417] text-[#9E9EA8]'
                   }`}
                 >
@@ -140,17 +150,17 @@ export function ArchitectureDeepDive() {
           </div>
 
           {/* Right: Layer Inspector (5 cols) */}
-          <div className="lg:col-span-5 sticky top-24 rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 shadow-2xl">
+          <div className="lg:col-span-5 sticky top-24 rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 shadow-2xl transition-all hover:border-[#E8523F]/30">
             <div className="flex items-center justify-between border-b border-[#222227] pb-4 mb-6">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs font-bold text-[#E8523F] bg-[#E8523F]/10 border border-[#E8523F]/25 px-2.5 py-1 rounded">
+                <span className="font-mono text-xs font-bold text-[#E8523F] bg-[#E8523F]/10 border border-[#E8523F]/25 px-2.5 py-1 rounded shadow-sm">
                   {current.layer}
                 </span>
                 <span className="text-xs font-mono uppercase tracking-wider text-[#9E9EA8] font-semibold">
                   Layer Specification
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-[#65656E]">
+              <span className="text-[11px] font-mono text-[#3ECF8E] bg-[#3ECF8E]/10 px-2 py-0.5 rounded border border-[#3ECF8E]/20">
                 Downward Only
               </span>
             </div>
@@ -158,7 +168,7 @@ export function ArchitectureDeepDive() {
             <h3 className="text-2xl font-bold tracking-tight text-[#F4F4F6] mb-1">
               {current.name}
             </h3>
-            <p className="text-xs font-mono text-[#E8523F] mb-4">
+            <p className="text-xs font-mono text-[#E8523F] mb-4 font-semibold">
               {current.subsystem}
             </p>
 
@@ -173,7 +183,7 @@ export function ArchitectureDeepDive() {
             </div>
 
             {/* Why it exists */}
-            <div className="mb-6 p-4 rounded-xl border border-[#222227] bg-[#0A0A0C]">
+            <div className="mb-6 p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] shadow-inner">
               <span className="text-xs font-mono uppercase text-[#E8523F] block mb-1 font-semibold">
                 Why this layer exists
               </span>

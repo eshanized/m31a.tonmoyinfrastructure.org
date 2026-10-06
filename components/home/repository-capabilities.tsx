@@ -11,7 +11,12 @@ import {
   Cpu, 
   RefreshCw,
   FolderGit2,
-  Workflow
+  Workflow,
+  Copy,
+  Check,
+  Code2,
+  Bug,
+  ShieldCheck
 } from 'lucide-react';
 
 interface CapabilityWorkflow {
@@ -19,6 +24,7 @@ interface CapabilityWorkflow {
   name: string;
   tagline: string;
   description: string;
+  icon: React.ComponentType<{ className?: string }>;
   terminalHeader: string;
   codeSnippet: {
     command: string;
@@ -34,6 +40,7 @@ const WORKFLOWS: CapabilityWorkflow[] = [
     tagline: 'Atomic diffs across dependency boundaries',
     description:
       'M31A does not paste code snippets into a chat window. It clones your repository into an isolated Git worktree, inspects callers with repo_symbols, and applies coordinated atomic edits across traits, handlers, and configuration files.',
+    icon: Code2,
     terminalHeader: 'src/auth/mod.rs, src/handlers/login.rs, Cargo.toml [Worktree Isolated]',
     codeSnippet: {
       command: 'm31a execute batch-edit --worktree 019234b0',
@@ -59,6 +66,7 @@ const WORKFLOWS: CapabilityWorkflow[] = [
     tagline: 'Self-correcting type checking & diagnostics',
     description:
       'When rustc or cargo check emits compiler errors, M31A does not give up or ask the developer for help. It parses machine-readable JSON compiler diagnostics, extracts the exact spans and suggestions, corrects the implementation, and re-verifies.',
+    icon: Bug,
     terminalHeader: 'cargo check --message-format=json [Subprocess]',
     codeSnippet: {
       command: 'cargo check --all-targets',
@@ -84,6 +92,7 @@ const WORKFLOWS: CapabilityWorkflow[] = [
     tagline: 'Bounded CPU, memory, and clean environment',
     description:
       'All automated test suites execute inside bounded Linux cgroups v2 boundaries. Host secrets and private tokens are stripped from the environment via cmd.env_clear() before any test runner spawns.',
+    icon: ShieldCheck,
     terminalHeader: 'cargo test --workspace [cgroups v2 + rlimits]',
     codeSnippet: {
       command: 'cargo test --workspace -- --nocapture',
@@ -109,6 +118,7 @@ const WORKFLOWS: CapabilityWorkflow[] = [
     tagline: 'Two-phase atomic SQLite WAL checkpoints',
     description:
       'Power outages, broken networks, and host restarts do not destroy M31A missions. Every verified task node stages artifacts and commits atomic transactions to local SQLite WAL storage. Resume with a single CLI command.',
+    icon: RefreshCw,
     terminalHeader: 'm31a mission resume [SQLite WAL Store]',
     codeSnippet: {
       command: 'm31a mission resume 019234b0-a5ef-7b23',
@@ -131,16 +141,34 @@ const WORKFLOWS: CapabilityWorkflow[] = [
 
 export function RepositoryCapabilities() {
   const [activeWorkflowId, setActiveWorkflowId] = useState<string>('multi-file');
+  const [copied, setCopied] = useState(false);
   const active = WORKFLOWS.find((w) => w.id === activeWorkflowId) ?? WORKFLOWS[0];
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(active.codeSnippet.command);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* ignore */
+    }
+  };
+
   return (
-    <section className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C]">
-      <Container>
+    <section className="py-24 sm:py-32 border-b border-[#222227] bg-[#0A0A0C] relative overflow-hidden">
+      {/* ── Ambient Radial Lighting ── */}
+      <div 
+        className="pointer-events-none absolute top-1/3 right-10 w-[700px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.09)_0%,transparent_70%)] blur-3xl opacity-70"
+        aria-hidden="true" 
+      />
+
+      <Container className="relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-3">
-            SERIOUS ENGINEERING WORKFLOWS
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E8523F]/30 bg-[#161214] text-xs font-mono text-[#E8523F] mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8523F]" />
+            <span>SERIOUS ENGINEERING WORKFLOWS</span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F4F4F6] leading-tight">
             Built for repositories, not conversations.
           </h2>
@@ -155,6 +183,7 @@ export function RepositoryCapabilities() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {WORKFLOWS.map((wf) => {
             const isSelected = wf.id === activeWorkflowId;
+            const Icon = wf.icon;
 
             return (
               <button
@@ -162,23 +191,29 @@ export function RepositoryCapabilities() {
                 onClick={() => setActiveWorkflowId(wf.id)}
                 className={`p-4 rounded-xl border text-left transition-all ${
                   isSelected
-                    ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/30 shadow-md'
+                    ? 'border-[#E8523F] bg-[#161214] ring-1 ring-[#E8523F]/40 shadow-[0_0_20px_rgba(232,82,63,0.15)]'
                     : 'border-[#27272E] bg-[#101013] hover:border-[#383842] hover:bg-[#141418]'
                 }`}
               >
+                <div className="flex items-center justify-between mb-2">
+                  <Icon className={`w-4 h-4 ${isSelected ? 'text-[#E8523F]' : 'text-[#65656E]'}`} />
+                  <span
+                    className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isSelected ? 'text-[#E8523F]' : 'text-[#65656E]'
+                    }`}
+                  >
+                    Workflow
+                  </span>
+                </div>
                 <span
-                  className={`block text-xs font-mono font-bold mb-1 ${
-                    isSelected ? 'text-[#E8523F]' : 'text-[#65656E]'
-                  }`}
-                >
-                  {wf.tagline}
-                </span>
-                <span
-                  className={`block text-sm sm:text-base font-bold tracking-tight ${
+                  className={`block text-sm sm:text-base font-bold tracking-tight mb-1 ${
                     isSelected ? 'text-[#F4F4F6]' : 'text-[#9E9EA8]'
                   }`}
                 >
                   {wf.name}
+                </span>
+                <span className="block text-xs font-mono text-[#65656E] truncate">
+                  {wf.tagline}
                 </span>
               </button>
             );
@@ -186,12 +221,12 @@ export function RepositoryCapabilities() {
         </div>
 
         {/* ── Active Workflow Terminal & Description View ── */}
-        <div className="rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-2xl">
+        <div className="rounded-2xl border border-[#27272E] bg-[#111115] overflow-hidden shadow-2xl transition-all hover:border-[#E8523F]/30">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             {/* Left: Workflow Explanation (5 cols) */}
-            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222227]">
+            <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222227] bg-[#0E0E12]">
               <div>
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#E8523F]/10 border border-[#E8523F]/25 text-[#E8523F] font-mono text-xs font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#E8523F]/10 border border-[#E8523F]/25 text-[#E8523F] font-mono text-xs font-semibold mb-4 shadow-sm">
                   <Workflow className="w-3.5 h-3.5" />
                   <span>{active.name}</span>
                 </div>
@@ -225,19 +260,35 @@ export function RepositoryCapabilities() {
               <div>
                 {/* Terminal header */}
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#222227] text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E8523F]" />
-                    <span className="text-[#9E9EA8] truncate max-w-[280px]">
+                  <div className="flex items-center gap-2 overflow-hidden truncate">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E8523F] shrink-0" />
+                    <span className="text-[#9E9EA8] truncate max-w-[320px]">
                       {active.terminalHeader}
                     </span>
                   </div>
-                  <span className="text-[#3ECF8E] text-[11px]">CONFINED</span>
+                  <span className="text-[#3ECF8E] text-[11px] bg-[#3ECF8E]/10 px-2 py-0.5 rounded border border-[#3ECF8E]/20 shrink-0">
+                    CONFINED
+                  </span>
                 </div>
 
-                {/* Command prompt */}
-                <div className="flex items-center gap-2 text-[#F4F4F6] pb-3 mb-4 border-b border-[#222227]/60">
-                  <span className="text-[#E8523F] font-bold select-none">$</span>
-                  <span className="font-semibold text-xs sm:text-sm">{active.codeSnippet.command}</span>
+                {/* Command prompt with Copy Button */}
+                <div className="flex items-center justify-between gap-3 text-[#F4F4F6] pb-3 mb-4 border-b border-[#222227]/60">
+                  <div className="flex items-center gap-2 overflow-hidden truncate">
+                    <span className="text-[#E8523F] font-bold select-none text-sm">$</span>
+                    <span className="font-semibold text-xs sm:text-sm truncate select-all">{active.codeSnippet.command}</span>
+                  </div>
+
+                  <button
+                    onClick={handleCopy}
+                    className="p-1.5 rounded-md hover:bg-[#18181D] hover:text-[#F4F4F6] text-[#9E9EA8] transition-colors shrink-0"
+                    title="Copy command"
+                  >
+                    {copied ? (
+                      <Check className="w-3.5 h-3.5 text-[#3ECF8E]" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                  </button>
                 </div>
 
                 {/* Log lines */}
@@ -249,15 +300,15 @@ export function RepositoryCapabilities() {
                         log.type === 'success'
                           ? 'text-[#3ECF8E] font-medium'
                           : log.type === 'error'
-                          ? 'text-[#EF4444]'
+                          ? 'text-[#FF453A]'
                           : log.type === 'warning'
                           ? 'text-[#EAB308]'
                           : log.type === 'coral'
                           ? 'text-[#E8523F] font-semibold'
                           : log.type === 'diff-add'
-                          ? 'text-[#3ECF8E] bg-[#3ECF8E]/5 px-1 py-0.5 rounded'
+                          ? 'text-[#3ECF8E] bg-[#3ECF8E]/10 px-2 py-0.5 rounded'
                           : log.type === 'diff-del'
-                          ? 'text-[#EF4444] bg-[#EF4444]/5 px-1 py-0.5 rounded'
+                          ? 'text-[#FF453A] bg-[#FF453A]/10 px-2 py-0.5 rounded'
                           : 'text-[#9E9EA8]'
                       }
                     >
@@ -270,7 +321,7 @@ export function RepositoryCapabilities() {
               {/* Terminal Footer */}
               <div className="mt-8 pt-4 border-t border-[#222227] flex items-center justify-between text-[11px] text-[#65656E]">
                 <span>State persisted in SQLite WAL</span>
-                <span className="text-[#3ECF8E]">Verification Invariant: ENFORCED</span>
+                <span className="text-[#3ECF8E] font-medium">Verification Invariant: ENFORCED</span>
               </div>
             </div>
           </div>
