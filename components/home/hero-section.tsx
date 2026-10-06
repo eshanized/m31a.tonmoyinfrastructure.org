@@ -7,8 +7,10 @@ import { Container } from '@/components/site/section';
 import { HeroTerminal } from '@/components/home/hero-terminal';
 import { PRODUCT } from '@/lib/m31a/product';
 import { GithubMark } from '@/components/site/logo';
+import { useLatestVersion } from '@/hooks/use-latest-version';
 
 export function HeroSection() {
+  const { displayVersion } = useLatestVersion();
   const [copied, setCopied] = useState(false);
 
   const handleCopyInstall = async () => {
@@ -33,7 +35,7 @@ export function HeroSection() {
             <span className="text-[#65656E]">/</span>
             <span>M31 AUTONOMOUS</span>
             <span className="text-[#65656E]">/</span>
-            <span className="text-[#E8523F] font-semibold">v{PRODUCT.version}</span>
+            <span className="text-[#E8523F] font-semibold">{displayVersion}</span>
           </div>
 
           {/* Large Headline */}

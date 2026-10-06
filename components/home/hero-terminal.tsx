@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, Check, Play, Pause, RotateCcw, Copy, ExternalLink, ShieldAlert, Cpu, GitBranch, ArrowRight, Layers, FileCode, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { useLatestVersion } from '@/hooks/use-latest-version';
 
 interface MissionStep {
   id: string;
@@ -75,6 +76,7 @@ const MISSION_STEPS: MissionStep[] = [
 type ActiveTab = 'stream' | 'dag' | 'policy' | 'evidence';
 
 export function HeroTerminal() {
+  const { displayVersion } = useLatestVersion();
   const [activeTab, setActiveTab] = useState<ActiveTab>('stream');
   const [currentStepIndex, setCurrentStepIndex] = useState(3);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -112,7 +114,7 @@ export function HeroTerminal() {
           </div>
 
           <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-[#27272E] text-xs font-mono text-[#9E9EA8]">
-            <span className="text-[#F4F4F6] font-semibold">m31a v0.1.1</span>
+            <span className="text-[#F4F4F6] font-semibold">m31a {displayVersion}</span>
             <span className="text-[#65656E]">/</span>
             <span className="truncate max-w-[220px]">~/dev/auth-engine</span>
             <span className="inline-flex items-center gap-1 text-[#E8523F] bg-[#E8523F]/10 px-1.5 py-0.5 rounded text-[11px]">

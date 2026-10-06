@@ -6,6 +6,7 @@ import { PRODUCT } from '@/lib/m31a/product';
 import { GithubMark } from '@/components/site/logo';
 import { ArrowUpRight, ArrowRight, ShieldCheck, CheckCircle2, GitBranch, Terminal, Cpu, Database, Award } from 'lucide-react';
 import Link from 'next/link';
+import { useLatestVersion } from '@/hooks/use-latest-version';
 
 type GitHubStats = {
   stars?: number;
@@ -14,6 +15,7 @@ type GitHubStats = {
 };
 
 export function OpenSourceSection() {
+  const { displayVersion } = useLatestVersion();
   const [stats, setStats] = useState<GitHubStats | null>(null);
 
   useEffect(() => {
@@ -84,7 +86,7 @@ export function OpenSourceSection() {
                     eshanized / M31A
                   </h3>
                   <span className="text-xs font-mono text-[#E8523F]">
-                    Production Release v{PRODUCT.version}
+                    Production Release {displayVersion}
                   </span>
                 </div>
               </div>

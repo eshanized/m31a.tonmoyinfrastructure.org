@@ -1,9 +1,13 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { LogoMark } from './logo';
 import { FOOTER_LINKS } from '@/lib/m31a/nav';
+import { useLatestVersion } from '@/hooks/use-latest-version';
 
 export function SiteFooter() {
+  const { displayVersion } = useLatestVersion();
   return (
     <footer className="border-t border-[#222226] bg-[#0A0A0B] pt-16 pb-8">
       <div className="container mx-auto px-6">
@@ -95,7 +99,7 @@ export function SiteFooter() {
           <div className="flex items-center gap-4">
             <span>Dual License: MIT / Apache-2.0</span>
             <span>·</span>
-            <span className="text-[#E8523F]">v0.1.1</span>
+            <span className="text-[#E8523F]">{displayVersion}</span>
           </div>
         </div>
       </div>
