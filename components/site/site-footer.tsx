@@ -21,11 +21,11 @@ export function SiteFooter() {
           {/* Links Columns */}
           <div className="col-span-1 md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8">
             <div className="flex flex-col gap-4">
-              <h3 className="font-semibold text-[#F0EDE8] text-sm tracking-wider uppercase">Product</h3>
-              <ul className="flex flex-col gap-3">
+              <h3 className="font-semibold text-[#F4F4F6] text-xs font-mono tracking-wider uppercase">Product</h3>
+              <ul className="flex flex-col gap-2.5">
                 {FOOTER_LINKS.product.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-[#A3A09B] hover:text-[#E8523F] text-sm transition-colors">
+                    <Link href={link.href} className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -33,40 +33,69 @@ export function SiteFooter() {
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="font-semibold text-[#F0EDE8] text-sm tracking-wider uppercase">Resources</h3>
-              <ul className="flex flex-col gap-3">
-                {FOOTER_LINKS.resources.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-[#A3A09B] hover:text-[#E8523F] text-sm transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+              <h3 className="font-semibold text-[#F4F4F6] text-xs font-mono tracking-wider uppercase">Resources</h3>
+              <ul className="flex flex-col gap-2.5">
+                {FOOTER_LINKS.resources.map((link) => {
+                  const isExt = link.href.startsWith('http');
+                  return (
+                    <li key={link.href}>
+                      {isExt ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors"
+                        >
+                          {link.label} ↗
+                        </a>
+                      ) : (
+                        <Link href={link.href} className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors">
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="flex flex-col gap-4">
-              <h3 className="font-semibold text-[#F0EDE8] text-sm tracking-wider uppercase">Connect</h3>
-              <ul className="flex flex-col gap-3">
-                {FOOTER_LINKS.connect.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-[#A3A09B] hover:text-[#E8523F] text-sm transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+              <h3 className="font-semibold text-[#F4F4F6] text-xs font-mono tracking-wider uppercase">Connect</h3>
+              <ul className="flex flex-col gap-2.5">
+                {FOOTER_LINKS.connect.map((link) => {
+                  const isExt = link.href.startsWith('http');
+                  return (
+                    <li key={link.href}>
+                      {isExt ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors"
+                        >
+                          {link.label} ↗
+                        </a>
+                      ) : (
+                        <Link href={link.href} className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors">
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-[#1E1E22] flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#6B6965]">
+        <div className="pt-8 border-t border-[#1E1E22] flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-[#65656E]">
           <div>
-            &copy; {new Date().getFullYear()} M31A Contributors. All rights reserved.
+            &copy; {new Date().getFullYear()} M31A Contributors. Maintained by Tonmoy Infrastructure &amp; Vision.
           </div>
-          <div className="flex gap-4">
-            <span>License: MIT</span>
-            <span>v0.1.1</span>
+          <div className="flex items-center gap-4">
+            <span>Dual License: MIT / Apache-2.0</span>
+            <span>·</span>
+            <span className="text-[#E8523F]">v0.1.1</span>
           </div>
         </div>
       </div>

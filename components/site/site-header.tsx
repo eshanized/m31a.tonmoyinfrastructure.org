@@ -88,40 +88,58 @@ export function SiteHeader() {
 
         {/* Center: Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-[#A3A09B] hover:text-[#E8523F] transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isExternal = item.href.startsWith('http');
+            if (isExternal) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm font-medium text-[#A3A09B] hover:text-[#E8523F] transition-colors"
+                >
+                  {item.label}
+                </a>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-[#A3A09B] hover:text-[#E8523F] transition-colors"
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right: Actions */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link
+        <div className="hidden md:flex items-center gap-5">
+          <a
             href="https://github.com/eshanized/M31A"
             target="_blank"
             rel="noreferrer"
-            className="text-[#A3A09B] hover:text-[#F0EDE8] transition-colors"
+            className="text-[#A3A09B] hover:text-[#F0EDE8] transition-colors p-1.5"
+            aria-label="GitHub Repository"
           >
             <GithubMark className="w-5 h-5" />
-            <span className="sr-only">GitHub</span>
-          </Link>
+          </a>
           <Link
             href="/download"
-            className="px-4 py-2 bg-[#E8523F] hover:bg-[#D4432F] text-white text-sm font-medium rounded-md transition-colors"
+            className="px-4 py-2 bg-[#E8523F] hover:bg-[#D4432F] text-white text-xs sm:text-sm font-semibold rounded-md transition-all shadow-sm"
           >
-            Download
+            Install M31A
           </Link>
         </div>
 
         {/* Mobile menu toggle */}
         <button
-          className="md:hidden text-[#F0EDE8] p-2"
+          className="md:hidden text-[#F0EDE8] p-2 rounded-md hover:bg-[#18181D] transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -129,32 +147,52 @@ export function SiteHeader() {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-[#0A0A0B] border-b border-[#222226] shadow-xl p-6 flex flex-col gap-6 slide-up">
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#0C0C0E] border-b border-[#222226] shadow-2xl p-6 flex flex-col gap-6 animate-slide-up">
           <nav className="flex flex-col gap-4">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-lg font-medium text-[#F0EDE8] hover:text-[#E8523F]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isExternal = item.href.startsWith('http');
+              if (isExternal) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-base font-medium text-[#F0EDE8] hover:text-[#E8523F] transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-base font-medium text-[#F0EDE8] hover:text-[#E8523F] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
-          <div className="flex flex-col gap-4 pt-4 border-t border-[#222226]">
-            <Link
+          <div className="flex flex-col gap-3 pt-4 border-t border-[#222226]">
+            <a
               href="https://github.com/eshanized/M31A"
-              className="flex items-center gap-3 text-lg font-medium text-[#F0EDE8]"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 text-sm font-medium text-[#A3A09B] hover:text-[#F0EDE8] transition-colors"
             >
-              <GithubMark className="w-6 h-6" />
-              GitHub
-            </Link>
+              <GithubMark className="w-5 h-5" />
+              <span>View GitHub Repository</span>
+            </a>
             <Link
               href="/download"
-              className="px-6 py-3 bg-[#E8523F] text-white text-center text-lg font-medium rounded-md"
+              className="px-5 py-3 bg-[#E8523F] text-white text-center text-sm font-semibold rounded-md transition-colors shadow-md mt-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              Download
+              Install M31A
             </Link>
           </div>
         </div>

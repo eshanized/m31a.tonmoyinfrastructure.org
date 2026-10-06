@@ -4,11 +4,11 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
+  { label: 'Product', href: '/#product-demo' },
   { label: 'Architecture', href: '/architecture' },
   { label: 'Security', href: '/security' },
-  { label: 'CLI', href: '/cli' },
   { label: 'Docs', href: '/docs' },
-  { label: 'Changelog', href: '/changelog' },
+  { label: 'GitHub', href: 'https://github.com/eshanized/M31A' },
 ];
 
 export const FOOTER_LINKS = {
