@@ -1,7 +1,15 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "About the M31A Project",
+  description: "Learn about M31A (M31 Autonomous), an open-source Rust-native autonomous coding runtime developed by Tonmoy Infrastructure & Vision for controlled software-engineering workflows.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
