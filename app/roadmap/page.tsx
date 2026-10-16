@@ -1,9 +1,18 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container, StatusBadge } from '@/components/site/section';
 import { ROADMAP_ITEMS } from '@/lib/m31a/product';
 
 const STATUS_GROUPS = ['Completed', 'In Progress', 'Planned', 'Future'] as const;
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Roadmap and Development Status",
+  description: "Review the M31A engineering roadmap, completed milestones, active work, and planned capabilities, with implementation status distinguished from future goals.",
+  path: "/roadmap",
+  absoluteTitle: false,
+});
 
 export default function RoadmapPage() {
   return (
