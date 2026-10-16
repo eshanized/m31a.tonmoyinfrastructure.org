@@ -66,21 +66,40 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'M31A',
-  alternateName: 'M31 Autonomous',
-  operatingSystem: 'Linux',
-  applicationCategory: 'DeveloperApplication',
-  description:
-    'An autonomous software-engineering runtime that plans, executes, verifies, and recovers directly from the developer terminal.',
-  softwareVersion: PRODUCT.version,
-  url: PRODUCT.canonicalUrl,
-  license: PRODUCT.licenseUrl,
-  author: {
-    '@type': 'Organization',
-    name: PRODUCT.orgName,
-    url: 'https://tonmoyinfrastructure.org/',
-  },
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://tonmoyinfrastructure.org/#organization',
+      name: PRODUCT.orgName,
+      url: 'https://tonmoyinfrastructure.org/',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${PRODUCT.canonicalUrl}#website`,
+      url: PRODUCT.canonicalUrl,
+      name: PRODUCT.name,
+      description: PRODUCT.description,
+      inLanguage: 'en',
+      publisher: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${PRODUCT.canonicalUrl}#software`,
+      name: PRODUCT.name,
+      alternateName: PRODUCT.fullName,
+      operatingSystem: 'Linux',
+      applicationCategory: 'DeveloperApplication',
+      description: PRODUCT.longDescription,
+      softwareVersion: PRODUCT.version,
+      url: PRODUCT.canonicalUrl,
+      license: PRODUCT.licenseUrl,
+      sameAs: PRODUCT.repositoryUrl,
+      downloadUrl: PRODUCT.releasesUrl,
+      image: `${PRODUCT.canonicalUrl}og-image.svg`,
+      author: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+      publisher: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+    },
+  ],
 };
 
 export default function RootLayout({
