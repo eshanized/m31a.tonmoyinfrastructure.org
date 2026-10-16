@@ -9,8 +9,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/cli', '/download', '/changelog', '/roadmap', '/community', '/about',
   ];
 
-  const toCanonicalUrl = (path: string) =>
-    new URL(path.replace(/^\\/+/, ''), PRODUCT.canonicalUrl).toString();
+  const toCanonicalUrl = (path: string) => {
+    const relativePath = path.startsWith('/') ? path.slice(1) : path;
+    return new URL(relativePath, PRODUCT.canonicalUrl).toString();
+  };
 
   return [
     ...staticRoutes.map((path) => ({
