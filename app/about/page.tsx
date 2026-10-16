@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container } from '@/components/site/section';
@@ -86,7 +85,7 @@ export default function AboutPage() {
                 <span className="text-[#F0EDE8]">{PRODUCT.orgName}</span>
               </div>
               <div className="flex justify-between py-2">
-                <span className="text-[#6B6965]">Dual License</span>
+                <span className="text-[#6B6965]">License</span>
                 <span className="text-[#F0EDE8]">{PRODUCT.licenses.join(' / ')}</span>
               </div>
             </div>

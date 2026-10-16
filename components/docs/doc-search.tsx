@@ -37,8 +37,12 @@ export function DocSearch() {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setIsOpen((prev) => !prev);
+        setQuery('');
+        setSelectedIndex(0);
       } else if (e.key === 'Escape' && isOpen) {
         setIsOpen(false);
+        setQuery('');
+        setSelectedIndex(0);
       }
     };
 
@@ -47,18 +51,15 @@ export function DocSearch() {
   }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 50);
-    } else {
-      setQuery('');
-      setSelectedIndex(0);
-    }
+    if (!isOpen) return;
+    const focusTimer = window.setTimeout(() => inputRef.current?.focus(), 50);
+    return () => window.clearTimeout(focusTimer);
   }, [isOpen]);
 
   const handleSelect = (slug: string) => {
     setIsOpen(false);
+    setQuery('');
+    setSelectedIndex(0);
     router.push(`/docs/${slug}`);
   };
 
@@ -81,7 +82,11 @@ export function DocSearch() {
     <>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setQuery('');
+          setSelectedIndex(0);
+          setIsOpen(true);
+        }}
         className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border/80 bg-secondary/40 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/70 transition-colors"
       >
         <div className="flex items-center gap-2">
@@ -97,7 +102,11 @@ export function DocSearch() {
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-background/80 backdrop-blur-sm">
           <div
             className="fixed inset-0 bg-transparent"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsOpen(false);
+              setQuery('');
+              setSelectedIndex(0);
+            }}
             aria-hidden="true"
           />
 

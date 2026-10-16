@@ -1,6 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Layers, ShieldCheck, Database, Terminal, Sparkles } from 'lucide-react';
+import { ArrowRight, Layers, ShieldCheck, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { ArchitectureStack } from '@/components/home/architecture-stack';
 import { PRODUCT } from '@/lib/m31a/product';

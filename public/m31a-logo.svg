@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 64" fill="none">
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="#111114" stroke="#34343A" stroke-width="2"/>
+  <path d="M15 45V18L32 35L49 18V45" stroke="#F07865" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="35" r="4.4" fill="#F07865"/>
+  <text x="80" y="43" fill="#F5F0EB" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="38" font-weight="650" letter-spacing="-1.7">M31A</text>
+</svg>

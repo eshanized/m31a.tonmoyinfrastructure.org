@@ -9,7 +9,7 @@ import { GithubMark } from '@/components/site/logo';
 
 export function FinalCta() {
   return (
-    <section className="py-28 sm:py-36 bg-[#060608] border-b border-[#222227] text-center relative overflow-hidden select-none">
+    <section className="py-28 sm:py-36 bg-[#060608] border-b border-[#222227] text-center relative overflow-hidden">
       {/* ── Ambient Radial Lighting ── */}
       <div 
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.16)_0%,rgba(14,14,18,0.3)_45%,transparent_70%)] blur-3xl opacity-80"
@@ -61,16 +61,14 @@ export function FinalCta() {
             >
               <GithubMark className="w-5 h-5 text-[#9E9EA8] group-hover:text-white transition-colors" />
               <span>View GitHub</span>
-              <span className="ml-1 text-xs font-mono text-[#E8523F] bg-[#E8523F]/10 px-2 py-0.5 rounded border border-[#E8523F]/20">
-                ★ 10
-              </span>
+
             </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-[#65656E] pt-6 border-t border-[#222227]/80 w-full max-w-lg">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#3ECF8E]" />
-              <span>MIT / Apache-2.0</span>
+              <span>MIT</span>
             </span>
             <span>·</span>
             <span className="flex items-center gap-1.5">

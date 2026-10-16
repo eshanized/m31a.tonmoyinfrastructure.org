@@ -1,6 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Download, ExternalLink, ShieldCheck, Terminal, CheckCircle2, Sparkles } from 'lucide-react';
+import { ArrowRight, Terminal } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CodeBlock } from '@/components/site/code-block';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
@@ -123,7 +122,7 @@ export default function DownloadPage() {
                       <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
                         p.classification === 'SUPPORTED'
                           ? 'bg-[#3ECF8E]/10 text-[#3ECF8E] border border-[#3ECF8E]/20'
-                          : p.classification === 'CONDITIONALLY SUPPORTED'
+                          : p.classification === 'INTEGRATED'
                           ? 'bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/20'
                           : 'bg-[#18181D] text-[#9E9EA8] border border-[#27272E]'
                       }`}>

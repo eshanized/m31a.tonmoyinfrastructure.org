@@ -2,11 +2,11 @@
 
 # 🌌 M31A Web Portal & Documentation
 
-**Official web portal, interactive documentation, and qualification showcase for M31 Autonomous.**
+**Official website and technical documentation for M31 Autonomous.**
 
 [![Deploy Site](https://img.shields.io/github/actions/workflow/status/eshanized/m31a.tonmoyinfrastructure.org/deploy.yml?branch=master&label=deploy&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/eshanized/m31a.tonmoyinfrastructure.org/actions/workflows/deploy.yml)
 [![Live Site](https://img.shields.io/badge/Production-m31a.tonmoyinfrastructure.org-3b82f6?style=for-the-badge&logo=googlechrome&logoColor=white)](https://m31a.tonmoyinfrastructure.org/)
-[![Runtime Version](https://img.shields.io/badge/M31A%20Runtime-v0.1.1-f97316?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/eshanized/M31A)
+[![Runtime Version](https://img.shields.io/badge/M31A%20Runtime-v0.1.9-f97316?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/eshanized/M31A/releases/tag/v0.1.9)
 [![Next.js](https://img.shields.io/badge/Next.js-13.5-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![License](https://img.shields.io/badge/License-MIT%20%2F%20Apache--2.0-emerald?style=for-the-badge)](LICENSE)
 
@@ -22,18 +22,18 @@
 
 ## 📌 Overview
 
-This repository hosts the source code for [m31a.tonmoyinfrastructure.org](https://m31a.tonmoyinfrastructure.org/), the official web portal and documentation engine for **M31A (M31 Autonomous)**.
+This repository hosts the source code for [m31a.tonmoyinfrastructure.org](https://m31a.tonmoyinfrastructure.org/), the official website and documentation engine for **M31A (M31 Autonomous)**. The site explains the product and links to its canonical source; it does not simulate M31A execution in the browser.
 
-M31A is a single-crate, high-assurance, Rust-native autonomous software-engineering runtime. This web portal provides developers and contributors with interactive documentation, qualification matrices, terminal cockpit demonstrations, and architecture breakdowns for the autonomous runtime.
+M31A is a single-crate, high-assurance, Rust-native autonomous software-engineering runtime. This website provides developers with source-backed architecture explanations, technical documentation, release links, platform-support details, and implementation references. It does not run or simulate M31A in the browser.
 
 ---
 
 ## ✨ Features
 
-- 🖥️ **Interactive Cockpit Preview** — Experience the Ratatui 0.30 terminal cockpit, live tool call stream, and policy gate verdicts right in the browser.
+- 🧭 **Architecture Explorer** — Explore documented runtime layers, subsystem responsibilities, and source references without pretending to run the agent in a browser.
 - 📖 **19 Comprehensive Documentation Modules** — Exhaustive documentation covering the 12-stage autonomy loop, agent swarms, 40+ tool catalogs, Git worktrees, checkpoints, and TUI architecture.
-- 🛡️ **Interactive Policy Gate Explorer** — Step through the 11-stage non-bypassable policy gates and Layer 0 safety vetoes.
-- 📊 **Platform Qualification Matrix** — Real-time qualification status across Linux x86_64 (`SUPPORTED`), macOS (`CONDITIONALLY SUPPORTED`), and compile-only targets.
+- 🛡️ **Security Model Explorer** — Review documented policy stages, authority boundaries, and safety invariants.
+- 📊 **Platform Support Matrix** — Clearly distinguishes release-qualified Linux x86_64 from integrated and compile-checked platform targets.
 - 🔍 **Instant Documentation Search** — Client-side keyboard-driven search (`Cmd+K` / `Ctrl+K`) for rapid lookup across all articles and commands.
 - ⚡ **Zero-Flicker Static Delivery** — Fully exported static Next.js App Router build deployed globally via GitHub Pages with custom domain support.
 
@@ -43,7 +43,7 @@ M31A is a single-crate, high-assurance, Rust-native autonomous software-engineer
 
 | Route | Description |
 |---|---|
-| [`/`](https://m31a.tonmoyinfrastructure.org/) | Homepage featuring the interactive terminal cockpit, runtime architecture, and feature overview |
+| [`/`](https://m31a.tonmoyinfrastructure.org/) | Homepage featuring an architecture overview, product principles, runtime architecture, and feature overview |
 | [`/features`](https://m31a.tonmoyinfrastructure.org/features) | Detailed breakdown of the runtime engine, policy gates, verification system, and tool catalog |
 | [`/architecture`](https://m31a.tonmoyinfrastructure.org/architecture) | System blueprint, 12-stage deterministic autonomy loop, and SQLite persistence layer |
 | [`/security`](https://m31a.tonmoyinfrastructure.org/security) | Non-bypassable policy gates, 10 authority layers, and cryptographic SHA-256 evidence digests |
@@ -51,7 +51,7 @@ M31A is a single-crate, high-assurance, Rust-native autonomous software-engineer
 | [`/cli`](https://m31a.tonmoyinfrastructure.org/cli) | Reference guide for all 18 CLI subcommands and options |
 | [`/download`](https://m31a.tonmoyinfrastructure.org/download) | Binary releases, install scripts, and verification instructions |
 | [`/roadmap`](https://m31a.tonmoyinfrastructure.org/roadmap) | Release milestones, development status, and upcoming capabilities |
-| [`/changelog`](https://m31a.tonmoyinfrastructure.org/changelog) | Release notes for v0.1.1 and version history |
+| [`/changelog`](https://m31a.tonmoyinfrastructure.org/changelog) | Selected release notes, with the full timeline linked to GitHub Releases |
 | [`/community`](https://m31a.tonmoyinfrastructure.org/community) | Contributing guide, community channels, and open-source governance |
 
 ---
@@ -88,9 +88,7 @@ M31A is a single-crate, high-assurance, Rust-native autonomous software-engineer
 │   ├── robots.ts               # Robots.txt generator
 │   └── sitemap.ts              # Dynamic sitemap with all doc slugs
 ├── components/                 # Reusable UI & layout components
-│   ├── cockpit/                # Interactive cockpit & simulated terminal
 │   ├── docs/                   # Documentation sidebar, TOC, and search
-│   ├── security/               # Policy gate & security visualizations
 │   ├── site/                   # Header, footer, section headers, logo
 │   └── ui/                     # Radix UI primitives (dialog, dropdown, etc.)
 ├── hooks/                      # Custom React hooks (theme, copy-to-clipboard)

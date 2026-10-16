@@ -56,7 +56,7 @@ export default function DocsIndexPage() {
                     >
                       <div>
                         <span className="text-[11px] font-mono text-[#6B6965] uppercase block mb-1">
-                          0{page.order} // {section.id}
+                          0{page.order} {'//'} {section.id}
                         </span>
                         <h3 className="text-base font-bold text-[#F0EDE8] group-hover:text-[#E8523F] transition-colors">
                           {page.title}
