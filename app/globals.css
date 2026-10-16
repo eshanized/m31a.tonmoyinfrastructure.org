@@ -6,6 +6,8 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --font-sans: var(--font-fira-code);
+    --font-mono: var(--font-fira-code);
 
     --bg-primary: #09090b;
     --bg-secondary: #111114;
@@ -72,7 +74,7 @@
     background-color: var(--bg-primary);
     background-image: radial-gradient(ellipse at 50% -24rem, rgba(232, 82, 63, 0.075), transparent 58%);
     color: var(--text-primary);
-    font-family: var(--font-sans), Inter, system-ui, -apple-system, sans-serif;
+    font-family: var(--font-fira-code), monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
