@@ -1,9 +1,17 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ExternalLink, MessageSquare, ShieldAlert, GitPullRequest, HelpCircle } from 'lucide-react';
 import { GithubMark } from '@/components/site/logo';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Community and Contributions",
+  description: "Contribute to M31A, report bugs, discuss architectural decisions, review security reporting channels, and help improve its open-source Rust runtime.",
+  path: "/community",
+});
 
 export default function CommunityPage() {
   const channels = [

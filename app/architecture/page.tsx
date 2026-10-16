@@ -1,8 +1,17 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, Layers, ShieldCheck, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { ArchitectureStack } from '@/components/home/architecture-stack';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Runtime Architecture",
+  description: "Explore M31A's Rust runtime architecture, including its layered components, execution lifecycle, model trust boundary, SQLite persistence, and verification flow.",
+  path: "/architecture",
+  absoluteTitle: false,
+});
 
 export default function ArchitecturePage() {
   return (

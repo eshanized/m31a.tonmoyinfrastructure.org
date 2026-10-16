@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, Terminal, Download } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CLI_COMMAND_DEFS } from '@/lib/m31a/product';
@@ -11,6 +13,13 @@ const EXIT_CODES = [
   { code: '4', meaning: 'Crash / Unrecoverable', desc: 'Process fault or panic; state preserved in SQLite.' },
   { code: '5', meaning: 'Configuration Error', desc: 'Malformed config file or invalid authority parameter.' },
 ];
+
+export const metadata: Metadata = createPageMetadata({
+  title: "CLI Command Reference",
+  description: "Reference M31A command-line subcommands, flags, exit codes, terminal workflows, diagnostics, and mission inspection for autonomous software engineering.",
+  path: "/cli",
+  absoluteTitle: false,
+});
 
 export default function CliPage() {
   return (

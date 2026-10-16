@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { HeroSection } from '@/components/home/hero-section';
 import { WhyM31A } from '@/components/home/why-m31a';
 import { ManifestoPhilosophy } from '@/components/home/manifesto-philosophy';
@@ -8,6 +10,13 @@ import { InstallationSection } from '@/components/home/installation-section';
 import { OpenSourceSection } from '@/components/home/open-source-section';
 import { FinalCta } from '@/components/home/final-cta';
 import { Container } from '@/components/site/section';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "M31A — Open-Source Autonomous Coding Agent",
+  description: "M31A is an open-source autonomous coding agent with a Rust-native runtime for terminal-based software engineering, controlled tool execution, verification, and recovery.",
+  path: "/",
+  absoluteTitle: true,
+});
 
 export default function HomePage() {
   return (

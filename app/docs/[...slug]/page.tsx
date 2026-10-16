@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { DocSidebar, DocPagination } from '@/components/docs/doc-sidebar';
 import { DocToc } from '@/components/docs/doc-toc';
-import { DOCS } from '@/lib/m31a/product';
+import { DOCS, PRODUCT } from '@/lib/m31a/product';
 import { getDocArticle } from '@/lib/docs/content';
-import { PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata } from '@/lib/m31a/seo';
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -23,11 +23,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug: parts } = await params;
   const slug = parts.join('/');
   const doc = getDoc(slug);
-  if (!doc) return { title: 'Not Found' };
-  return {
-    title: `${doc.title} — M31A Documentation`,
+  if (!doc) {
+    return { title: 'Not Found', robots: { index: false, follow: false } };
+  }
+
+  return createPageMetadata({
+    title: `${doc.title} Documentation`,
     description: doc.description,
-  };
+    path: `/docs/${slug}`,
+    type: 'article',
+  });
 }
 
 export default async function DocPage({ params }: PageProps) {
