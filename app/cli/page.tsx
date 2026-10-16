@@ -1,3 +1,4 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, Terminal, Download } from 'lucide-react';
 import { Container } from '@/components/site/section';
@@ -11,6 +12,12 @@ const EXIT_CODES = [
   { code: '4', meaning: 'Crash / Unrecoverable', desc: 'Process fault or panic; state preserved in SQLite.' },
   { code: '5', meaning: 'Configuration Error', desc: 'Malformed config file or invalid authority parameter.' },
 ];
+
+export const metadata = createPageMetadata({
+  title: "CLI reference",
+  description: "Browse the M31A command-line reference, including commands, configuration, exit codes, and terminal workflows for the Rust-native autonomous coding agent.",
+  path: "/cli",
+});
 
 export default function CliPage() {
   return (

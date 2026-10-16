@@ -1,7 +1,14 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata = createPageMetadata({
+  title: "About",
+  description: "Learn about M31A (M31 Autonomous), an open-source coding agent built around a Rust-native runtime that governs execution, permissions, verification, and recovery.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

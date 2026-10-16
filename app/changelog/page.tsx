@@ -1,7 +1,14 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Tag } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CHANGELOG_ENTRIES } from '@/lib/m31a/product';
+
+export const metadata = createPageMetadata({
+  title: "Release history",
+  description: "Review M31A runtime release notes, version changes, fixes, and capabilities. The complete release timeline and source artifacts are published on GitHub.",
+  path: "/changelog",
+});
 
 export default function ChangelogPage() {
   return (

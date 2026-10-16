@@ -1,8 +1,15 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, Layers, ShieldCheck, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { ArchitectureStack } from '@/components/home/architecture-stack';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata = createPageMetadata({
+  title: "Architecture",
+  description: "Explore M31A's Rust-native coding-agent architecture, autonomy loop, tool dispatch, SQLite persistence, verification pipeline, and policy-enforced execution boundaries.",
+  path: "/architecture",
+});
 
 export default function ArchitecturePage() {
   return (

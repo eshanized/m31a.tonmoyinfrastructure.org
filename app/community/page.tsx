@@ -1,9 +1,16 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import React from 'react';
 import Link from 'next/link';
 import { ExternalLink, MessageSquare, ShieldAlert, GitPullRequest, HelpCircle } from 'lucide-react';
 import { GithubMark } from '@/components/site/logo';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+
+export const metadata = createPageMetadata({
+  title: "Community",
+  description: "Find M31A's source repository, issue tracker, developer discussions, contribution guide, and security vulnerability reporting channels.",
+  path: "/community",
+});
 
 export default function CommunityPage() {
   const channels = [
