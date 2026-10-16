@@ -1,3 +1,4 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -23,11 +24,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug: parts } = await params;
   const slug = parts.join('/');
   const doc = getDoc(slug);
-  if (!doc) return { title: 'Not Found' };
-  return {
-    title: `${doc.title} — M31A Documentation`,
+  if (!doc) return { title: 'Not Found', robots: { index: false, follow: false } };
+  return createPageMetadata({
+    title: `${doc.title} guide`,
     description: doc.description,
-  };
+    path: `/docs/${slug}`,
+  });
 }
 
 export default async function DocPage({ params }: PageProps) {

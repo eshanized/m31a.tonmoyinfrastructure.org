@@ -47,14 +47,14 @@ export function HeroSection() {
             </p>
 
             <h1 className="max-w-[13ch] text-5xl font-semibold leading-[0.99] tracking-[-0.055em] text-[#F5F0EB] sm:text-6xl lg:text-[4.8rem]">
-              Autonomous engineering.
+              Autonomous coding.
               <span className="mt-2 block bg-gradient-to-r from-[#F5F0EB] via-[#F5F0EB] to-[#E96B58] bg-clip-text pb-1 text-transparent">
                 Runtime-controlled.
               </span>
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-8 text-[#A9A6A5] sm:text-lg">
-              {PRODUCT.longDescription} The model can propose a change; M31A’s runtime governs execution and requires verification before work is accepted as complete.
+              M31A is an open-source, Rust-native AI coding agent for Linux terminals. It turns engineering goals into plans, governs tool execution through policy gates, verifies changes, and supports recovery after failure. The model can propose a change; M31A’s runtime governs execution and requires verification before work is accepted as complete.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">

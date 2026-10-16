@@ -1,3 +1,4 @@
+import { SOCIAL_IMAGE_URL } from '@/lib/m31a/seo';
 import type { Metadata } from 'next';
 import { Fira_Code } from 'next/font/google';
 import './globals.css';
@@ -14,12 +15,14 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   metadataBase: new URL(PRODUCT.canonicalUrl),
+  applicationName: 'M31A',
+  category: 'technology',
   title: {
-    default: 'M31A — Autonomous Coding Agent for Serious Engineering',
+    default: 'M31A — Open-Source AI Coding Agent for Linux',
     template: '%s · M31A',
   },
   description:
-    "M31A is an autonomous coding agent that lives in the developer's terminal. It takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — with deterministic runtime authority.",
+    "M31A is an open-source, Rust-native AI coding agent for Linux terminals. It plans engineering work, governs tool execution through policy gates, verifies changes, and supports recovery after failure.",
   keywords: [
     'autonomous coding agent',
     'AI coding agent',
@@ -48,12 +51,14 @@ export const metadata: Metadata = {
     siteName: 'M31A',
     locale: 'en_US',
     type: 'website',
+    images: [{ url: SOCIAL_IMAGE_URL, width: 1200, height: 630, alt: 'M31A — open-source autonomous coding agent for Linux' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
     description:
-      'The autonomous coding agent for serious engineering. The model proposes. The runtime decides.',
+      'An open-source, Rust-native AI coding agent for Linux terminals. The model proposes. The runtime decides.',
+    images: [SOCIAL_IMAGE_URL],
   },
   robots: {
     index: true,
@@ -68,23 +73,48 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationId = 'https://tonmoyinfrastructure.org/#organization';
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'M31A',
-  alternateName: 'M31 Autonomous',
-  operatingSystem: 'Linux',
-  applicationCategory: 'DeveloperApplication',
-  description:
-    'An autonomous software-engineering runtime that plans, executes, verifies, and recovers directly from the developer terminal.',
-  softwareVersion: PRODUCT.version,
-  url: PRODUCT.canonicalUrl,
-  license: PRODUCT.licenseUrl,
-  author: {
-    '@type': 'Organization',
-    name: PRODUCT.orgName,
-    url: 'https://tonmoyinfrastructure.org/',
-  },
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': organizationId,
+      name: PRODUCT.orgName,
+      url: 'https://tonmoyinfrastructure.org/',
+      logo: new URL('/m31a-logo.svg', PRODUCT.canonicalUrl).toString(),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${PRODUCT.canonicalUrl}#website`,
+      url: PRODUCT.canonicalUrl,
+      name: 'M31A',
+      alternateName: PRODUCT.fullName,
+      inLanguage: 'en',
+      publisher: { '@id': organizationId },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${PRODUCT.canonicalUrl}#software`,
+      name: PRODUCT.name,
+      alternateName: PRODUCT.fullName,
+      applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: 'Autonomous coding agent',
+      operatingSystem: 'Linux',
+      programmingLanguage: 'Rust',
+      description: 'An open-source autonomous coding agent with a Rust-native runtime for policy-governed execution, verification, and recovery.',
+      softwareVersion: PRODUCT.version,
+      url: PRODUCT.canonicalUrl,
+      image: SOCIAL_IMAGE_URL,
+      downloadUrl: PRODUCT.releasesUrl,
+      codeRepository: PRODUCT.repositoryUrl,
+      license: PRODUCT.licenseUrl,
+      author: { '@id': organizationId },
+      publisher: { '@id': organizationId },
+      mainEntityOfPage: { '@id': `${PRODUCT.canonicalUrl}#website` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -97,7 +127,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
       </head>
       <body className="font-sans antialiased bg-[#09090B] text-[#F4F4F6] min-h-screen flex flex-col selection:bg-[#E8523F] selection:text-white">

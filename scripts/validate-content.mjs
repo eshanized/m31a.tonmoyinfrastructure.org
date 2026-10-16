@@ -132,6 +132,38 @@ const sitemapFile = fs.readFileSync(path.join(rootDir, 'app/sitemap.ts'), 'utf-8
 assert(sitemapFile.includes('PRODUCT.canonicalUrl'), "Sitemap uses canonicalUrl");
 assert(sitemapFile.includes('DOCS.map'), "Sitemap dynamically includes all documentation articles");
 
+// 5. SEO metadata, canonical URLs, and social previews
+console.log('Validating SEO metadata and crawl support:');
+const seoFile = fs.readFileSync(path.join(rootDir, 'lib/m31a/seo.ts'), 'utf-8');
+const layoutFile = fs.readFileSync(path.join(rootDir, 'app/layout.tsx'), 'utf-8');
+const sitemapSource = fs.readFileSync(path.join(rootDir, 'app/sitemap.ts'), 'utf-8');
+const heroSource = fs.readFileSync(path.join(rootDir, 'components/home/hero-section.tsx'), 'utf-8');
+assert(fs.existsSync(path.join(rootDir, 'app/opengraph-image.tsx')), 'Generated Open Graph preview image exists');
+assert(seoFile.includes('alternates') && seoFile.includes('canonical'), 'Each content page receives a canonical URL');
+assert(seoFile.includes('openGraph') && seoFile.includes('twitter') && seoFile.includes('SOCIAL_IMAGE_URL'), 'Page metadata includes Open Graph and Twitter preview cards');
+assert(layoutFile.includes("'@type': 'Organization'") && layoutFile.includes("'@type': 'WebSite'") && layoutFile.includes("'@type': 'SoftwareApplication'"), 'JSON-LD graph describes the publisher, website, and software application');
+assert(sitemapSource.includes("url: r === '' ?"), 'Sitemap homepage URL explicitly matches slash-terminated canonical URL');
+assert(!sitemapSource.includes("new Date('2026-10-15')"), 'Sitemap does not advertise a stale hard-coded last-modified date');
+assert(heroSource.includes('Autonomous coding.') && heroSource.includes('open-source, Rust-native AI coding agent for Linux terminals'), 'Homepage content clearly describes the coding agent');
+const metadataRoutes = [
+  'app/about/page.tsx',
+  'app/architecture/page.tsx',
+  'app/changelog/page.tsx',
+  'app/cli/page.tsx',
+  'app/community/page.tsx',
+  'app/download/page.tsx',
+  'app/features/page.tsx',
+  'app/roadmap/page.tsx',
+  'app/security/page.tsx',
+  'app/docs/page.tsx',
+];
+for (const route of metadataRoutes) {
+  const source = fs.readFileSync(path.join(rootDir, route), 'utf-8');
+  assert(source.includes('createPageMetadata'), 'Page-specific metadata configured: ' + route);
+}
+const docRouteSource = fs.readFileSync(path.join(rootDir, 'app/docs/[...slug]/page.tsx'), 'utf-8');
+assert(docRouteSource.includes('createPageMetadata') && docRouteSource.includes('/docs/'), 'Documentation articles receive unique metadata and canonical URLs');
+
 // Final Summary
 console.log('\n' + '='.repeat(50));
 if (errorCount === 0) {
