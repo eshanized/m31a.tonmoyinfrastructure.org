@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import { Container } from '@/components/site/section';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, CheckCircle2, Lock, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, CheckCircle2, Lock } from 'lucide-react';
 
 export function ManifestoPhilosophy() {
   return (

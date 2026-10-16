@@ -1,8 +1,6 @@
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Terminal, Download, Sparkles } from 'lucide-react';
+import { ArrowRight, Terminal, Download } from 'lucide-react';
 import { Container } from '@/components/site/section';
-import { CliShowcase } from '@/components/home/cli-showcase';
 import { CLI_COMMAND_DEFS } from '@/lib/m31a/product';
 
 const EXIT_CODES = [
@@ -49,27 +47,13 @@ export default function CliPage() {
           </h1>
 
           <p className="mt-4 text-[#9E9EA8] text-base sm:text-lg leading-relaxed max-w-2xl">
-            M31A provides a complete clap-derive CLI with machine-readable <code className="text-[#F4F4F6] font-mono bg-[#18181D] px-1.5 py-0.5 rounded">--output json</code> options,
+            This page is a command reference, not an emulation of runtime output. M31A provides a CLI with machine-readable <code className="text-[#F4F4F6] font-mono bg-[#18181D] px-1.5 py-0.5 rounded">--output json</code> options,
             strict UNIX exit codes, and an interactive Ratatui TUI cockpit.
           </p>
         </Container>
       </div>
 
       <Container className="relative z-10">
-        {/* Interactive CLI Showcase */}
-        <div className="mb-20">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold tracking-tight text-[#F4F4F6]">
-              Interactive Command Preview
-            </h2>
-            <p className="text-sm text-[#9E9EA8] mt-1">
-              Select commands below to inspect real documented output and environmental checks.
-            </p>
-          </div>
-
-          <CliShowcase />
-        </div>
-
         {/* Exit Code Contract */}
         <div className="rounded-2xl border border-[#27272E] bg-[#111115] p-8 mb-20 shadow-xl">
           <div className="max-w-2xl mb-6">

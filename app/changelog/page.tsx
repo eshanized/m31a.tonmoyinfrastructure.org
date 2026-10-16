@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Tag } from 'lucide-react';
 import { Container } from '@/components/site/section';
@@ -17,7 +16,7 @@ export default function ChangelogPage() {
             Changelog &amp; Release Records.
           </h1>
           <p className="mt-4 text-[#A3A09B] text-base sm:text-lg leading-relaxed max-w-2xl">
-            Authoritative release notes for all published versions of the M31A runtime.
+            Selected runtime release notes. The complete release timeline is maintained in the primary GitHub repository.
           </p>
         </Container>
       </div>

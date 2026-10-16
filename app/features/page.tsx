@@ -1,6 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Layers, ShieldCheck, Terminal, Cpu } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
 import { Container, StatusBadge } from '@/components/site/section';
 

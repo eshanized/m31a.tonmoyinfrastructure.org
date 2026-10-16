@@ -46,17 +46,41 @@ for (const route of requiredRoutes) {
   assert(fs.existsSync(fullPath), `Route file exists: ${route}`);
 }
 
+
+// 1a. Ensure the public website does not ship simulated runtime interfaces
+console.log('\nChecking that public pages do not include simulated M31A sessions:');
+const retiredSimulationFiles = [
+  'components/home/hero-terminal.tsx',
+  'components/home/product-workflow.tsx',
+  'components/home/repository-capabilities.tsx',
+  'components/home/terminal-native.tsx',
+  'components/home/cli-showcase.tsx',
+  'components/site/signature-visual.tsx',
+];
+for (const file of retiredSimulationFiles) {
+  assert(!fs.existsSync(path.join(rootDir, file)), 'Removed simulated interface: ' + file);
+}
+const homepageSource = fs.readFileSync(path.join(rootDir, 'app/page.tsx'), 'utf-8');
+const cliPageSource = fs.readFileSync(path.join(rootDir, 'app/cli/page.tsx'), 'utf-8');
+assert(
+  !/HeroTerminal|ProductWorkflow|RepositoryCapabilities|TerminalNative/.test(homepageSource),
+  'Homepage imports no simulated runtime showcases'
+);
+assert(!cliPageSource.includes('CliShowcase'), 'CLI reference renders no simulated command output');
+assert(fs.existsSync(path.join(rootDir, 'public/favicon.svg')), 'M31A favicon asset exists');
+assert(fs.existsSync(path.join(rootDir, 'public/m31a-logo.svg')), 'M31A logo lockup exists');
+
 // 2. Read lib/m31a/product.ts
 console.log('\nValidating lib/m31a/product.ts invariants:');
 const productFile = fs.readFileSync(path.join(rootDir, 'lib/m31a/product.ts'), 'utf-8');
 
 // Version Check
-assert(productFile.includes("version: '0.1.1'"), "PRODUCT version is 0.1.1");
+assert(productFile.includes("version: '0.1.9'"), "PRODUCT version is 0.1.9");
 assert(productFile.includes("canonicalUrl: 'https://m31a.tonmoyinfrastructure.org/'"), "Canonical URL is https://m31a.tonmoyinfrastructure.org/");
 assert(productFile.includes("repositoryUrl: 'https://github.com/eshanized/M31A'"), "Repository URL matches authoritative repo");
 assert(productFile.includes("rustVersion: '1.85+'"), "Rust version is 1.85+");
 assert(productFile.includes("edition: '2024'"), "Rust edition is 2024");
-assert(productFile.includes("'MIT'") && productFile.includes("'Apache-2.0'"), "Dual licensed MIT / Apache-2.0");
+assert(productFile.includes("licenses: ['MIT']"), "Runtime license matches canonical MIT license");
 
 // Provider Invariant
 assert(productFile.includes("canonicalProvider: 'NVIDIA NIM (nvidia_nim)'"), "Production canonical provider is NVIDIA NIM");
@@ -65,9 +89,9 @@ assert(productFile.includes("canonicalProviderEndpoint: 'https://integrate.api.n
 
 // Platform Support Matrix Invariants
 console.log('\nValidating platform qualification matrix:');
-assert(productFile.includes("os: 'Linux'") && productFile.includes("classification: 'SUPPORTED'"), "Linux x86_64 is classified SUPPORTED");
-assert(productFile.includes("os: 'macOS'") && productFile.includes("classification: 'CONDITIONALLY SUPPORTED'"), "macOS is classified CONDITIONALLY SUPPORTED");
-assert(productFile.includes("classification: 'COMPILE-ONLY'"), "COMPILE-ONLY classifications present for other targets");
+assert(productFile.includes("targetTriple: 'x86_64-unknown-linux-gnu'") && productFile.includes("classification: 'SUPPORTED'"), "Linux x86_64 is release-qualified");
+assert(productFile.includes("os: 'macOS'") && productFile.includes("classification: 'INTEGRATED'"), "macOS native mechanisms are integrated");
+assert(productFile.includes("classification: 'COMPILE-CHECKED'"), "Compile-checked classifications are present for non-qualified targets");
 
 // 28 Core Tools Catalog
 console.log('\nValidating 28 core tools catalog:');

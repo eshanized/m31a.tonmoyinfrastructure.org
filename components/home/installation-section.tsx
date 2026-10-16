@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container } from '@/components/site/section';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
-import { Terminal, Copy, Check, Download, ExternalLink, ShieldCheck, ArrowRight, GitBranch, Cpu, Lock } from 'lucide-react';
+import { Terminal, Copy, Check, Download, ExternalLink, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export function InstallationSection() {
@@ -129,7 +129,7 @@ export function InstallationSection() {
           <div className="lg:col-span-5 rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 shadow-2xl transition-all hover:border-[#E8523F]/30">
             <div className="flex items-center justify-between border-b border-[#222227] pb-4 mb-4">
               <span className="text-xs font-mono uppercase tracking-wider text-[#E8523F] font-semibold">
-                PLATFORM QUALIFICATION MATRIX
+                PLATFORM SUPPORT STATUS
               </span>
               <span className="text-[11px] font-mono text-[#65656E]">
                 docs/PLATFORM-SUPPORT.md
@@ -155,7 +155,7 @@ export function InstallationSection() {
                     className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
                       p.classification === 'SUPPORTED'
                         ? 'bg-[#3ECF8E]/10 text-[#3ECF8E] border border-[#3ECF8E]/25'
-                        : p.classification === 'CONDITIONALLY SUPPORTED'
+                        : p.classification === 'INTEGRATED'
                         ? 'bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/25'
                         : 'bg-[#18181D] text-[#65656E]'
                     }`}

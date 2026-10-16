@@ -153,7 +153,7 @@ export function getDocArticle(slug: string): DocArticle {
                         <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                           p.classification === 'SUPPORTED'
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
-                            : p.classification === 'CONDITIONALLY SUPPORTED'
+                            : p.classification === 'INTEGRATED'
                             ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                             : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
                         }`}>

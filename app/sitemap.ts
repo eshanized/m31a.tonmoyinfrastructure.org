@@ -13,13 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     ...staticRoutes.map((r) => ({
       url: `${base}${r}`,
-      lastModified: new Date('2026-10-02'),
+      lastModified: new Date('2026-10-15'),
       changeFrequency: 'weekly' as const,
       priority: r === '' ? 1 : 0.8,
     })),
     ...DOCS.map((d) => ({
       url: `${base}/docs/${d.slug}`,
-      lastModified: new Date('2026-10-02'),
+      lastModified: new Date('2026-10-15'),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),

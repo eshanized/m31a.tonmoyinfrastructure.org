@@ -92,7 +92,7 @@ export function ArchitectureDeepDive() {
                 <Layers className="w-3.5 h-3.5 text-[#E8523F]" />
                 <span>LAYER HIERARCHY (STRICT DOWNWARD FLOW)</span>
               </span>
-              <span>10 CONCURRENT TIERS</span>
+              <span>10 ARCHITECTURE LAYERS</span>
             </div>
 
             {ARCHITECTURE_LAYERS.map((layer) => {

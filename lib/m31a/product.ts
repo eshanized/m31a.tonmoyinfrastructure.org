@@ -6,9 +6,9 @@ export const PRODUCT = {
     'A Rust-native autonomous software-engineering runtime with non-bypassable policy gates and verifiable execution.',
   longDescription:
     'M31A (M31 Autonomous) is a single-crate, high-assurance, Rust-native autonomous software engineering runtime. It provides deterministic lifecycle control, strict multi-layer security policies, resource-bounded execution, continuous verification, crash-resilient checkpoints, and local observability for autonomous coding agents.',
-  version: '0.1.1',
-  previousVersion: '0.1.0',
-  releaseDate: '2026-10-02',
+  version: '0.1.9',
+  previousVersion: '0.1.8',
+  releaseDate: '2026-10-15',
   rustVersion: '1.85+',
   edition: '2024',
   canonicalUrl: 'https://m31a.tonmoyinfrastructure.org/',
@@ -16,13 +16,13 @@ export const PRODUCT = {
   issuesUrl: 'https://github.com/eshanized/M31A/issues',
   discussionsUrl: 'https://github.com/eshanized/M31A/discussions',
   releasesUrl: 'https://github.com/eshanized/M31A/releases/latest',
-  releaseTagUrl: 'https://github.com/eshanized/M31A/releases/tag/v0.1.1',
+  releaseTagUrl: 'https://github.com/eshanized/M31A/releases/tag/v0.1.9',
   securityReportUrl: 'https://github.com/eshanized/M31A/security/advisories/new',
   contributingUrl: 'https://github.com/eshanized/M31A/blob/master/CONTRIBUTING.md',
   codeOfConductUrl: 'https://github.com/eshanized/M31A/blob/master/CODE_OF_CONDUCT.md',
   securityPolicyUrl: 'https://github.com/eshanized/M31A/blob/master/SECURITY.md',
   websiteUrl: 'https://m31a.tonmoyinfrastructure.org/',
-  licenses: ['MIT', 'Apache-2.0'],
+  licenses: ['MIT'],
   licenseUrl: 'https://github.com/eshanized/M31A/blob/master/LICENSE',
   keywords: ['autonomous', 'agent', 'cli', 'tui', 'llm', 'rust', 'policy-gate', 'runtime'],
   categories: ['command-line-utilities', 'development-tools'],
@@ -621,7 +621,7 @@ export interface PlatformSupportItem {
   architecture: string;
   targetTriple: string;
   archiveName: string;
-  classification: 'SUPPORTED' | 'CONDITIONALLY SUPPORTED' | 'COMPILE-ONLY';
+  classification: 'SUPPORTED' | 'INTEGRATED' | 'COMPILE-CHECKED';
   details: string;
 }
 
@@ -632,47 +632,47 @@ export const PLATFORMS_MATRIX: PlatformSupportItem[] = [
     targetTriple: 'x86_64-unknown-linux-gnu',
     archiveName: 'm31a-linux-x64.tar.gz',
     classification: 'SUPPORTED',
-    details: 'Release-qualified: native runtime, parity, security, CI, and artifact evidence all green. Hard cgroups v2 enforcement.',
-  },
-  {
-    os: 'macOS',
-    architecture: 'Intel (x86_64)',
-    targetTriple: 'x86_64-apple-darwin',
-    archiveName: 'm31a-darwin-x64.tar.gz',
-    classification: 'CONDITIONALLY SUPPORTED',
-    details: 'Implemented; Seatbelt isolation is Degraded (never full sandbox); native re-verification pending a macOS runner.',
+    details: 'Release-qualified target. Native runtime, parity, security, CI, and artifact evidence are reported green in the canonical platform-support document.',
   },
   {
     os: 'Linux',
     architecture: 'ARM64 (aarch64)',
     targetTriple: 'aarch64-unknown-linux-gnu',
     archiveName: 'm31a-linux-arm64.tar.gz',
-    classification: 'COMPILE-ONLY',
-    details: 'Compiles; published for cross-compilation testing; no native runtime evidence — do not assume x86_64 behavior.',
+    classification: 'COMPILE-CHECKED',
+    details: 'Cross-compiled in the CI matrix. This classification does not claim release-qualified native execution on ARM64.',
+  },
+  {
+    os: 'macOS',
+    architecture: 'Intel (x86_64)',
+    targetTriple: 'x86_64-apple-darwin',
+    archiveName: 'm31a-darwin-x64.tar.gz',
+    classification: 'INTEGRATED',
+    details: 'Seatbelt, libproc, and POSIX resource-limit support are integrated. Integration status is distinct from Linux x86_64 release qualification.',
   },
   {
     os: 'macOS',
     architecture: 'Apple Silicon (aarch64)',
     targetTriple: 'aarch64-apple-darwin',
     archiveName: 'm31a-darwin-arm64.tar.gz',
-    classification: 'COMPILE-ONLY',
-    details: 'Compiles; native runtime execution awaiting dedicated Apple Silicon test runner.',
+    classification: 'INTEGRATED',
+    details: 'Native platform mechanisms are integrated. Review the canonical platform-support document for the current qualification boundary.',
   },
   {
     os: 'Windows',
     architecture: 'x86_64',
     targetTriple: 'x86_64-pc-windows-msvc',
     archiveName: 'm31a-windows-x64.zip',
-    classification: 'COMPILE-ONLY',
-    details: 'Compiles; Job Objects, ACLs, and ConPTY verified by contract only — native runs pending Windows runner.',
+    classification: 'INTEGRATED',
+    details: 'Win32 Job Objects, DACLs, ConPTY, and process identity support are integrated. Integration does not imply the same release qualification as Linux x86_64.',
   },
   {
     os: 'Windows',
     architecture: 'ARM64 (aarch64)',
     targetTriple: 'aarch64-pc-windows-msvc',
     archiveName: 'm31a-windows-arm64.zip',
-    classification: 'COMPILE-ONLY',
-    details: 'Compiles; no native runtime evidence.',
+    classification: 'COMPILE-CHECKED',
+    details: 'Cross-compiled in CI. Do not infer native runtime qualification from artifact availability alone.',
   },
 ];
 
@@ -869,6 +869,34 @@ export interface ChangelogItem {
 }
 
 export const CHANGELOG_ENTRIES: ChangelogItem[] = [
+  {
+    version: '0.1.9',
+    date: '2026-10-15',
+    tagUrl: 'https://github.com/eshanized/M31A/releases/tag/v0.1.9',
+    summary: 'Runtime sandbox probing, resource-binding race guards, isolated approvals, worktree recovery, and cooperative pause handling.',
+    sections: [
+      {
+        title: 'Execution Boundaries & Recovery',
+        items: [
+          'Added runtime sandbox capability/status probing through SandboxStatusProber and ProcessIsolationReport.',
+          'Added live resource-binding validation during execution to help prevent symlink swaps between authorization and execution.',
+          'Isolated per-execution approval overrides and staged association rollbacks for authorization timeout or denial.',
+          'Added deterministic Git worktree existence probing when resolving mission recovery scopes.',
+          'Added cooperative worker pause handling with quiescence timeouts and explicit outcome reporting.',
+        ],
+      },
+      {
+        title: 'TUI, CI & Release Integrity',
+        items: [
+          'Improved keyboard focus cycling across TUI panels, context-rail normalization, and list rendering visibility.',
+          'Fixed Windows MSVC test warnings and SQLite foreign-key ordering in DAG scheduler tests.',
+          'Improved configuration-check resilience when ripgrep is unavailable.',
+          'Aligned the runtime license designation to MIT.',
+        ],
+      },
+    ],
+  },
+
   {
     version: '0.1.1',
     date: '2026-10-02',

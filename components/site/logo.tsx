@@ -1,49 +1,35 @@
+import Image from 'next/image';
 import React from 'react';
 
-export function LogoMark({ className, ...props }: React.SVGProps<SVGSVGElement>) {
+type LogoMarkProps = Omit<React.ComponentProps<typeof Image>, 'src' | 'width' | 'height' | 'alt'> & {
+  alt?: string;
+  size?: number;
+};
+
+export function LogoMark({ className, alt = '', size = 512, ...props }: LogoMarkProps) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      fill="none"
+    <Image
+      src="/m31a-logo.svg"
+      width={size}
+      height={size}
+      alt={alt}
       className={className}
+      draggable={false}
       {...props}
-    >
-      <rect width="32" height="32" rx="6" fill="#111113" />
-      <path
-        d="M10 22V10L16 16L22 10V22"
-        stroke="#E8523F"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="16" cy="16" r="3" fill="#E8523F" />
-    </svg>
+    />
   );
 }
 
-export function Logo({ className, ...props }: React.SVGProps<SVGSVGElement>) {
+type LogoProps = React.HTMLAttributes<HTMLDivElement> & {
+  iconSize?: number;
+};
+
+export function Logo({ className, iconSize = 36, ...props }: LogoProps) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 120 32"
-      fill="none"
-      className={className}
-      {...props}
-    >
-      <LogoMark x="0" y="0" width="32" height="32" />
-      <text
-        x="44"
-        y="22"
-        fill="#F0EDE8"
-        fontFamily="Inter, sans-serif"
-        fontSize="20"
-        fontWeight="600"
-        letterSpacing="0.05em"
-      >
-        M31A
-      </text>
-    </svg>
+    <div className={['inline-flex items-center gap-3', className].filter(Boolean).join(' ')} {...props}>
+      <LogoMark size={iconSize} />
+      <span className="font-sans text-lg font-semibold tracking-tight">M31A</span>
+    </div>
   );
 }
 
@@ -54,6 +40,7 @@ export function GithubMark({ className, ...props }: React.SVGProps<SVGSVGElement
       viewBox="0 0 24 24"
       fill="currentColor"
       className={className}
+      aria-hidden="true"
       {...props}
     >
       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
