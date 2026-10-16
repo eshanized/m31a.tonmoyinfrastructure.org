@@ -15,8 +15,8 @@ const firaCode = Fira_Code({
 export const metadata: Metadata = {
   metadataBase: new URL(PRODUCT.canonicalUrl),
   title: {
-    default: 'M31A — Autonomous Coding Agent for Serious Engineering',
-    template: '%s · M31A',
+    default: 'M31A — Open-Source Autonomous Coding Agent',
+    template: '%s | M31A',
   },
   description:
     "M31A is an autonomous coding agent that lives in the developer's terminal. It takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — with deterministic runtime authority.",
@@ -37,14 +37,10 @@ export const metadata: Metadata = {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
     shortcut: ['/favicon.svg'],
   },
-  alternates: {
-    canonical: PRODUCT.canonicalUrl,
-  },
   openGraph: {
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
     description:
       'M31A takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — directly from the terminal.',
-    url: PRODUCT.canonicalUrl,
     siteName: 'M31A',
     locale: 'en_US',
     type: 'website',
