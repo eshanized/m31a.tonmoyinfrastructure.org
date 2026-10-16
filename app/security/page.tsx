@@ -1,7 +1,16 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ShieldCheck, Lock, ExternalLink, AlertOctagon } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { SecurityModel } from '@/components/home/security-model';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Security Model and Policy Gates",
+  description: "Learn how M31A governs autonomous coding with layered policies, process confinement, secret redaction, controlled side effects, and fail-closed recovery.",
+  path: "/security",
+  absoluteTitle: false,
+});
 
 export default function SecurityPage() {
   return (
