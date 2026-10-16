@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
-type LogoMarkProps = Omit<React.ComponentProps<typeof Image>, 'src' | 'width' | 'height'> & {
+type LogoMarkProps = Omit<React.ComponentProps<typeof Image>, 'src' | 'width' | 'height' | 'alt'> & {
+  alt?: string;
   size?: number;
 };
 
