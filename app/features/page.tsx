@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
 import { Container, StatusBadge } from '@/components/site/section';
@@ -7,6 +9,13 @@ const GROUPS: Record<string, typeof FEATURES> = {};
 for (const f of FEATURES) {
   (GROUPS[f.category] ??= []).push(f);
 }
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Autonomous Coding Agent Features",
+  description: "Explore M31A's terminal-native coding agent capabilities, including task planning, typed tools, policy gates, verification, Git isolation, checkpoints, and local telemetry.",
+  path: "/features",
+  absoluteTitle: false,
+});
 
 export default function FeaturesPage() {
   return (
