@@ -1,9 +1,16 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, Terminal } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CodeBlock } from '@/components/site/code-block';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
 import { ReleaseCard } from '@/components/download/release-card';
+
+export const metadata = createPageMetadata({
+  title: "Installation",
+  description: "Install M31A, the open-source autonomous coding agent, using published release artifacts or platform-specific instructions. Review the support matrix and verify downloads.",
+  path: "/download",
+});
 
 export default function DownloadPage() {
   return (

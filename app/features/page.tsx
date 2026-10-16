@@ -1,3 +1,4 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
@@ -7,6 +8,12 @@ const GROUPS: Record<string, typeof FEATURES> = {};
 for (const f of FEATURES) {
   (GROUPS[f.category] ??= []).push(f);
 }
+
+export const metadata = createPageMetadata({
+  title: "Features",
+  description: "Explore M31A coding-agent features including policy-controlled tool execution, task planning, verification, crash recovery, Git worktree isolation, and a terminal interface.",
+  path: "/features",
+});
 
 export default function FeaturesPage() {
   return (

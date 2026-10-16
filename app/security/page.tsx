@@ -1,7 +1,14 @@
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Lock, ExternalLink, AlertOctagon } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { SecurityModel } from '@/components/home/security-model';
+
+export const metadata = createPageMetadata({
+  title: "Security model",
+  description: "Understand M31A's coding-agent security model, layered policy checks, fail-closed permissions, process confinement, secret redaction, and network egress controls.",
+  path: "/security",
+});
 
 export default function SecurityPage() {
   return (
