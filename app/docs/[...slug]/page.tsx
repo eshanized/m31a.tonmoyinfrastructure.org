@@ -3,9 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { DocSidebar, DocPagination } from '@/components/docs/doc-sidebar';
 import { DocToc } from '@/components/docs/doc-toc';
-import { DOCS } from '@/lib/m31a/product';
+import { DOCS, PRODUCT } from '@/lib/m31a/product';
 import { getDocArticle } from '@/lib/docs/content';
-import { PRODUCT } from '@/lib/m31a/product';
 import { createPageMetadata } from '@/lib/m31a/seo';
 
 interface PageProps {
