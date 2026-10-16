@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     canonical: PRODUCT.canonicalUrl,
   },
   openGraph: {
-    title: 'M31A — Autonomous Coding Agent for Serious Engineering',
+    title: 'M31A — Open-Source AI Coding Agent for Linux',
     description:
-      'M31A takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — directly from the terminal.',
+      'M31A is an open-source, Rust-native AI coding agent for Linux terminals. It plans engineering work, governs tool execution through policy gates, verifies changes, and supports recovery after failure.',
     url: PRODUCT.canonicalUrl,
     siteName: 'M31A',
     locale: 'en_US',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'M31A — Autonomous Coding Agent for Serious Engineering',
+    title: 'M31A — Open-Source AI Coding Agent for Linux',
     description:
       'An open-source, Rust-native AI coding agent for Linux terminals. The model proposes. The runtime decides.',
     images: [SOCIAL_IMAGE_URL],
@@ -102,13 +102,12 @@ const jsonLd = {
       applicationCategory: 'DeveloperApplication',
       applicationSubCategory: 'Autonomous coding agent',
       operatingSystem: 'Linux',
-      programmingLanguage: 'Rust',
       description: 'An open-source autonomous coding agent with a Rust-native runtime for policy-governed execution, verification, and recovery.',
       softwareVersion: PRODUCT.version,
       url: PRODUCT.canonicalUrl,
       image: SOCIAL_IMAGE_URL,
       downloadUrl: PRODUCT.releasesUrl,
-      codeRepository: PRODUCT.repositoryUrl,
+      sameAs: PRODUCT.repositoryUrl,
       license: PRODUCT.licenseUrl,
       author: { '@id': organizationId },
       publisher: { '@id': organizationId },
