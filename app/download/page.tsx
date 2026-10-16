@@ -1,9 +1,18 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, Terminal } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CodeBlock } from '@/components/site/code-block';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
 import { ReleaseCard } from '@/components/download/release-card';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Download and Install M31A",
+  description: "Get M31A runtime release artifacts, follow installation instructions, verify SHA-256 checksums, and build the Rust-based coding agent from source.",
+  path: "/download",
+  absoluteTitle: false,
+});
 
 export default function DownloadPage() {
   return (
