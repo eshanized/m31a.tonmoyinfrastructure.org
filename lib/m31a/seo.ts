@@ -18,7 +18,8 @@ const socialImageAlt =
 function getCanonicalUrl(path: string): string {
   if (path === '/') return PRODUCT.canonicalUrl;
 
-  return new URL(path.replace(/^\\/+/, ''), PRODUCT.canonicalUrl).toString();
+  const relativePath = path.startsWith('/') ? path.slice(1) : path;
+  return new URL(relativePath, PRODUCT.canonicalUrl).toString();
 }
 
 export function createPageMetadata({
