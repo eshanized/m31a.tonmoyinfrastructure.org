@@ -1,4 +1,6 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Terminal, Layers, ShieldCheck, Wrench, GitBranch, Cpu, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
@@ -9,6 +11,13 @@ const SECTION_ICONS: Record<string, React.ComponentType<{ className?: string }>>
   'concepts': Layers,
   'reference': BookOpen,
 };
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Documentation and Developer Guide",
+  description: "Install and configure M31A, learn the terminal workflow, and reference its architecture, security model, tools, policies, and CLI commands.",
+  path: "/docs",
+  absoluteTitle: false,
+});
 
 export default function DocsIndexPage() {
   return (
