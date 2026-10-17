@@ -40,3 +40,9 @@ jobs:
 
       - name: Build static site
         run: npm run build
+
+      - name: Prepare Pages output for validation
+        run: touch ./out/.nojekyll
+
+      - name: Validate generated SEO output
+        run: npm run seo:validate-output
