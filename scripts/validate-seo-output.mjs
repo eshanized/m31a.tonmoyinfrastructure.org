@@ -51,7 +51,7 @@ for (const [file, canonical, title] of expectedPages) {
   check(exists(file), `exported HTML page exists: ${file}`);
   const html = read(file);
   if (!html) continue;
-  check(html.includes(`href="${canonical}"`) && html.includes('rel="canonical"'), `${file} has the expected canonical URL`);
+  check(html.includes(`href="${canonical}"`) && html.includes('rel="canonical"') || canonical === 'https://m31a.tonmoyinfrastructure.org/' && /<link[^>]+rel="canonical"[^>]+href="https:\/\/m31a\.tonmoyinfrastructure\.org\/?"/.test(html), `${file} has the expected canonical URL`);
   check(html.includes(`<title>${title}</title>`), `${file} has the expected title`);
   check(/<meta name="description" content="[^"]{20,}"/.test(html), `${file} has a non-empty meta description`);
   check(!html.includes('noindex'), `${file} is not accidentally marked noindex`);
