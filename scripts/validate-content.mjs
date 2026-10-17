@@ -141,18 +141,27 @@ check(docPage.includes('createPageMetadata'), 'documentation routes have page-sp
 check(docPage.includes('path: `/docs/${slug}`'), 'documentation canonical URLs contain their own slug');
 check(docPage.includes("robots: { index: false, follow: false }"), 'unknown doc slugs are marked noindex');
 
-const sitemapRoutes = [
+const expectedStaticRoutes = [
   '/', '/features', '/architecture', '/security', '/docs',
   '/cli', '/download', '/changelog', '/roadmap', '/community', '/about',
-  ...slugs.map((slug) => `/docs/${slug}`),
 ];
-const uniqueRoutes = new Set();
-for (const route of sitemapRoutes) {
-  check(!uniqueRoutes.has(route), `sitemap manifest has no duplicate: ${route}`);
-  uniqueRoutes.add(route);
-  const url = route === '/' ? 'https://m31a.tonmoyinfrastructure.org/' : `https://m31a.tonmoyinfrastructure.org${route}`;
-  check(sitemap.includes(url), `sitemap manifest includes ${url}`);
+const staticRouteBlock = sitemap.match(/const staticRoutes = \[([\\s\\S]*?)\];/)?.[1] ?? '';
+const declaredStaticRoutes = [...staticRouteBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+for (const route of expectedStaticRoutes) {
+  check(declaredStaticRoutes.includes(route), `sitemap includes static route ${route}`);
 }
+check(
+  sitemap.includes('url: toCanonicalUrl(path)'),
+  'sitemap resolves static paths against the canonical origin'
+);
+check(
+  sitemap.includes('url: toCanonicalUrl(`/docs/${doc.slug}`)'),
+  'sitemap resolves each docs manifest slug against the canonical origin'
+);
+check(
+  sitemap.includes('...DOCS.map((doc) => ({'),
+  'sitemap enumerates the documentation manifest instead of hard-coded article URLs'
+);
 
 check(seo.includes("if (path === '/') return PRODUCT.canonicalUrl"), 'homepage canonical resolves to root');
 check(seo.includes('new URL(relativePath, PRODUCT.canonicalUrl)'), 'non-root canonicals use the canonical origin');
