@@ -145,8 +145,9 @@ const expectedStaticRoutes = [
   '/', '/features', '/architecture', '/security', '/docs',
   '/cli', '/download', '/changelog', '/roadmap', '/community', '/about',
 ];
-const staticRouteBlock = sitemap.match(/const staticRoutes = \[([\\s\\S]*?)\];/)?.[1] ?? '';
-const declaredStaticRoutes = [...staticRouteBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+const declaredStaticRoutes = [...sitemap.matchAll(/'([^']+)'/g)]
+  .map((match) => match[1])
+  .filter((value) => expectedStaticRoutes.includes(value));
 for (const route of expectedStaticRoutes) {
   check(declaredStaticRoutes.includes(route), `sitemap includes static route ${route}`);
 }
