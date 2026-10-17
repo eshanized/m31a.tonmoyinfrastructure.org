@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint app components lib",
     "typecheck": "tsc --noEmit",
-    "content:validate": "node scripts/validate-content.mjs"
+    "content:validate": "node scripts/validate-content.mjs",
+    "seo:validate-output": "node scripts/validate-seo-output.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
