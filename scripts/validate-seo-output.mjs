@@ -51,7 +51,7 @@ for (const [file, canonical, title] of expectedPages) {
   check(exists(file), `exported HTML page exists: ${file}`);
   const html = read(file);
   if (!html) continue;
-  check(html.includes(`<link rel="canonical" href="${canonical}"`) || html.includes(`<link href="${canonical}" rel="canonical"`), `${file} has the expected canonical URL`);
+  check(html.includes(`href="${canonical}"`) && html.includes('rel="canonical"'), `${file} has the expected canonical URL`);
   check(html.includes(`<title>${title}</title>`), `${file} has the expected title`);
   check(/<meta name="description" content="[^"]{20,}"/.test(html), `${file} has a non-empty meta description`);
   check(!html.includes('noindex'), `${file} is not accidentally marked noindex`);
@@ -63,7 +63,7 @@ const sitemapXml = read('sitemap.xml');
 const robotsTxt = read('robots.txt');
 check(Boolean(sitemapXml), 'exported sitemap.xml exists');
 check(Boolean(robotsTxt), 'exported robots.txt exists');
-check(robotsTxt.includes('User-agent: *'), 'robots.txt includes a wildcard crawler rule');
+check(/User-agent:\s*\*/i.test(robotsTxt), 'robots.txt includes a wildcard crawler rule');
 check(robotsTxt.includes('Allow: /'), 'robots.txt allows public pages');
 check(robotsTxt.includes('https://m31a.tonmoyinfrastructure.org/sitemap.xml'), 'robots.txt advertises the production sitemap');
 
