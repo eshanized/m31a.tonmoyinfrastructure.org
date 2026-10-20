@@ -218,7 +218,7 @@ const comparisonChecks = [
   },
   {
     route: '/free-ai-coding-agent',
-    mustInclude: ['MIT', 'Apache-2.0', 'NVIDIA NIM', 'budget-tokens', 'budget-cost', 'compute'],
+    mustInclude: ['MIT', 'NVIDIA NIM', 'budget-tokens', 'budget-cost', 'compute'],
     mustNotInclude: ['guaranteed free unlimited inference', 'zero cost tokens forever'],
   },
 ];

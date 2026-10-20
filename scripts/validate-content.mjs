@@ -42,12 +42,13 @@ const retired = [
 ];
 for (const file of retired) check(!fs.existsSync(path.join(root, file)), `retired simulated UI removed: ${file}`);
 check(!/HeroTerminal|ProductWorkflow|RepositoryCapabilities|TerminalNative/.test(homepage), 'homepage does not import simulated runtime UI');
+check(read('components/home/hero-section.tsx').includes('Conceptual product illustration'), 'hero demo is explicitly labelled as conceptual');
 check(!cli.includes('CliShowcase'), 'CLI reference does not import simulated output');
 check(fs.existsSync(path.join(root, 'public/favicon.svg')), 'favicon asset exists');
 check(fs.existsSync(path.join(root, 'public/m31a-logo.svg')), 'logo asset exists');
 
 const product = read('lib/m31a/product.ts');
-check(product.includes("version: '0.1.9'"), 'product version is 0.1.9');
+check(product.includes("version: '0.1.10'"), 'product version matches latest release v0.1.10');
 check(product.includes("canonicalUrl: 'https://m31a.tonmoyinfrastructure.org/'"), 'canonical origin is the production HTTPS origin');
 check(product.includes("repositoryUrl: 'https://github.com/eshanized/M31A'"), 'canonical repository URL is correct');
 check(product.includes("rustVersion: '1.85+'"), 'minimum Rust version is documented');

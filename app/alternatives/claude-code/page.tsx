@@ -23,7 +23,7 @@ import { createPageMetadata, generateBreadcrumbJsonLd, generateTechArticleJsonLd
 export const metadata: Metadata = createPageMetadata({
   title: 'Claude Code Alternative: Rust Runtime vs Node.js Terminal Agent · M31A',
   description:
-    'Comparing Anthropic Claude Code with M31A: Rust native kernel, 11-stage policy gate, Linux cgroups v2 confinement, SQLite WAL persistence, and dual-licensed open source.',
+    'Comparing Anthropic Claude Code with M31A: Rust native kernel, 11-stage policy gate, Linux cgroups v2 confinement, SQLite WAL persistence, and MIT-licensed open source.',
   path: '/alternatives/claude-code',
   keywords: [
     'Claude Code alternative',
@@ -144,7 +144,7 @@ export default function ClaudeCodeAlternativePage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#3ECF8E] font-bold">✓</span>
-                <span>You require dual-licensed open-source software (MIT / Apache-2.0) with zero vendor lock-in.</span>
+                <span>You require MIT-licensed open-source software with zero vendor lock-in.</span>
               </li>
             </ul>
           </div>
@@ -182,7 +182,7 @@ export default function ClaudeCodeAlternativePage() {
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Software License</td>
                   <td className="p-4">Proprietary Anthropic Commercial Client</td>
-                  <td className="p-4 text-[#3ECF8E] font-medium">Dual MIT / Apache-2.0 (Open Source)</td>
+                  <td className="p-4 text-[#3ECF8E] font-medium">MIT (Open Source)</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Execution Governance</td>
