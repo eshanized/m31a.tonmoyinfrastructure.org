@@ -22,7 +22,7 @@ import { createPageMetadata, generateBreadcrumbJsonLd, generateTechArticleJsonLd
 export const metadata: Metadata = createPageMetadata({
   title: 'Free AI Coding Agent: Open-Source Runtime vs Inference Costs · M31A',
   description:
-    'M31A provides a 100% free, open-source (MIT/Apache-2.0) autonomous coding agent for your terminal. Understand true software freedom, client-side budget caps, and transparent NVIDIA NIM inference costs.',
+    'M31A provides a 100% free, open-source (MIT) autonomous coding agent for your terminal. Understand true software freedom, client-side budget caps, and transparent NVIDIA NIM inference costs.',
   path: '/free-ai-coding-agent',
   keywords: [
     'free AI coding agent',
@@ -84,7 +84,7 @@ export default function FreeAiCodingAgentPage() {
             Free and Open-Source AI Coding Agent: True Software Freedom vs. Inference Economics.
           </h1>
           <p className="mt-4 text-[#A3A09B] text-base sm:text-lg leading-relaxed max-w-3xl">
-            M31A is 100% free and open-source software under dual MIT and Apache-2.0 licenses.
+            M31A is 100% free and open-source software under MIT License.
             No seat subscriptions, no recurring SaaS licensing fees, and no closed-source proxy servers.
             Here is exactly how software freedom works alongside model inference costs.
           </p>
@@ -112,7 +112,7 @@ export default function FreeAiCodingAgentPage() {
                 <CheckCircle2 className="w-4 h-4" /> 100% Free Software (M31A Runtime)
               </h3>
               <ul className="space-y-2 mt-3 text-xs sm:text-sm">
-                <li>• <strong>Dual License:</strong> Full rights to inspect, fork, modify, and build under MIT / Apache-2.0.</li>
+                <li>• <strong>License:</strong> Full rights to inspect, fork, modify, and build under MIT.</li>
                 <li>• <strong>Zero Seat Fees:</strong> Deploy across 1 or 1,000 developer machines without paying Tonmoy Infrastructure a dime.</li>
                 <li>• <strong>Local Autonomy:</strong> Single self-contained binary written in Rust with zero telemetry lock-in.</li>
                 <li>• <strong>No Artificial Feature Paywalls:</strong> All 28 tools, 11 policy stages, and the Ratatui cockpit are completely unlocked.</li>
@@ -160,7 +160,7 @@ export default function FreeAiCodingAgentPage() {
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Software License</td>
                   <td className="p-4">Proprietary closed-source; per-seat subscription ($240–$480/yr)</td>
-                  <td className="p-4 text-[#3ECF8E] font-medium">Dual MIT / Apache-2.0 ($0 forever)</td>
+                  <td className="p-4 text-[#3ECF8E] font-medium">Dual MIT ($0 forever)</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Model Pricing Model</td>
@@ -274,7 +274,7 @@ export default function FreeAiCodingAgentPage() {
         <div className="p-8 rounded-2xl border border-[#E8523F]/30 bg-gradient-to-r from-[#171214] via-[#111115] to-[#171214] flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-xl font-bold text-[#F4F4F6]">Inspect the Full Open-Source Repository</h3>
-            <p className="text-xs text-[#9E9EA8] mt-1">Dual-licensed under MIT &amp; Apache-2.0. No telemetry, no lock-in.</p>
+            <p className="text-xs text-[#9E9EA8] mt-1">Licensed under MIT. No telemetry, no lock-in.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
