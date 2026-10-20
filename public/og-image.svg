@@ -23,7 +23,12 @@
   <rect width="1200" height="630" fill="url(#grid)" opacity=".65"/>
   <rect x="60" y="58" width="1080" height="514" rx="24" fill="#0b0b11" fill-opacity=".34" stroke="#ffffff" stroke-opacity=".12"/>
   <rect x="60" y="58" width="5" height="514" rx="2.5" fill="url(#accent)"/>
-  <image href="https://m31a.tonmoyinfrastructure.org/m31a-logo.svg" x="104" y="100" width="88" height="88"/>
+  <svg x="104" y="100" width="88" height="88" viewBox="0 0 512 512" aria-hidden="true">
+    <g fill="#E8523F">
+      <path d="m50 51v412h412v-412zm395.9 395.9h-379.8v-379.8h379.8z"/>
+      <path d="m352.5 365.4h-44.5v-135.3l-29.7 79.5h-44.5l-29.7-79.5v135.2h-44.5v-216.7h50.1l46.2 108.6 46.5-108.6h50.1z"/>
+    </g>
+  </svg>
   <text x="212" y="140" fill="#f5f0eb" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="38" font-weight="700" letter-spacing="-1">M31A</text>
   <text x="212" y="172" fill="#a9a6a5" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="14" letter-spacing="2.5">M31 AUTONOMOUS</text>
   <rect x="104" y="229" width="328" height="36" rx="18" fill="#e8523f" fill-opacity=".1" stroke="#e8523f" stroke-opacity=".45"/>
