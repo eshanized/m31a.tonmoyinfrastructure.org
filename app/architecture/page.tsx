@@ -1,13 +1,32 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Layers, ShieldCheck, Database, Terminal, Sparkles } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { ArchitectureStack } from '@/components/home/architecture-stack';
 import { PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Runtime Architecture (L0–L9) · M31A',
+  description:
+    'Deep architectural breakdown of M31A: 10-layer single-crate Rust hierarchy, downward-dependency invariants, SQLite durability, and multi-tier verification gates.',
+  path: '/architecture',
+  keywords: ['M31A architecture', 'Rust runtime kernel', 'layered software architecture', 'autonomous agent architecture', 'L0 to L9'],
+});
 
 export default function ArchitecturePage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Architecture', path: '/architecture' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* ── Atmospheric Radial Lighting & CAD Tech Grid ── */}
       <div 
         className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.12)_0%,rgba(14,14,18,0.3)_45%,transparent_70%)] blur-3xl opacity-80"

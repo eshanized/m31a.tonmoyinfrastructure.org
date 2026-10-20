@@ -1,14 +1,33 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container, StatusBadge } from '@/components/site/section';
 import { ROADMAP_ITEMS } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Engineering Roadmap & Subsystem Milestones · M31A',
+  description:
+    'Verified engineering roadmap for M31A: completed runtime milestones, in-progress cross-platform qualification, and planned extensions.',
+  path: '/roadmap',
+  keywords: ['M31A roadmap', 'coding agent roadmap', 'Rust runtime milestones', 'open source agent roadmap'],
+});
 
 const STATUS_GROUPS = ['Completed', 'In Progress', 'Planned', 'Future'] as const;
 
 export default function RoadmapPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Roadmap', path: '/roadmap' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* Header */}
       <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
         <Container>

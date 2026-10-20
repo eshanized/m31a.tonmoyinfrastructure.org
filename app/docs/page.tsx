@@ -1,8 +1,18 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Terminal, Layers, ShieldCheck, Wrench, GitBranch, Cpu, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { DOC_SECTIONS, DOCS, PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Documentation & Technical Architecture Manual · M31A',
+  description:
+    'Comprehensive technical manual for M31A: getting started guides, 10-layer runtime architecture, 11-stage policy gates, 28 core tools, configuration, and security.',
+  path: '/docs',
+  keywords: ['M31A documentation', 'coding agent manual', 'agent runtime docs', 'policy gate documentation', 'CLI docs'],
+});
 
 const SECTION_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   'getting-started': Terminal,
@@ -11,8 +21,17 @@ const SECTION_ICONS: Record<string, React.ComponentType<{ className?: string }>>
 };
 
 export default function DocsIndexPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Documentation', path: '/docs' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* Header */}
       <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
         <Container>
@@ -56,7 +75,7 @@ export default function DocsIndexPage() {
                     >
                       <div>
                         <span className="text-[11px] font-mono text-[#6B6965] uppercase block mb-1">
-                          0{page.order} // {section.id}
+                          0{page.order} {'//'} {section.id}
                         </span>
                         <h3 className="text-base font-bold text-[#F0EDE8] group-hover:text-[#E8523F] transition-colors">
                           {page.title}

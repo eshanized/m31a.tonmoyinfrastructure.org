@@ -32,13 +32,26 @@ export function DocSearch() {
         );
       });
 
+  const closeModal = () => {
+    setIsOpen(false);
+    setQuery('');
+    setSelectedIndex(0);
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        setIsOpen((prev) => {
+          if (prev) {
+            setQuery('');
+            setSelectedIndex(0);
+            return false;
+          }
+          return true;
+        });
       } else if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        closeModal();
       }
     };
 
@@ -48,17 +61,15 @@ export function DocSearch() {
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         inputRef.current?.focus();
       }, 50);
-    } else {
-      setQuery('');
-      setSelectedIndex(0);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
   const handleSelect = (slug: string) => {
-    setIsOpen(false);
+    closeModal();
     router.push(`/docs/${slug}`);
   };
 
@@ -97,7 +108,7 @@ export function DocSearch() {
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 px-4 bg-background/80 backdrop-blur-sm">
           <div
             className="fixed inset-0 bg-transparent"
-            onClick={() => setIsOpen(false)}
+            onClick={closeModal}
             aria-hidden="true"
           />
 

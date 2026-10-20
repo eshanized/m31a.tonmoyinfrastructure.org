@@ -76,7 +76,7 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'M31A',
   alternateName: 'M31 Autonomous',
-  operatingSystem: 'Linux, macOS, Windows',
+  operatingSystem: 'Linux x86_64 (release-qualified), macOS Intel (conditionally supported)',
   applicationCategory: 'DeveloperApplication',
   description:
     'An autonomous software-engineering runtime that plans, executes, verifies, and recovers directly from the developer terminal.',

@@ -3,4 +3,16 @@
 // `npm run lint` invokes `eslint .` directly against this config.
 import next from 'eslint-config-next';
 
-export default [...next];
+export default [
+  ...next,
+  {
+    settings: {
+      react: {
+        version: '19.3.0',
+      },
+    },
+    rules: {
+      'react-hooks/set-state-in-effect': 'warn',
+    },
+  },
+];

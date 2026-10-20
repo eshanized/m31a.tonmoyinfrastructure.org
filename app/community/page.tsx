@@ -1,11 +1,26 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ExternalLink, MessageSquare, ShieldAlert, GitPullRequest, HelpCircle } from 'lucide-react';
 import { GithubMark } from '@/components/site/logo';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Community & Contribution Channels · M31A',
+  description:
+    'Join the M31A open-source engineering community: GitHub discussions, issue tracker, security advisories, and RFC contributions.',
+  path: '/community',
+  keywords: ['M31A community', 'open source coding agent github', 'contributing to M31A', 'Rust developer community'],
+});
 
 export default function CommunityPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Community', path: '/community' },
+  ]);
+
   const channels = [
     {
       title: 'GitHub Repository',
@@ -41,6 +56,10 @@ export default function CommunityPage() {
 
   return (
     <div className="py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* Header */}
       <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
         <Container>

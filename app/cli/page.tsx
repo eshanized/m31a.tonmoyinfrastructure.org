@@ -1,9 +1,19 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Terminal, Download, Sparkles } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CliShowcase } from '@/components/home/cli-showcase';
 import { CLI_COMMAND_DEFS } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'CLI Subcommand Reference & UNIX Exit Codes · M31A',
+  description:
+    'Complete reference for M31A CLI: mission lifecycle commands, interactive cockpit invocation, configuration tiers, deployment channels, and deterministic UNIX exit codes.',
+  path: '/cli',
+  keywords: ['M31A CLI', 'CLI reference', 'exit codes', 'm31a run', 'm31a cockpit', 'terminal coding commands'],
+});
 
 const EXIT_CODES = [
   { code: '0', meaning: 'Success', desc: 'Mission or command finished with all verification checks satisfied.' },
@@ -15,8 +25,17 @@ const EXIT_CODES = [
 ];
 
 export default function CliPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'CLI Reference', path: '/cli' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* ── Atmospheric Radial Lighting & CAD Tech Grid ── */}
       <div 
         className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.12)_0%,rgba(14,14,18,0.3)_45%,transparent_70%)] blur-3xl opacity-80"

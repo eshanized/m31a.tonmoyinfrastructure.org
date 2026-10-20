@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import { HeroSection } from '@/components/home/hero-section';
 import { ProductWorkflow } from '@/components/home/product-workflow';
 import { WhyM31A } from '@/components/home/why-m31a';
@@ -10,10 +11,34 @@ import { TerminalNative } from '@/components/home/terminal-native';
 import { InstallationSection } from '@/components/home/installation-section';
 import { OpenSourceSection } from '@/components/home/open-source-section';
 import { FinalCta } from '@/components/home/final-cta';
+import { createPageMetadata, generateSoftwareApplicationJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'M31A — Open-Source Autonomous AI Coding Agent for the Terminal',
+  description:
+    'M31A is an open-source autonomous AI coding agent built in Rust for developer terminals. Features deterministic runtime authority, 11-stage policy gates, and Linux-first confinement.',
+  path: '/',
+  keywords: [
+    'open-source AI coding agent',
+    'terminal coding agent',
+    'autonomous coding agent',
+    'Linux AI coding tool',
+    'Rust AI agent',
+    'AI software engineering agent',
+    'Cursor alternative',
+    'Claude Code alternative',
+  ],
+});
 
 export default function HomePage() {
+  const jsonLd = generateSoftwareApplicationJsonLd();
+
   return (
     <div className="flex flex-col w-full overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 01 · Hero Section (Product-first + Centerpiece Terminal Visualization) */}
       <HeroSection />
 

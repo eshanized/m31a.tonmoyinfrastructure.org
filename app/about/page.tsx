@@ -1,12 +1,31 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'About M31A & Tonmoy Infrastructure · Philosophy & Mission',
+  description:
+    'Learn about M31A and Tonmoy Infrastructure & Vision: why we built a high-assurance, Rust-native autonomous coding runtime governed by non-bypassable policy gates.',
+  path: '/about',
+  keywords: ['About M31A', 'Tonmoy Infrastructure', 'AI agent philosophy', 'autonomous software engineering runtime'],
+});
 
 export default function AboutPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* Header */}
       <div className="border-b border-[#222226] pb-12 sm:pb-16 mb-16">
         <Container>

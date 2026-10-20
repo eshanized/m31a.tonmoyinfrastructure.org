@@ -120,7 +120,7 @@ export function ProductStory() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 flex flex-col gap-4">
             <div className="inline-flex items-center gap-2">
-              <span className="font-mono text-xs text-[#E8523F] font-bold">{current.number} //</span>
+              <span className="font-mono text-xs text-[#E8523F] font-bold">{current.number} {'//'}</span>
               <span className="text-xs uppercase tracking-widest text-[#A3A09B] font-semibold">{current.subtitle}</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F0EDE8]">

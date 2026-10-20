@@ -1,8 +1,18 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Layers, ShieldCheck, Terminal, Cpu } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
 import { Container, StatusBadge } from '@/components/site/section';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Features & Subsystem Capabilities · M31A',
+  description:
+    'Explore the core capabilities of M31A: 12-stage deterministic autonomy loop, non-bypassable policy gates, Linux cgroups confinement, and Ratatui TUI cockpit.',
+  path: '/features',
+  keywords: ['M31A features', 'autonomous coding capabilities', 'policy gates', 'terminal TUI', 'process confinement'],
+});
 
 const GROUPS: Record<string, typeof FEATURES> = {};
 for (const f of FEATURES) {
@@ -10,8 +20,17 @@ for (const f of FEATURES) {
 }
 
 export default function FeaturesPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Features', path: '/features' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* ── Atmospheric Radial Lighting & CAD Tech Grid ── */}
       <div 
         className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.12)_0%,rgba(14,14,18,0.3)_45%,transparent_70%)] blur-3xl opacity-80"

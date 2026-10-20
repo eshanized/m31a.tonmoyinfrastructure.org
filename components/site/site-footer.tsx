@@ -17,9 +17,9 @@ export function SiteFooter() {
       />
 
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Column */}
-          <div className="col-span-1 md:col-span-1 flex flex-col gap-5">
+          <div className="col-span-1 lg:col-span-3 flex flex-col gap-5">
             <Link href="/" className="inline-flex items-center gap-2 group">
               <LogoMark className="w-9 h-9 transition-transform group-hover:scale-105" />
               <span className="font-mono text-sm font-bold text-[#F4F4F6] tracking-tight">M31A</span>
@@ -36,11 +36,23 @@ export function SiteFooter() {
           </div>
 
           {/* Links Columns */}
-          <div className="col-span-1 md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="col-span-1 lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-8">
             <div className="flex flex-col gap-4">
               <h3 className="font-semibold text-[#F4F4F6] text-xs font-mono tracking-wider uppercase">Product</h3>
               <ul className="flex flex-col gap-2.5">
                 {FOOTER_LINKS.product.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h3 className="font-semibold text-[#F4F4F6] text-xs font-mono tracking-wider uppercase">Comparisons</h3>
+              <ul className="flex flex-col gap-2.5">
+                {FOOTER_LINKS.comparisons.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="text-[#9E9EA8] hover:text-[#E8523F] text-xs sm:text-sm transition-colors">
                       {link.label}

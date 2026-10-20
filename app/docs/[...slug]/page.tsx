@@ -6,6 +6,7 @@ import { DocToc } from '@/components/docs/doc-toc';
 import { DOCS } from '@/lib/m31a/product';
 import { getDocArticle } from '@/lib/docs/content';
 import { PRODUCT } from '@/lib/m31a/product';
+import { createPageMetadata, generateBreadcrumbJsonLd, generateTechArticleJsonLd } from '@/lib/seo/metadata';
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -24,10 +25,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const slug = parts.join('/');
   const doc = getDoc(slug);
   if (!doc) return { title: 'Not Found' };
-  return {
+  return createPageMetadata({
     title: `${doc.title} — M31A Documentation`,
     description: doc.description,
-  };
+    path: `/docs/${slug}`,
+    ogType: 'article',
+  });
 }
 
 export default async function DocPage({ params }: PageProps) {
@@ -38,8 +41,28 @@ export default async function DocPage({ params }: PageProps) {
 
   const article = getDocArticle(slug);
 
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Docs', path: '/docs' },
+    { name: doc.title, path: `/docs/${slug}` },
+  ]);
+
+  const articleJson = generateTechArticleJsonLd({
+    headline: doc.title,
+    description: doc.description,
+    path: `/docs/${slug}`,
+  });
+
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJson) }}
+      />
       <div className="flex gap-10">
         <DocSidebar currentSlug={slug} />
 

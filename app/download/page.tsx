@@ -1,14 +1,33 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Download, ExternalLink, ShieldCheck, Terminal, CheckCircle2, Sparkles } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CodeBlock } from '@/components/site/code-block';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
 import { ReleaseCard } from '@/components/download/release-card';
+import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Download & Install M31A · Terminal AI Coding Runtime',
+  description:
+    'Download and install M31A via curl one-liner, PowerShell, pre-built binary archives, or Cargo build from source. Release-qualified for Linux x86_64.',
+  path: '/download',
+  keywords: ['download M31A', 'install AI coding agent', 'curl install M31A', 'cargo install m31a', 'Linux binary download'],
+});
 
 export default function DownloadPage() {
+  const breadcrumbJson = generateBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Download', path: '/download' },
+  ]);
+
   return (
     <div className="py-16 sm:py-24 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }}
+      />
       {/* ── Atmospheric Radial Lighting & CAD Tech Grid ── */}
       <div 
         className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(232,82,63,0.12)_0%,rgba(14,14,18,0.3)_45%,transparent_70%)] blur-3xl opacity-80"

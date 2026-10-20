@@ -99,17 +99,45 @@ export function HeroSection() {
 
           {/* Large Confident Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F4F4F6] leading-[1.04] text-balance mb-6">
-            The autonomous coding agent{' '}
+            Open-source autonomous AI coding agent{' '}
             <span className="block mt-2 bg-gradient-to-r from-[#FFFFFF] via-[#F4F4F6] to-[#E8523F] bg-clip-text text-transparent">
-              for serious engineering.
+              built for your terminal.
             </span>
           </h1>
 
           {/* Supporting Copy */}
-          <p className="text-lg sm:text-xl text-[#9E9EA8] max-w-2xl leading-relaxed font-normal mb-10 text-balance">
-            M31A takes engineering goals, turns them into executable plans, works through the repository,
-            verifies its changes, and recovers from failure — directly from the terminal.
+          <p className="text-lg sm:text-xl text-[#9E9EA8] max-w-2xl leading-relaxed font-normal mb-8 text-balance">
+            M31A is a single-binary Rust runtime that turns complex software engineering goals into verified, tested git commits.
+            Terminal-native, release-qualified on Linux, governed by 11-stage policy gates, and dual-licensed under MIT &amp; Apache-2.0.
           </p>
+
+          {/* Discovery Intent Quick Links */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10 text-xs font-mono">
+            <Link
+              href="/terminal-coding-agent"
+              className="px-3 py-1 rounded-full border border-[#27272E] bg-[#121216] text-[#9E9EA8] hover:text-[#F4F4F6] hover:border-[#E8523F]/50 transition-colors"
+            >
+              Terminal Cockpit ↗
+            </Link>
+            <Link
+              href="/ai-coding-agent-linux"
+              className="px-3 py-1 rounded-full border border-[#27272E] bg-[#121216] text-[#9E9EA8] hover:text-[#F4F4F6] hover:border-[#E8523F]/50 transition-colors"
+            >
+              Linux-First Confinement ↗
+            </Link>
+            <Link
+              href="/free-ai-coding-agent"
+              className="px-3 py-1 rounded-full border border-[#27272E] bg-[#121216] text-[#9E9EA8] hover:text-[#F4F4F6] hover:border-[#E8523F]/50 transition-colors"
+            >
+              Zero License Fees ↗
+            </Link>
+            <Link
+              href="/alternatives"
+              className="px-3 py-1 rounded-full border border-[#27272E] bg-[#121216] text-[#9E9EA8] hover:text-[#F4F4F6] hover:border-[#E8523F]/50 transition-colors"
+            >
+              Compare Alternatives ↗
+            </Link>
+          </div>
 
           {/* Primary & Secondary Actions */}
           <div className="flex flex-wrap items-center justify-center gap-4 mb-8">

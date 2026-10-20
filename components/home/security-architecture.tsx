@@ -189,7 +189,7 @@ export function SecurityArchitecture() {
               </div>
               <div>
                 <span className="text-xs font-mono uppercase tracking-wider text-[#E8523F] font-semibold">
-                  {active.layer} // {active.category}
+                  {active.layer} {'//'} {active.category}
                 </span>
                 <h3 className="text-xl font-bold tracking-tight text-[#F4F4F6]">
                   {active.name}
