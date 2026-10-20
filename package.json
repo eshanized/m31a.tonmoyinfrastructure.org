@@ -9,7 +9,8 @@
     "lint": "eslint app components lib",
     "typecheck": "tsc --noEmit",
     "content:validate": "node scripts/validate-content.mjs",
-    "seo:validate": "node scripts/validate-seo.mjs"
+    "seo:validate": "node scripts/validate-seo.mjs",
+    "seo:validate-output": "node scripts/validate-seo-output.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -69,11 +70,12 @@
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "4.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^6.0.3",
+    "typescript": "6.0.3",
     "vaul": "^1.1.2",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3"
+    "@tailwindcss/postcss": "^4.3.3",
+    "@eslint/compat": "2.1.0"
   }
 }

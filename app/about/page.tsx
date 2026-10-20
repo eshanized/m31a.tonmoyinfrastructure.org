@@ -1,16 +1,15 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { PRODUCT } from '@/lib/m31a/product';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'About M31A & Tonmoy Infrastructure · Philosophy & Mission',
-  description:
-    'Learn about M31A and Tonmoy Infrastructure & Vision: why we built a high-assurance, Rust-native autonomous coding runtime governed by non-bypassable policy gates.',
-  path: '/about',
+  title: "About the M31A Project",
+  description: "Learn about M31A (M31 Autonomous), an open-source Rust-native autonomous coding runtime developed by Tonmoy Infrastructure & Vision for controlled software-engineering workflows.",
+  path: "/about",
   keywords: ['About M31A', 'Tonmoy Infrastructure', 'AI agent philosophy', 'autonomous software engineering runtime'],
 });
 
@@ -105,7 +104,7 @@ export default function AboutPage() {
                 <span className="text-[#F0EDE8]">{PRODUCT.orgName}</span>
               </div>
               <div className="flex justify-between py-2">
-                <span className="text-[#6B6965]">Dual License</span>
+                <span className="text-[#6B6965]">License</span>
                 <span className="text-[#F0EDE8]">{PRODUCT.licenses.join(' / ')}</span>
               </div>
             </div>

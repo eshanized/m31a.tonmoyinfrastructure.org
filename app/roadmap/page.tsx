@@ -1,20 +1,20 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Container, StatusBadge } from '@/components/site/section';
 import { ROADMAP_ITEMS } from '@/lib/m31a/product';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
-
-export const metadata: Metadata = createPageMetadata({
-  title: 'Engineering Roadmap & Subsystem Milestones · M31A',
-  description:
-    'Verified engineering roadmap for M31A: completed runtime milestones, in-progress cross-platform qualification, and planned extensions.',
-  path: '/roadmap',
-  keywords: ['M31A roadmap', 'coding agent roadmap', 'Rust runtime milestones', 'open source agent roadmap'],
-});
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 const STATUS_GROUPS = ['Completed', 'In Progress', 'Planned', 'Future'] as const;
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Roadmap and Development Status",
+  description: "Review the M31A engineering roadmap, completed milestones, active work, and planned capabilities, with implementation status distinguished from future goals.",
+  path: "/roadmap",
+  keywords: ['M31A roadmap', 'coding agent roadmap', 'Rust runtime milestones', 'open source agent roadmap'],
+  absoluteTitle: false,
+});
 
 export default function RoadmapPage() {
   const breadcrumbJson = generateBreadcrumbJsonLd([

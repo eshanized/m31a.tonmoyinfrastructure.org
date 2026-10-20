@@ -1,29 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Fira_Code } from 'next/font/google';
 import './globals.css';
 import { SiteHeader } from '@/components/site/site-header';
 import { SiteFooter } from '@/components/site/site-footer';
 import { PRODUCT } from '@/lib/m31a/product';
 
-const inter = Inter({
+const firaCode = Fira_Code({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-mono',
+  variable: '--font-fira-code',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(PRODUCT.canonicalUrl),
   title: {
-    default: 'M31A — Autonomous Coding Agent for Serious Engineering',
-    template: '%s · M31A',
+    default: 'M31A — Open-Source Autonomous Coding Agent',
+    template: '%s | M31A',
   },
   description:
     "M31A is an autonomous coding agent that lives in the developer's terminal. It takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — with deterministic runtime authority.",
@@ -43,11 +36,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: PRODUCT.canonicalUrl,
   },
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/favicon.svg'],
+  },
   openGraph: {
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
     description:
       'M31A takes engineering goals, turns them into executable plans, works through the repository, verifies its changes, and recovers from failure — directly from the terminal.',
-    url: PRODUCT.canonicalUrl,
     siteName: 'M31A',
     locale: 'en_US',
     type: 'website',
@@ -73,21 +69,40 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'M31A',
-  alternateName: 'M31 Autonomous',
-  operatingSystem: 'Linux x86_64 (release-qualified), macOS Intel (conditionally supported)',
-  applicationCategory: 'DeveloperApplication',
-  description:
-    'An autonomous software-engineering runtime that plans, executes, verifies, and recovers directly from the developer terminal.',
-  softwareVersion: PRODUCT.version,
-  url: PRODUCT.canonicalUrl,
-  license: PRODUCT.licenseUrl,
-  author: {
-    '@type': 'Organization',
-    name: PRODUCT.orgName,
-    url: 'https://tonmoyinfrastructure.org/',
-  },
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://tonmoyinfrastructure.org/#organization',
+      name: PRODUCT.orgName,
+      url: 'https://tonmoyinfrastructure.org/',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${PRODUCT.canonicalUrl}#website`,
+      url: PRODUCT.canonicalUrl,
+      name: PRODUCT.name,
+      description: PRODUCT.description,
+      inLanguage: 'en',
+      publisher: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${PRODUCT.canonicalUrl}#software`,
+      name: PRODUCT.name,
+      alternateName: PRODUCT.fullName,
+      operatingSystem: 'Linux x86_64 (release-qualified), macOS Intel (conditionally supported)',
+      applicationCategory: 'DeveloperApplication',
+      description: PRODUCT.longDescription,
+      softwareVersion: PRODUCT.version,
+      url: PRODUCT.canonicalUrl,
+      license: PRODUCT.licenseUrl,
+      sameAs: PRODUCT.repositoryUrl,
+      downloadUrl: PRODUCT.releasesUrl,
+      image: `${PRODUCT.canonicalUrl}og-image.svg`,
+      author: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+      publisher: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -96,7 +111,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${firaCode.variable} dark`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

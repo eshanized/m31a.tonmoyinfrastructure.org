@@ -1,18 +1,18 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Layers, ShieldCheck, Database, Terminal, Sparkles } from 'lucide-react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
+import { ArrowRight, Layers, ShieldCheck, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { ArchitectureStack } from '@/components/home/architecture-stack';
 import { PRODUCT } from '@/lib/m31a/product';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Runtime Architecture (L0–L9) · M31A',
-  description:
-    'Deep architectural breakdown of M31A: 10-layer single-crate Rust hierarchy, downward-dependency invariants, SQLite durability, and multi-tier verification gates.',
-  path: '/architecture',
+  title: "Runtime Architecture",
+  description: "Explore M31A's Rust runtime architecture, including its layered components, execution lifecycle, model trust boundary, SQLite persistence, and verification flow.",
+  path: "/architecture",
   keywords: ['M31A architecture', 'Rust runtime kernel', 'layered software architecture', 'autonomous agent architecture', 'L0 to L9'],
+  absoluteTitle: false,
 });
 
 export default function ArchitecturePage() {

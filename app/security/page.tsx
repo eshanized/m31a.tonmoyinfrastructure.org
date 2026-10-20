@@ -1,17 +1,17 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Lock, ExternalLink, AlertOctagon, CheckCircle2, ShieldAlert } from 'lucide-react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
+import { ArrowRight, ShieldCheck, Lock, ExternalLink, AlertOctagon } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { SecurityModel } from '@/components/home/security-model';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Security Architecture & ASVS L1 Conformance · M31A',
-  description:
-    'Security model of M31A: 11-stage policy gates, SecretRedactor pipeline, centralized SSRF destination checks, fail-closed worktrees, and OWASP ASVS L1 alignment.',
-  path: '/security',
+  title: "Security Model and Policy Gates",
+  description: "Learn how M31A governs autonomous coding with layered policies, process confinement, secret redaction, controlled side effects, and fail-closed recovery.",
+  path: "/security",
   keywords: ['M31A security', 'AI agent security', 'policy gate', 'SSRF defense', 'secret redaction', 'OWASP ASVS L1'],
+  absoluteTitle: false,
 });
 
 export default function SecurityPage() {

@@ -275,18 +275,21 @@ let techArticleCount = 0;
 
 for (const [route, data] of pageMetadata.entries()) {
   for (const block of data.jsonLdBlocks) {
-    const type = block['@type'];
-    if (type === 'BreadcrumbList') {
-      breadcrumbCount++;
-      assert(Array.isArray(block.itemListElement), `${route} BreadcrumbList contains itemListElement array`);
-    } else if (type === 'SoftwareApplication') {
-      softwareAppCount++;
-      assert(block.operatingSystem && block.operatingSystem.includes('Linux'), `${route} SoftwareApplication accurately specifies Linux support`);
-      assert(!block.operatingSystem.includes('Linux, macOS, Windows'), `${route} SoftwareApplication does NOT falsely claim unverified Windows support`);
-    } else if (type === 'TechArticle') {
-      techArticleCount++;
-      assert(block.headline && block.headline.length > 5, `${route} TechArticle contains valid headline`);
-      assert(block.datePublished, `${route} TechArticle contains datePublished`);
+    const entities = Array.isArray(block['@graph']) ? block['@graph'] : [block];
+    for (const entity of entities) {
+      const type = entity['@type'];
+      if (type === 'BreadcrumbList') {
+        breadcrumbCount++;
+        assert(Array.isArray(entity.itemListElement), `${route} BreadcrumbList contains itemListElement array`);
+      } else if (type === 'SoftwareApplication') {
+        softwareAppCount++;
+        assert(entity.operatingSystem && entity.operatingSystem.includes('Linux'), `${route} SoftwareApplication accurately specifies Linux support`);
+        assert(!entity.operatingSystem.includes('Linux, macOS, Windows'), `${route} SoftwareApplication does NOT falsely claim unverified Windows support`);
+      } else if (type === 'TechArticle') {
+        techArticleCount++;
+        assert(entity.headline && entity.headline.length > 5, `${route} TechArticle contains valid headline`);
+        assert(entity.datePublished, `${route} TechArticle contains datePublished`);
+      }
     }
   }
 }

@@ -1,19 +1,19 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Download, ExternalLink, ShieldCheck, Terminal, CheckCircle2, Sparkles } from 'lucide-react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
+import { ArrowRight, Terminal } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CodeBlock } from '@/components/site/code-block';
 import { PRODUCT, PLATFORMS_MATRIX } from '@/lib/m31a/product';
 import { ReleaseCard } from '@/components/download/release-card';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Download & Install M31A · Terminal AI Coding Runtime',
-  description:
-    'Download and install M31A via curl one-liner, PowerShell, pre-built binary archives, or Cargo build from source. Release-qualified for Linux x86_64.',
-  path: '/download',
+  title: "Download and Install M31A",
+  description: "Get M31A runtime release artifacts, follow installation instructions, verify SHA-256 checksums, and build the Rust-based coding agent from source.",
+  path: "/download",
   keywords: ['download M31A', 'install AI coding agent', 'curl install M31A', 'cargo install m31a', 'Linux binary download'],
+  absoluteTitle: false,
 });
 
 export default function DownloadPage() {
@@ -142,7 +142,7 @@ export default function DownloadPage() {
                       <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
                         p.classification === 'SUPPORTED'
                           ? 'bg-[#3ECF8E]/10 text-[#3ECF8E] border border-[#3ECF8E]/20'
-                          : p.classification === 'CONDITIONALLY SUPPORTED'
+                          : p.classification === 'INTEGRATED'
                           ? 'bg-[#EAB308]/10 text-[#EAB308] border border-[#EAB308]/20'
                           : 'bg-[#18181D] text-[#9E9EA8] border border-[#27272E]'
                       }`}>

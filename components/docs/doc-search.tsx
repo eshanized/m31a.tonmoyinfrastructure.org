@@ -92,7 +92,11 @@ export function DocSearch() {
     <>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setQuery('');
+          setSelectedIndex(0);
+          setIsOpen(true);
+        }}
         className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border/80 bg-secondary/40 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/70 transition-colors"
       >
         <div className="flex items-center gap-2">

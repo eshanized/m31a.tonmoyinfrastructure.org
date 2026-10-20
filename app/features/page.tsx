@@ -1,23 +1,23 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Layers, ShieldCheck, Terminal, Cpu } from 'lucide-react';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
+import { ArrowRight } from 'lucide-react';
 import { FEATURES } from '@/lib/m31a/product';
 import { Container, StatusBadge } from '@/components/site/section';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
-
-export const metadata: Metadata = createPageMetadata({
-  title: 'Features & Subsystem Capabilities · M31A',
-  description:
-    'Explore the core capabilities of M31A: 12-stage deterministic autonomy loop, non-bypassable policy gates, Linux cgroups confinement, and Ratatui TUI cockpit.',
-  path: '/features',
-  keywords: ['M31A features', 'autonomous coding capabilities', 'policy gates', 'terminal TUI', 'process confinement'],
-});
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 const GROUPS: Record<string, typeof FEATURES> = {};
 for (const f of FEATURES) {
   (GROUPS[f.category] ??= []).push(f);
 }
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Autonomous Coding Agent Features",
+  description: "Explore M31A's terminal-native coding agent capabilities, including task planning, typed tools, policy gates, verification, Git isolation, checkpoints, and local telemetry.",
+  path: "/features",
+  keywords: ['M31A features', 'autonomous coding capabilities', 'policy gates', 'terminal TUI', 'process confinement'],
+  absoluteTitle: false,
+});
 
 export default function FeaturesPage() {
   const breadcrumbJson = generateBreadcrumbJsonLd([

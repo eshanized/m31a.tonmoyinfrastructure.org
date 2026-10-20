@@ -4,25 +4,138 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+let failures = 0;
 
-console.log('🔍 Starting M31A Website Content & Integrity Validation...\n');
+function check(condition, message) {
+  if (condition) console.log(`  PASS ${message}`);
+  else {
+    console.error(`  FAIL ${message}`);
+    failures += 1;
+  }
+}
+function read(file) {
+  const filename = path.join(root, file);
+  return fs.existsSync(filename) ? fs.readFileSync(filename, 'utf8') : '';
+}
 
-let errorCount = 0;
-function assert(condition, message) {
-  if (!condition) {
-    console.error(`❌ ERROR: ${message}`);
-    errorCount++;
-  } else {
-    console.log(`  ✓ ${message}`);
+console.log('M31A website integrity and SEO checks\n');
+
+const requiredRoutes = [
+  'app/page.tsx', 'app/download/page.tsx', 'app/features/page.tsx',
+  'app/architecture/page.tsx', 'app/security/page.tsx', 'app/docs/page.tsx',
+  'app/docs/[...slug]/page.tsx', 'app/cli/page.tsx', 'app/changelog/page.tsx',
+  'app/roadmap/page.tsx', 'app/community/page.tsx', 'app/about/page.tsx',
+  'app/not-found.tsx', 'app/layout.tsx', 'app/sitemap.ts', 'app/robots.ts',
+];
+for (const file of requiredRoutes) check(fs.existsSync(path.join(root, file)), `route file exists: ${file}`);
+
+const homepage = read('app/page.tsx');
+const cli = read('app/cli/page.tsx');
+const retired = [
+  'components/home/hero-terminal.tsx',
+  'components/home/product-workflow.tsx',
+  'components/home/repository-capabilities.tsx',
+  'components/home/terminal-native.tsx',
+  'components/home/cli-showcase.tsx',
+  'components/site/signature-visual.tsx',
+];
+for (const file of retired) check(!fs.existsSync(path.join(root, file)), `retired simulated UI removed: ${file}`);
+check(!/HeroTerminal|ProductWorkflow|RepositoryCapabilities|TerminalNative/.test(homepage), 'homepage does not import simulated runtime UI');
+check(!cli.includes('CliShowcase'), 'CLI reference does not import simulated output');
+check(fs.existsSync(path.join(root, 'public/favicon.svg')), 'favicon asset exists');
+check(fs.existsSync(path.join(root, 'public/m31a-logo.svg')), 'logo asset exists');
+
+const product = read('lib/m31a/product.ts');
+check(product.includes("version: '0.1.9'"), 'product version is 0.1.9');
+check(product.includes("canonicalUrl: 'https://m31a.tonmoyinfrastructure.org/'"), 'canonical origin is the production HTTPS origin');
+check(product.includes("repositoryUrl: 'https://github.com/eshanized/M31A'"), 'canonical repository URL is correct');
+check(product.includes("rustVersion: '1.85+'"), 'minimum Rust version is documented');
+check(product.includes("edition: '2024'"), 'Rust edition is documented');
+check(product.includes("licenses: ['MIT']"), 'runtime license is MIT');
+check(product.includes("canonicalProvider: 'NVIDIA NIM (nvidia_nim)'"), 'canonical model provider is NVIDIA NIM');
+check(product.includes("canonicalModelId: 'nvidia/nemotron-3-ultra-550b-a55b'"), 'canonical model ID is documented');
+check(product.includes("canonicalProviderEndpoint: 'https://integrate.api.nvidia.com/v1'"), 'canonical provider endpoint is documented');
+check(product.includes("targetTriple: 'x86_64-unknown-linux-gnu'") && product.includes("classification: 'SUPPORTED'"), 'Linux x86_64 support qualification exists');
+check(product.includes("os: 'macOS'") && product.includes("classification: 'INTEGRATED'"), 'macOS integration qualification exists');
+check(product.includes("classification: 'COMPILE-CHECKED'"), 'compile-checked platform classification exists');
+
+const toolIds = [...product.matchAll(/id:\s*'([a-z_]+)'/g)].map((m) => m[1]);
+check(new Set(toolIds).size >= 28, `at least 28 unique tools are defined (found ${new Set(toolIds).size})`);
+const commandIds = [...product.matchAll(/command:\s*'([^']+)'/g)];
+check(commandIds.length >= 18, `at least 18 CLI command definitions exist (found ${commandIds.length})`);
+
+const docsContent = read('lib/docs/content.tsx');
+const allSlugs = [...product.matchAll(/slug:\s*'([a-z0-9-]+)'/g)].map((m) => m[1]);
+const slugs = [...new Set(allSlugs)];
+check(slugs.length === 19, `exactly 19 documentation slugs are defined (found ${slugs.length})`);
+check(slugs.length === allSlugs.length, 'documentation manifest slugs are unique');
+for (const slug of slugs) check(docsContent.includes(`case '${slug}':`), `documentation article is mapped: ${slug}`);
+
+const nav = read('lib/m31a/nav.ts');
+check(!nav.includes('LICENSE-MIT'), 'no stale LICENSE-MIT URL remains in navigation');
+check(!nav.includes('LICENSE-APACHE'), 'no stale LICENSE-APACHE URL remains in navigation');
+check(nav.includes('/blob/master/LICENSE'), 'navigation points to LICENSE');
+check(nav.includes('/blob/master/CONTRIBUTING.md'), 'navigation points to CONTRIBUTING.md');
+check(nav.includes('/blob/master/SECURITY.md'), 'navigation points to SECURITY.md');
+
+const seo = read('lib/m31a/seo.ts');
+const sitemap = read('app/sitemap.ts');
+const robots = read('app/robots.ts');
+check(sitemap.includes('PRODUCT.canonicalUrl'), 'sitemap uses the canonical base URL');
+check(sitemap.includes('DOCS.map'), 'sitemap includes documentation entries');
+check(seo.includes('alternates:') && seo.includes('canonical'), 'metadata helper emits canonical links');
+check(seo.includes('openGraph:') && seo.includes('twitter:'), 'metadata helper emits social metadata');
+check(robots.includes("allow: '/'"), 'robots.txt permits public crawling');
+check(robots.includes('sitemap.xml'), 'robots.txt points to sitemap');
+check(robots.includes('PRODUCT.canonicalUrl'), 'robots.txt sitemap uses the canonical host');
+
+const indexableRoutes = [
+  ['app/page.tsx', '/'],
+  ['app/features/page.tsx', '/features'],
+  ['app/architecture/page.tsx', '/architecture'],
+  ['app/security/page.tsx', '/security'],
+  ['app/docs/page.tsx', '/docs'],
+  ['app/cli/page.tsx', '/cli'],
+  ['app/download/page.tsx', '/download'],
+  ['app/changelog/page.tsx', '/changelog'],
+  ['app/roadmap/page.tsx', '/roadmap'],
+  ['app/community/page.tsx', '/community'],
+  ['app/about/page.tsx', '/about'],
+];
+
+const titlePaths = new Map();
+const descriptionPaths = new Map();
+const metaPaths = new Set();
+
+for (const [file, route] of indexableRoutes) {
+  const source = read(file);
+  check(source.includes('createPageMetadata'), `${route} uses the shared metadata helper`);
+  check(source.includes(`path: "${route}"`), `${route} declares its own canonical path`);
+  check(!metaPaths.has(route), `${route} is unique in the static route manifest`);
+  metaPaths.add(route);
+
+  const metadata = source.match(/createPageMetadata\(\s*\{([\s\S]*?)\}\s*\)/)?.[1] ?? '';
+  const title = metadata.match(/title:\s*"([^"]+)"/)?.[1];
+  const description = metadata.match(/description:\s*"([^"]+)"/)?.[1];
+  check(Boolean(title), `${route} has a title declaration`);
+  check(Boolean(description), `${route} has a description declaration`);
+
+  if (title) {
+    const key = title.trim().toLowerCase();
+    check(!titlePaths.has(key), `${route} title is unique`);
+    if (titlePaths.has(key)) console.error(`    also used at ${titlePaths.get(key)}`);
+    titlePaths.set(key, route);
+  }
+  if (description) {
+    const key = description.trim().toLowerCase();
+    check(!descriptionPaths.has(key), `${route} description is unique`);
+    if (descriptionPaths.has(key)) console.error(`    also used at ${descriptionPaths.get(key)}`);
+    descriptionPaths.set(key, route);
   }
 }
 
-// 1. Verify Core Routes on Disk
-console.log('Checking required Next.js App Router pages:');
-const requiredRoutes = [
+const additionalRequiredRoutes = [
   'app/page.tsx',
   'app/download/page.tsx',
   'app/features/page.tsx',
@@ -47,80 +160,55 @@ const requiredRoutes = [
   'app/sitemap.ts',
   'app/robots.ts',
 ];
-
-for (const route of requiredRoutes) {
-  const fullPath = path.join(rootDir, route);
-  assert(fs.existsSync(fullPath), `Route file exists: ${route}`);
+for (const route of additionalRequiredRoutes) {
+  check(fs.existsSync(path.join(root, route)), `route file exists: ${route}`);
 }
 
-// 2. Read lib/m31a/product.ts
-console.log('\nValidating lib/m31a/product.ts invariants:');
-const productFile = fs.readFileSync(path.join(rootDir, 'lib/m31a/product.ts'), 'utf-8');
+const docPage = read('app/docs/[...slug]/page.tsx');
+check(docPage.includes('generateStaticParams'), 'documentation routes are statically generated');
+check(docPage.includes('createPageMetadata'), 'documentation routes have page-specific metadata');
+check(docPage.includes('path: `/docs/${slug}`'), 'documentation canonical URLs contain their own slug');
+check(docPage.includes("robots: { index: false, follow: false }"), 'unknown doc slugs are marked noindex');
 
-// Version Check
-assert(productFile.includes("version: '0.1.1'"), "PRODUCT version is 0.1.1");
-assert(productFile.includes("canonicalUrl: 'https://m31a.tonmoyinfrastructure.org/'"), "Canonical URL is https://m31a.tonmoyinfrastructure.org/");
-assert(productFile.includes("repositoryUrl: 'https://github.com/eshanized/M31A'"), "Repository URL matches authoritative repo");
-assert(productFile.includes("rustVersion: '1.85+'"), "Rust version is 1.85+");
-assert(productFile.includes("edition: '2024'"), "Rust edition is 2024");
-assert(productFile.includes("'MIT'") && productFile.includes("'Apache-2.0'"), "Dual licensed MIT / Apache-2.0");
-
-// Provider Invariant
-assert(productFile.includes("canonicalProvider: 'NVIDIA NIM (nvidia_nim)'"), "Production canonical provider is NVIDIA NIM");
-assert(productFile.includes("canonicalModelId: 'nvidia/nemotron-3-ultra-550b-a55b'"), "Canonical model ID matches production Nemotron");
-assert(productFile.includes("canonicalProviderEndpoint: 'https://integrate.api.nvidia.com/v1'"), "Provider endpoint is NVIDIA integrate API");
-
-// Platform Support Matrix Invariants
-console.log('\nValidating platform qualification matrix:');
-assert(productFile.includes("os: 'Linux'") && productFile.includes("classification: 'SUPPORTED'"), "Linux x86_64 is classified SUPPORTED");
-assert(productFile.includes("os: 'macOS'") && productFile.includes("classification: 'CONDITIONALLY SUPPORTED'"), "macOS is classified CONDITIONALLY SUPPORTED");
-assert(productFile.includes("classification: 'COMPILE-ONLY'"), "COMPILE-ONLY classifications present for other targets");
-
-// 28 Core Tools Catalog
-console.log('\nValidating 28 core tools catalog:');
-const toolMatches = productFile.match(/id:\s*'([a-z_]+)'/g) || [];
-const toolIds = toolMatches.map(m => m.replace(/id:\s*'|'/g, ''));
-const uniqueToolIds = new Set(toolIds);
-assert(uniqueToolIds.size >= 28, `Found at least 28 unique tool definitions (found ${uniqueToolIds.size})`);
-
-// 18 CLI Subcommands
-console.log('\nValidating CLI subcommands:');
-const cliDefMatches = productFile.match(/command:\s*'([^']+)'/g) || [];
-assert(cliDefMatches.length >= 18, `Found at least 18 CLI command definitions (found ${cliDefMatches.length})`);
-
-// 19 Documentation Topics
-console.log('\nValidating 19 Documentation topics & content mapping:');
-const contentFile = fs.readFileSync(path.join(rootDir, 'lib/docs/content.tsx'), 'utf-8');
-
-const slugMatches = [...productFile.matchAll(/slug:\s*'([a-z0-9-]+)'/g)].map(m => m[1]);
-const uniqueSlugs = [...new Set(slugMatches)];
-assert(uniqueSlugs.length === 19, `Exact 19 documentation slugs defined in product.ts (found ${uniqueSlugs.length})`);
-
-for (const slug of uniqueSlugs) {
-  assert(contentFile.includes(`case '${slug}':`), `lib/docs/content.tsx provides article for slug: ${slug}`);
+const expectedStaticRoutes = [
+  '/', '/features', '/architecture', '/security', '/docs',
+  '/cli', '/download', '/changelog', '/roadmap', '/community', '/about',
+  '/free-ai-coding-agent', '/alternatives', '/alternatives/cursor',
+  '/alternatives/claude-code', '/alternatives/opencode',
+  '/ai-coding-agent-linux', '/terminal-coding-agent',
+];
+for (const route of expectedStaticRoutes) {
+  const routeFile = route === '/'
+    ? 'app/page.tsx'
+    : `app/${route.slice(1)}/page.tsx`;
+  check(fs.existsSync(path.join(root, routeFile)), `SEO route exists: ${route}`);
 }
+const declaredStaticRoutes = [...sitemap.matchAll(/["']([^"']+)["']/g)]
+  .map((match) => match[1])
+  .filter((value) => expectedStaticRoutes.includes(value));
+for (const route of expectedStaticRoutes) {
+  check(declaredStaticRoutes.includes(route), `sitemap includes static route ${route}`);
+}
+check(
+  sitemap.includes('url: toCanonicalUrl(path)'),
+  'sitemap resolves static paths against the canonical origin'
+);
+check(
+  sitemap.includes('url: toCanonicalUrl(`/docs/${doc.slug}`)'),
+  'sitemap resolves each docs manifest slug against the canonical origin'
+);
+check(
+  sitemap.includes('...DOCS.map((doc) => ({'),
+  'sitemap enumerates the documentation manifest instead of hard-coded article URLs'
+);
 
-// 3. Navigation & Footer Links
-console.log('\nValidating navigation and footer targets:');
-const navFile = fs.readFileSync(path.join(rootDir, 'lib/m31a/nav.ts'), 'utf-8');
-assert(!navFile.includes('LICENSE-MIT'), "No dead links to LICENSE-MIT (uses LICENSE)");
-assert(!navFile.includes('LICENSE-APACHE'), "No dead links to LICENSE-APACHE (uses LICENSE)");
-assert(navFile.includes('/blob/master/LICENSE'), "Nav correctly points to /blob/master/LICENSE");
-assert(navFile.includes('/blob/master/CONTRIBUTING.md'), "Nav correctly points to /blob/master/CONTRIBUTING.md");
-assert(navFile.includes('/blob/master/SECURITY.md'), "Nav correctly points to /blob/master/SECURITY.md");
+check(seo.includes("if (path === '/') return PRODUCT.canonicalUrl"), 'homepage canonical resolves to root');
+check(seo.includes('new URL(relativePath, PRODUCT.canonicalUrl)'), 'non-root canonicals use the canonical origin');
 
-// 4. Check Sitemap Consistency
-console.log('\nValidating sitemap.ts:');
-const sitemapFile = fs.readFileSync(path.join(rootDir, 'app/sitemap.ts'), 'utf-8');
-assert(sitemapFile.includes('PRODUCT.canonicalUrl'), "Sitemap uses canonicalUrl");
-assert(sitemapFile.includes('DOCS.map'), "Sitemap dynamically includes all documentation articles");
-
-// Final Summary
-console.log('\n' + '='.repeat(50));
-if (errorCount === 0) {
-  console.log('✅ ALL AUDIT INVARIANTS PASSED! Zero errors found.');
+console.log('\n' + '-'.repeat(52));
+if (failures === 0) {
+  console.log('All website integrity and SEO checks passed.');
   process.exit(0);
-} else {
-  console.error(`❌ VALIDATION FAILED with ${errorCount} error(s).`);
-  process.exit(1);
 }
+console.error(`${failures} validation check(s) failed.`);
+process.exit(1);

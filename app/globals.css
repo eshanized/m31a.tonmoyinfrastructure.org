@@ -1,54 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ─────────────────────────────────────────────────────────
-   M31A DESIGN SYSTEM v3 — EDITORIAL / PREMIUM / CORAL
-   ───────────────────────────────────────────────────────── */
-
 @layer base {
   :root {
-    /* ── Backgrounds ── */
-    --bg-primary: #0A0A0B;
-    --bg-secondary: #111113;
-    --bg-elevated: #18181B;
-    --bg-muted: #1E1E22;
-    --bg-warm: #F5F0EB;
-    --bg-warm-secondary: #EAE4DD;
+    color-scheme: dark;
+    --font-sans: var(--font-fira-code);
+    --font-mono: var(--font-fira-code);
 
-    /* ── Text ── */
-    --text-primary: #F0EDE8;
-    --text-secondary: #A3A09B;
-    --text-muted: #6B6965;
+    --bg-primary: #09090b;
+    --bg-secondary: #111114;
+    --bg-elevated: #17171b;
+    --bg-muted: #212126;
 
-    /* ── Coral Accent ── */
-    --coral: #E8523F;
-    --coral-hover: #D4432F;
+    --text-primary: #f5f0eb;
+    --text-secondary: #a9a6a5;
+    --text-muted: #777982;
+
+    --coral: #e8523f;
+    --coral-hover: #f06450;
     --coral-light: rgba(232, 82, 63, 0.12);
     --coral-glow: rgba(232, 82, 63, 0.06);
 
-    /* ── Borders ── */
-    --border-primary: #222226;
-    --border-secondary: #2C2C31;
+    --border-primary: #27272d;
+    --border-secondary: #38383f;
 
-    /* ── Semantic ── */
-    --color-success: #3ECF8E;
-    --color-warning: #EAB308;
-    --color-error: #EF4444;
+    --color-success: #78d8a3;
+    --color-warning: #eab308;
+    --color-error: #ef4444;
 
-    /* ── Radius ── */
-    --radius: 0.375rem;
+    --radius: 0.625rem;
 
-    /* ── Motion ── */
     --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --duration-fast: 150ms;
-    --duration-normal: 250ms;
-    --duration-slow: 500ms;
+    --duration-normal: 220ms;
+    --duration-slow: 450ms;
 
-    /* ── ShadCN compatibility ── */
     --background: 240 6% 4%;
     --foreground: 36 14% 93%;
     --card: 240 5% 7%;
@@ -60,13 +49,13 @@
     --secondary: 240 4% 11%;
     --secondary-foreground: 36 14% 93%;
     --muted: 240 4% 14%;
-    --muted-foreground: 30 3% 50%;
+    --muted-foreground: 30 3% 58%;
     --accent: 7 78% 52%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 5% 14%;
-    --input: 240 5% 14%;
+    --border: 240 5% 16%;
+    --input: 240 5% 16%;
     --ring: 7 78% 52%;
   }
 
@@ -76,16 +65,20 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
   }
 
   body {
     @apply bg-background text-foreground;
+    min-height: 100%;
     background-color: var(--bg-primary);
+    background-image: radial-gradient(ellipse at 50% -24rem, rgba(232, 82, 63, 0.075), transparent 58%);
     color: var(--text-primary);
-    font-family: 'Inter', var(--font-sans), system-ui, -apple-system, sans-serif;
+    font-family: var(--font-fira-code), monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01" on;
   }
 
   ::selection {
@@ -95,8 +88,16 @@
 
   :focus-visible {
     outline: 2px solid var(--coral);
-    outline-offset: 2px;
-    border-radius: var(--radius);
+    outline-offset: 3px;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    touch-action: manipulation;
   }
 }
 
@@ -105,37 +106,33 @@
   .text-pretty { text-wrap: pretty; }
 
   .animate-fade-in {
-    animation: fade-in var(--duration-slow) var(--ease-out-quad) forwards;
+    animation: fade-in var(--duration-slow) var(--ease-out-quad) both;
   }
 
   .animate-slide-up {
-    animation: slide-up var(--duration-slow) var(--ease-out-expo) forwards;
+    animation: slide-up var(--duration-slow) var(--ease-out-expo) both;
   }
 
   .animate-slide-up-delay-1 {
-    animation: slide-up var(--duration-slow) var(--ease-out-expo) 100ms forwards;
-    opacity: 0;
+    animation: slide-up var(--duration-slow) var(--ease-out-expo) 100ms both;
   }
 
   .animate-slide-up-delay-2 {
-    animation: slide-up var(--duration-slow) var(--ease-out-expo) 200ms forwards;
-    opacity: 0;
+    animation: slide-up var(--duration-slow) var(--ease-out-expo) 200ms both;
   }
 
   .animate-slide-up-delay-3 {
-    animation: slide-up var(--duration-slow) var(--ease-out-expo) 300ms forwards;
-    opacity: 0;
+    animation: slide-up var(--duration-slow) var(--ease-out-expo) 300ms both;
   }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Subtle grain texture for dark sections */
   .grain::after {
     content: '';
     position: absolute;
     inset: 0;
-    opacity: 0.03;
+    opacity: 0.025;
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
     background-repeat: repeat;
@@ -149,7 +146,7 @@
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -160,12 +157,12 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
 }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #38383f; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #595961; }

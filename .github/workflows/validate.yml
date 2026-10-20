@@ -1,0 +1,48 @@
+name: Validate website
+
+on:
+  pull_request:
+    branches: ["master"]
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-validation
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate product content and route invariants
+        run: npm run content:validate
+
+      - name: Check lint
+        run: npm run lint
+
+      - name: Type-check TypeScript
+        run: npm run typecheck
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Prepare Pages output for validation
+        run: touch ./out/.nojekyll
+
+      - name: Validate generated SEO output
+        run: npm run seo:validate-output

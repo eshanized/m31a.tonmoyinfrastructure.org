@@ -29,9 +29,8 @@ export function SiteFooter() {
               <br />
               <span className="text-[#E8523F] font-semibold">The runtime decides.&quot;</span>
             </p>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-[#3ECF8E] bg-[#3ECF8E]/5 border border-[#3ECF8E]/20 px-2.5 py-1 rounded-md w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3ECF8E] animate-pulse" />
-              <span>SYSTEM OPERATIONAL</span>
+            <div className="inline-flex w-fit items-center gap-2 rounded-md border border-[#34343A] bg-[#111114] px-2.5 py-1 text-[11px] font-mono text-[#A9A6A5]">
+              <span>OPEN SOURCE SOFTWARE</span>
             </div>
           </div>
 
@@ -124,7 +123,7 @@ export function SiteFooter() {
             &copy; {new Date().getFullYear()} M31A Contributors. Maintained by Tonmoy Infrastructure &amp; Vision.
           </div>
           <div className="flex items-center gap-3">
-            <span>Dual License: MIT / Apache-2.0</span>
+            <span>License: MIT</span>
             <span>·</span>
             <span className="text-[#E8523F] font-semibold bg-[#E8523F]/10 border border-[#E8523F]/25 px-2 py-0.5 rounded">
               {displayVersion}

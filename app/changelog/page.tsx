@@ -1,17 +1,17 @@
-import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { ArrowRight, ExternalLink, Tag } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { CHANGELOG_ENTRIES } from '@/lib/m31a/product';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Changelog & Version History · M31A',
-  description:
-    'Authoritative release history for M31A runtime: deployment channels, fail-closed worktrees, SSRF destination policies, and kernel updates.',
-  path: '/changelog',
+  title: "Release Notes and Changelog",
+  description: "Read selected M31A runtime release notes, version history, and links to tagged releases and published artifacts in the official GitHub repository.",
+  path: "/changelog",
   keywords: ['M31A changelog', 'M31A release notes', 'Rust agent releases', 'version history'],
+  absoluteTitle: false,
 });
 
 export default function ChangelogPage() {
@@ -36,7 +36,7 @@ export default function ChangelogPage() {
             Changelog &amp; Release Records.
           </h1>
           <p className="mt-4 text-[#A3A09B] text-base sm:text-lg leading-relaxed max-w-2xl">
-            Authoritative release notes for all published versions of the M31A runtime.
+            Selected runtime release notes. The complete release timeline is maintained in the primary GitHub repository.
           </p>
         </Container>
       </div>

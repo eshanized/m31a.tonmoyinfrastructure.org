@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">M31A — Open-source autonomous coding agent</title>
+  <desc id="desc">A Rust-native runtime for planning, controlled execution, verification, and recovery in terminal-based software engineering.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11111a"/>
+      <stop offset="1" stop-color="#08080c"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6a5bd5"/>
+      <stop offset="1" stop-color="#e8523f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="82%" cy="24%" r="58%">
+      <stop offset="0" stop-color="#6a5bd5" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#6a5bd5" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity=".65"/>
+  <rect x="60" y="58" width="1080" height="514" rx="24" fill="#0b0b11" fill-opacity=".34" stroke="#ffffff" stroke-opacity=".12"/>
+  <rect x="60" y="58" width="5" height="514" rx="2.5" fill="url(#accent)"/>
+  <image href="https://m31a.tonmoyinfrastructure.org/m31a-logo.svg" x="104" y="100" width="88" height="88"/>
+  <text x="212" y="140" fill="#f5f0eb" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="38" font-weight="700" letter-spacing="-1">M31A</text>
+  <text x="212" y="172" fill="#a9a6a5" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="14" letter-spacing="2.5">M31 AUTONOMOUS</text>
+  <rect x="104" y="229" width="328" height="36" rx="18" fill="#e8523f" fill-opacity=".1" stroke="#e8523f" stroke-opacity=".45"/>
+  <circle cx="125" cy="247" r="4" fill="#e8523f"/>
+  <text x="141" y="252" fill="#f07865" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="13" font-weight="600" letter-spacing="1">OPEN-SOURCE · TERMINAL-NATIVE</text>
+  <text x="104" y="330" fill="#f5f0eb" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="51" font-weight="700" letter-spacing="-2">Autonomous coding.</text>
+  <text x="104" y="390" fill="#f5f0eb" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="51" font-weight="700" letter-spacing="-2">Runtime in control.</text>
+  <text x="106" y="437" fill="#a9a6a5" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="19">Plan. Execute. Verify. Recover.</text>
+  <line x1="104" y1="489" x2="1096" y2="489" stroke="#ffffff" stroke-opacity=".12"/>
+  <text x="104" y="527" fill="#a9a6a5" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="15">Rust-native engineering runtime</text>
+  <text x="1096" y="527" fill="#f07865" font-family="'Fira Code', 'SFMono-Regular', Consolas, monospace" font-size="15" text-anchor="end">m31a.tonmoyinfrastructure.org</text>
+</svg>

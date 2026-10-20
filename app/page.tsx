@@ -1,23 +1,20 @@
-import React from 'react';
 import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import { HeroSection } from '@/components/home/hero-section';
-import { ProductWorkflow } from '@/components/home/product-workflow';
 import { WhyM31A } from '@/components/home/why-m31a';
 import { ManifestoPhilosophy } from '@/components/home/manifesto-philosophy';
-import { RepositoryCapabilities } from '@/components/home/repository-capabilities';
+import { ProductStory } from '@/components/home/product-story';
 import { ArchitectureDeepDive } from '@/components/home/architecture-deep-dive';
 import { SecurityArchitecture } from '@/components/home/security-architecture';
-import { TerminalNative } from '@/components/home/terminal-native';
 import { InstallationSection } from '@/components/home/installation-section';
 import { OpenSourceSection } from '@/components/home/open-source-section';
 import { FinalCta } from '@/components/home/final-cta';
-import { createPageMetadata, generateSoftwareApplicationJsonLd } from '@/lib/seo/metadata';
+import { Container } from '@/components/site/section';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'M31A — Open-Source Autonomous AI Coding Agent for the Terminal',
-  description:
-    'M31A is an open-source autonomous AI coding agent built in Rust for developer terminals. Features deterministic runtime authority, 11-stage policy gates, and Linux-first confinement.',
-  path: '/',
+  title: "M31A — Open-Source Autonomous Coding Agent",
+  description: "M31A is an open-source autonomous coding agent with a Rust-native runtime for terminal-based software engineering, controlled tool execution, verification, and recovery.",
+  path: "/",
   keywords: [
     'open-source AI coding agent',
     'terminal coding agent',
@@ -28,48 +25,39 @@ export const metadata: Metadata = createPageMetadata({
     'Cursor alternative',
     'Claude Code alternative',
   ],
+  absoluteTitle: true,
 });
 
 export default function HomePage() {
-  const jsonLd = generateSoftwareApplicationJsonLd();
-
   return (
-    <div className="flex flex-col w-full overflow-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      {/* 01 · Hero Section (Product-first + Centerpiece Terminal Visualization) */}
+    <div className="w-full overflow-clip">
       <HeroSection />
-
-      {/* 02 · Product Demonstration / How M31A Works (INTENT → PLAN → EXECUTE → OBSERVE → VERIFY → RECOVER → COMPLETE) */}
-      <ProductWorkflow />
-
-      {/* 03 · Why M31A? (4 Differentiated Editorial Modules) */}
       <WhyM31A />
-
-      {/* 04 · Signature Manifesto / Philosophy (THE MODEL PROPOSES. THE RUNTIME DECIDES.) */}
       <ManifestoPhilosophy />
 
-      {/* 05 · Real Engineering Workflows (Built for repositories, not conversations) */}
-      <RepositoryCapabilities />
+      <section id="product-demo" className="border-b border-[#27272D] py-20 sm:py-28">
+        <Container>
+          <div className="mb-10 grid gap-4 md:grid-cols-[0.9fr_1.1fr] md:items-end md:gap-10">
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#F07865]">
+                How the runtime is designed
+              </p>
+              <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-[-0.04em] text-[#F5F0EB] sm:text-4xl">
+                A documented engineering lifecycle.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-7 text-[#A9A6A5] sm:text-base">
+              Explore the design principles behind planning, bounded execution, verification, and recovery. These are explanatory product details—not a live mission or a simulated terminal session.
+            </p>
+          </div>
+          <ProductStory />
+        </Container>
+      </section>
 
-      {/* 06 · Architecture Deep Dive (Under the interface is a runtime built for control: L0 to L9) */}
       <ArchitectureDeepDive />
-
-      {/* 07 · Security Architecture (Security is part of execution, not an afterthought) */}
       <SecurityArchitecture />
-
-      {/* 08 · Terminal-Native Experience (Real CLI commands and keyboard workflows) */}
-      <TerminalNative />
-
-      {/* 09 · Installation & Platform Qualification (curl, powershell, source, matrix) */}
       <InstallationSection />
-
-      {/* 10 · Open Source & Technical Proof (View source on GitHub) */}
       <OpenSourceSection />
-
-      {/* 11 · Final Conversion Moment */}
       <FinalCta />
     </div>
   );

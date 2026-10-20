@@ -1,24 +1,25 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/m31a/seo';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Terminal, Layers, ShieldCheck, Wrench, GitBranch, Cpu, Database } from 'lucide-react';
 import { Container } from '@/components/site/section';
 import { DOC_SECTIONS, DOCS, PRODUCT } from '@/lib/m31a/product';
-import { createPageMetadata, generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
-
-export const metadata: Metadata = createPageMetadata({
-  title: 'Documentation & Technical Architecture Manual · M31A',
-  description:
-    'Comprehensive technical manual for M31A: getting started guides, 10-layer runtime architecture, 11-stage policy gates, 28 core tools, configuration, and security.',
-  path: '/docs',
-  keywords: ['M31A documentation', 'coding agent manual', 'agent runtime docs', 'policy gate documentation', 'CLI docs'],
-});
+import { generateBreadcrumbJsonLd } from '@/lib/seo/metadata';
 
 const SECTION_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   'getting-started': Terminal,
   'concepts': Layers,
   'reference': BookOpen,
 };
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Documentation and Developer Guide",
+  description: "Install and configure M31A, learn the terminal workflow, and reference its architecture, security model, tools, policies, and CLI commands.",
+  path: "/docs",
+  keywords: ['M31A documentation', 'coding agent manual', 'agent runtime docs', 'policy gate documentation', 'CLI docs'],
+  absoluteTitle: false,
+});
 
 export default function DocsIndexPage() {
   const breadcrumbJson = generateBreadcrumbJsonLd([
