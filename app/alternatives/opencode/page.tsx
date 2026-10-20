@@ -107,7 +107,7 @@ export default function OpenCodeAlternativePage() {
               A Shared Open-Source Ethos: Zero Proprietary SaaS Gatekeeping
             </h2>
             <p>
-              Unlike commercial closed-source tools (such as Cursor or GitHub Copilot), both <strong>OpenCode</strong> (MIT licensed by Anomaly) and <strong>M31A</strong> (dual MIT / Apache-2.0 licensed by Tonmoy Infrastructure) are open-source projects where you own your tools, inspect the code, and pay zero recurring subscription seat fees.
+              Unlike commercial closed-source tools (such as Cursor or GitHub Copilot), both <strong>OpenCode</strong> (MIT licensed by Anomaly) and <strong>M31A</strong> (MIT licensed by Tonmoy Infrastructure) are open-source projects where you own your tools, inspect the code, and pay zero recurring subscription seat fees.
             </p>
           </div>
         </div>
@@ -192,7 +192,7 @@ export default function OpenCodeAlternativePage() {
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Software License</td>
                   <td className="p-4 font-mono text-xs text-[#3ECF8E]">MIT License</td>
-                  <td className="p-4 font-mono text-xs text-[#3ECF8E]">Dual MIT / Apache-2.0</td>
+                  <td className="p-4 font-mono text-xs text-[#3ECF8E]">MIT</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Runtime Architecture</td>
