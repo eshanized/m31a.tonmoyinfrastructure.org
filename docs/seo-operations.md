@@ -24,7 +24,7 @@ The repository contains an existing HTML verification file in `public/google9ff1
 ### Sitemap Submission
 1. In Search Console, select **Sitemaps** from the left navigation.
 2. Enter `sitemap.xml` under "Add a new sitemap".
-3. Verify status returns **Success** and confirms discovery of all 41 routes.
+3. Verify status returns **Success** and confirms discovery of all 37 routes (11 core pages, 7 discovery pages, and 19 documentation articles).
 
 ---
 
