@@ -44,6 +44,13 @@ const expectedPages = [
   ['roadmap.html', 'https://m31a.tonmoyinfrastructure.org/roadmap', 'Roadmap and Development Status | M31A'],
   ['community.html', 'https://m31a.tonmoyinfrastructure.org/community', 'Community and Contributions | M31A'],
   ['about.html', 'https://m31a.tonmoyinfrastructure.org/about', 'About the M31A Project | M31A'],
+  ['free-ai-coding-agent.html', 'https://m31a.tonmoyinfrastructure.org/free-ai-coding-agent', 'Free AI Coding Agent: Open-Source Runtime vs Inference Costs · M31A'],
+  ['alternatives.html', 'https://m31a.tonmoyinfrastructure.org/alternatives', 'AI Coding Agent Alternatives &amp; Comparison Matrix (2026) · M31A'],
+  ['alternatives/cursor.html', 'https://m31a.tonmoyinfrastructure.org/alternatives/cursor', 'Cursor Alternative: Terminal Autonomous Agent vs Desktop IDE Fork · M31A'],
+  ['alternatives/claude-code.html', 'https://m31a.tonmoyinfrastructure.org/alternatives/claude-code', 'Claude Code Alternative: Rust Runtime vs Node.js Terminal Agent · M31A'],
+  ['alternatives/opencode.html', 'https://m31a.tonmoyinfrastructure.org/alternatives/opencode', 'OpenCode Alternative: Rust Systems Kernel vs Multi-Provider Assistant · M31A'],
+  ['ai-coding-agent-linux.html', 'https://m31a.tonmoyinfrastructure.org/ai-coding-agent-linux', 'Linux-First AI Coding Agent: cgroups v2, Headless CLI &amp; Terminal Cockpit · M31A'],
+  ['terminal-coding-agent.html', 'https://m31a.tonmoyinfrastructure.org/terminal-coding-agent', 'Terminal-Native AI Coding Agent: Ratatui TUI Cockpit &amp; CLI Automation · M31A'],
 ];
 
 const seenCanonical = new Set();
@@ -52,7 +59,8 @@ for (const [file, canonical, title] of expectedPages) {
   const html = read(file);
   if (!html) continue;
   check(html.includes(`href="${canonical}"`) && html.includes('rel="canonical"') || canonical === 'https://m31a.tonmoyinfrastructure.org/' && /<link[^>]+rel="canonical"[^>]+href="https:\/\/m31a\.tonmoyinfrastructure\.org\/?"/.test(html), `${file} has the expected canonical URL`);
-  check(html.includes(`<title>${title}</title>`), `${file} has the expected title`);
+  const escapedTitle = title.replace(/&/g, '&amp;').replace(/&amp;amp;/g, '&amp;');
+  check(html.includes(`<title>${title}</title>`) || html.includes(`<title>${escapedTitle}</title>`), `${file} has the expected title`);
   check(/<meta name="description" content="[^"]{20,}"/.test(html), `${file} has a non-empty meta description`);
   check(!html.includes('noindex'), `${file} is not accidentally marked noindex`);
   check(!seenCanonical.has(canonical), `canonical URL is unique: ${canonical}`);

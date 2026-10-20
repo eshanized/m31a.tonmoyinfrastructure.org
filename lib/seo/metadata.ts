@@ -94,12 +94,6 @@ export function generateSoftwareApplicationJsonLd() {
       name: PRODUCT.orgName,
       url: 'https://tonmoyinfrastructure.org/',
     },
-    offers: {
-      '@type': 'Offer',
-      price: '0.00',
-      priceCurrency: 'USD',
-      description: 'Free, open-source software under dual MIT and Apache-2.0 licenses. Model inference requires provider API keys.',
-    },
   };
 }
 

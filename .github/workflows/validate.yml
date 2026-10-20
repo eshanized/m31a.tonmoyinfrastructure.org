@@ -46,3 +46,6 @@ jobs:
 
       - name: Validate generated SEO output
         run: npm run seo:validate-output
+
+      - name: Validate SEO and canonical integrity
+        run: npm run seo:validate

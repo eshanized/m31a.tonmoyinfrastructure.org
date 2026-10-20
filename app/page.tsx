@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/m31a/seo';
 import { HeroSection } from '@/components/home/hero-section';
 import { WhyM31A } from '@/components/home/why-m31a';
+import { DiscoveryPaths } from '@/components/home/discovery-paths';
 import { ManifestoPhilosophy } from '@/components/home/manifesto-philosophy';
 import { ProductStory } from '@/components/home/product-story';
 import { ArchitectureDeepDive } from '@/components/home/architecture-deep-dive';
@@ -33,6 +34,7 @@ export default function HomePage() {
     <div className="w-full overflow-clip">
       <HeroSection />
       <WhyM31A />
+      <DiscoveryPaths />
       <ManifestoPhilosophy />
 
       <section id="product-demo" className="border-b border-[#27272D] py-20 sm:py-28">

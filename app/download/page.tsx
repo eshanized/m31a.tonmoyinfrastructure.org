@@ -202,6 +202,72 @@ export default function DownloadPage() {
           </div>
         </div>
 
+        {/* Platform Qualification & Discovery Links */}
+        <div className="rounded-2xl border border-[#27272E] bg-[#111115] p-6 sm:p-8 mb-16 shadow-xl">
+          <div className="flex items-center justify-between border-b border-[#222227] pb-4 mb-4">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#E8523F]">
+              EVALUATION &amp; RUNTIME GUIDES
+            </span>
+            <span className="text-xs font-mono text-[#65656E]">
+              Zero Vendor Lock-in
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <Link
+              href="/ai-coding-agent-linux"
+              className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] hover:border-[#3ECF8E]/40 transition-colors group"
+            >
+              <span className="font-mono text-[#3ECF8E] font-bold block mb-1">LINUX ARCHITECTURE</span>
+              <p className="font-medium text-[#F4F4F6] group-hover:text-[#3ECF8E] transition-colors mb-1">
+                Linux Confinement &amp; cgroups
+              </p>
+              <p className="text-[#9E9EA8] text-[11px] leading-relaxed">
+                Kernel-level process bounds, exit codes 0–5, and distribution verification.
+              </p>
+            </Link>
+
+            <Link
+              href="/terminal-coding-agent"
+              className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] hover:border-[#E8523F]/40 transition-colors group"
+            >
+              <span className="font-mono text-[#E8523F] font-bold block mb-1">TERMINAL COCKPIT</span>
+              <p className="font-medium text-[#F4F4F6] group-hover:text-[#E8523F] transition-colors mb-1">
+                Ratatui Cockpit &amp; CLI
+              </p>
+              <p className="text-[#9E9EA8] text-[11px] leading-relaxed">
+                9 interactive TUI surfaces, raw mode restoration, and headless automation.
+              </p>
+            </Link>
+
+            <Link
+              href="/free-ai-coding-agent"
+              className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] hover:border-[#EAB308]/40 transition-colors group"
+            >
+              <span className="font-mono text-[#EAB308] font-bold block mb-1">INFERENCE BUDGETS</span>
+              <p className="font-medium text-[#F4F4F6] group-hover:text-[#EAB308] transition-colors mb-1">
+                Free Software vs Inference
+              </p>
+              <p className="text-[#9E9EA8] text-[11px] leading-relaxed">
+                Dual MIT/Apache-2.0 runtime with strict --budget-tokens &amp; --budget-cost caps.
+              </p>
+            </Link>
+
+            <Link
+              href="/alternatives"
+              className="p-4 rounded-xl border border-[#222227] bg-[#0A0A0C] hover:border-[#E8523F]/40 transition-colors group"
+            >
+              <span className="font-mono text-[#E8523F] font-bold block mb-1">ALTERNATIVES MATRIX</span>
+              <p className="font-medium text-[#F4F4F6] group-hover:text-[#E8523F] transition-colors mb-1">
+                Cursor, Claude Code, OpenCode
+              </p>
+              <p className="text-[#9E9EA8] text-[11px] leading-relaxed">
+                Compare architecture, authority models, licensing, and pricing before installing.
+              </p>
+            </Link>
+          </div>
+        </div>
+
         {/* Footer Navigation */}
         <div className="pt-8 border-t border-[#222227] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
           <Link

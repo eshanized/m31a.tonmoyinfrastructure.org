@@ -120,6 +120,92 @@ export default function FeaturesPage() {
           ))}
         </div>
 
+        {/* Feature Pathways & Intent Guides */}
+        <div className="mt-16 pt-12 border-t border-[#222227]">
+          <div className="mb-6">
+            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-2">
+              DEEP-DIVE RUNTIME GUIDES
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#F4F4F6]">
+              Explore by Workflow, Operating System &amp; Alternatives
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              href="/terminal-coding-agent"
+              className="p-5 rounded-xl border border-[#27272E] bg-[#111115] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="font-mono text-xs text-[#E8523F] font-bold block mb-1">TERMINAL COCKPIT</span>
+                <h3 className="text-sm font-bold text-[#F4F4F6] group-hover:text-[#E8523F] transition-colors mb-2">
+                  Ratatui TUI &amp; Headless CLI
+                </h3>
+                <p className="text-xs text-[#9E9EA8] leading-relaxed">
+                  Interactive keyboard cockpit, task DAG visualizer, RAII raw mode, and exit codes.
+                </p>
+              </div>
+              <span className="mt-4 text-xs font-mono text-[#E8523F] inline-flex items-center gap-1">
+                Explore Cockpit →
+              </span>
+            </Link>
+
+            <Link
+              href="/ai-coding-agent-linux"
+              className="p-5 rounded-xl border border-[#27272E] bg-[#111115] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="font-mono text-xs text-[#3ECF8E] font-bold block mb-1">LINUX CONFINEMENT</span>
+                <h3 className="text-sm font-bold text-[#F4F4F6] group-hover:text-[#3ECF8E] transition-colors mb-2">
+                  cgroups v2 &amp; POSIX Bounds
+                </h3>
+                <p className="text-xs text-[#9E9EA8] leading-relaxed">
+                  Hardware-level RSS memory ceilings, host env isolation, and distro qualification.
+                </p>
+              </div>
+              <span className="mt-4 text-xs font-mono text-[#3ECF8E] inline-flex items-center gap-1">
+                View Linux Specs →
+              </span>
+            </Link>
+
+            <Link
+              href="/free-ai-coding-agent"
+              className="p-5 rounded-xl border border-[#27272E] bg-[#111115] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="font-mono text-xs text-[#EAB308] font-bold block mb-1">OPEN SOURCE ECONOMICS</span>
+                <h3 className="text-sm font-bold text-[#F4F4F6] group-hover:text-[#EAB308] transition-colors mb-2">
+                  Software Freedom vs Inference
+                </h3>
+                <p className="text-xs text-[#9E9EA8] leading-relaxed">
+                  Dual MIT/Apache-2.0 runtime, $0 seat fees, and hard client-side budget caps.
+                </p>
+              </div>
+              <span className="mt-4 text-xs font-mono text-[#EAB308] inline-flex items-center gap-1">
+                Cost Breakdown →
+              </span>
+            </Link>
+
+            <Link
+              href="/alternatives"
+              className="p-5 rounded-xl border border-[#27272E] bg-[#111115] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="font-mono text-xs text-[#E8523F] font-bold block mb-1">ALTERNATIVES MATRIX</span>
+                <h3 className="text-sm font-bold text-[#F4F4F6] group-hover:text-[#E8523F] transition-colors mb-2">
+                  Cursor, Claude Code, OpenCode
+                </h3>
+                <p className="text-xs text-[#9E9EA8] leading-relaxed">
+                  Fact-checked architectural matchups comparing authority, sandboxing, and models.
+                </p>
+              </div>
+              <span className="mt-4 text-xs font-mono text-[#E8523F] inline-flex items-center gap-1">
+                Compare Tools →
+              </span>
+            </Link>
+          </div>
+        </div>
+
         {/* Footer Navigation */}
         <div className="pt-12 mt-16 border-t border-[#222227] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
           <Link

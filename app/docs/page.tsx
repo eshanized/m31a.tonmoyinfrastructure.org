@@ -98,6 +98,84 @@ export default function DocsIndexPage() {
           })}
         </div>
 
+        {/* Runtime Intent & Discovery Pathways */}
+        <div className="mt-16 pt-12 border-t border-[#222226]">
+          <div className="mb-6">
+            <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#E8523F] block mb-2">
+              SPECIALIZED RUNTIME GUIDES
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#F0EDE8]">
+              Workflow Guides &amp; Ecosystem Comparisons
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+            <Link
+              href="/terminal-coding-agent"
+              className="p-5 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="text-[#E8523F] font-bold block mb-1">TERMINAL COCKPIT</span>
+                <p className="font-sans font-medium text-[#F0EDE8] group-hover:text-[#E8523F] transition-colors mb-1">
+                  Ratatui Cockpit Architecture
+                </p>
+                <p className="font-sans text-[#A3A09B] text-[11px] leading-relaxed">
+                  9 interactive TUI surfaces, raw mode restoration, and headless automation.
+                </p>
+              </div>
+              <span className="mt-4 text-[#E8523F] inline-flex items-center gap-1">Read Guide →</span>
+            </Link>
+
+            <Link
+              href="/ai-coding-agent-linux"
+              className="p-5 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#3ECF8E]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="text-[#3ECF8E] font-bold block mb-1">LINUX CONFINEMENT</span>
+                <p className="font-sans font-medium text-[#F0EDE8] group-hover:text-[#3ECF8E] transition-colors mb-1">
+                  cgroups v2 &amp; Process Bounds
+                </p>
+                <p className="font-sans text-[#A3A09B] text-[11px] leading-relaxed">
+                  RSS memory ceilings, environment stripping, and distribution support.
+                </p>
+              </div>
+              <span className="mt-4 text-[#3ECF8E] inline-flex items-center gap-1">Read Guide →</span>
+            </Link>
+
+            <Link
+              href="/free-ai-coding-agent"
+              className="p-5 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#EAB308]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="text-[#EAB308] font-bold block mb-1">INFERENCE ECONOMICS</span>
+                <p className="font-sans font-medium text-[#F0EDE8] group-hover:text-[#EAB308] transition-colors mb-1">
+                  Software Freedom vs Compute
+                </p>
+                <p className="font-sans text-[#A3A09B] text-[11px] leading-relaxed">
+                  Dual MIT/Apache-2.0 runtime, $0 seat fees, and token/dollar budget caps.
+                </p>
+              </div>
+              <span className="mt-4 text-[#EAB308] inline-flex items-center gap-1">Read Guide →</span>
+            </Link>
+
+            <Link
+              href="/alternatives"
+              className="p-5 rounded-xl border border-[#222226] bg-[#111113] hover:border-[#E8523F]/50 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <span className="text-[#E8523F] font-bold block mb-1">ALTERNATIVES MATRIX</span>
+                <p className="font-sans font-medium text-[#F0EDE8] group-hover:text-[#E8523F] transition-colors mb-1">
+                  Compare Coding Assistants
+                </p>
+                <p className="font-sans text-[#A3A09B] text-[11px] leading-relaxed">
+                  Cursor vs Claude Code vs OpenCode vs M31A architecture comparison.
+                </p>
+              </div>
+              <span className="mt-4 text-[#E8523F] inline-flex items-center gap-1">Compare Matrix →</span>
+            </Link>
+          </div>
+        </div>
+
         {/* Quick Links */}
         <div className="mt-20 pt-8 border-t border-[#222226] flex flex-wrap items-center justify-between gap-4">
           <Link

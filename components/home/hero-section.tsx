@@ -43,18 +43,18 @@ export function HeroSection() {
             </a>
 
             <p className="mb-5 font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-[#F07865]">
-              Intelligence without unchecked authority
+              Open-source autonomous AI coding agent
             </p>
 
-            <h1 className="max-w-[13ch] text-5xl font-semibold leading-[0.99] tracking-[-0.055em] text-[#F5F0EB] sm:text-6xl lg:text-[4.8rem]">
-              Autonomous engineering.
+            <h1 className="max-w-[15ch] text-4xl font-semibold leading-[1.04] tracking-[-0.045em] text-[#F5F0EB] sm:text-5xl lg:text-[4.2rem]">
+              Terminal-native AI coding agent.
               <span className="mt-2 block bg-gradient-to-r from-[#F5F0EB] via-[#F5F0EB] to-[#E96B58] bg-clip-text pb-1 text-transparent">
-                Runtime-controlled.
+                Linux-first. Runtime-governed.
               </span>
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-8 text-[#A9A6A5] sm:text-lg">
-              {PRODUCT.longDescription} The model can propose a change; M31A’s runtime governs execution and requires verification before work is accepted as complete.
+              M31A turns engineering goals into verified pull requests directly from your terminal. The model proposes changes; M31A’s Rust runtime confines execution in Linux cgroups v2, enforces non-bypassable policy gates, and requires compiler and test verification before work is accepted.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">
@@ -85,23 +85,46 @@ export function HeroSection() {
               </a>
             </div>
 
-            <div className="mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-[#29292F] pt-6 sm:grid-cols-4">
-              <div>
-                <p className="font-mono text-xs text-[#F07865]">RUNTIME</p>
-                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">Rust-native</p>
-              </div>
-              <div>
-                <p className="font-mono text-xs text-[#F07865]">GOVERNANCE</p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-mono text-[#8E8E96]">
+              <span className="text-[#65656E]">Evaluate:</span>
+              <Link href="/alternatives" className="text-[#A9A6A5] hover:text-[#E8523F] transition-colors underline decoration-[#34343B] underline-offset-4">
+                Alternatives Hub
+              </Link>
+              <span>·</span>
+              <Link href="/alternatives/cursor" className="text-[#A9A6A5] hover:text-[#E8523F] transition-colors underline decoration-[#34343B] underline-offset-4">
+                vs Cursor
+              </Link>
+              <span>·</span>
+              <Link href="/alternatives/claude-code" className="text-[#A9A6A5] hover:text-[#E8523F] transition-colors underline decoration-[#34343B] underline-offset-4">
+                vs Claude Code
+              </Link>
+              <span>·</span>
+              <Link href="/terminal-coding-agent" className="text-[#A9A6A5] hover:text-[#E8523F] transition-colors underline decoration-[#34343B] underline-offset-4">
+                Terminal Cockpit
+              </Link>
+              <span>·</span>
+              <Link href="/ai-coding-agent-linux" className="text-[#A9A6A5] hover:text-[#E8523F] transition-colors underline decoration-[#34343B] underline-offset-4">
+                Linux Confinement
+              </Link>
+            </div>
+
+            <div className="mt-9 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-[#29292F] pt-6 sm:grid-cols-4">
+              <Link href="/terminal-coding-agent" className="group">
+                <p className="font-mono text-xs text-[#F07865] group-hover:underline">INTERFACE</p>
+                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">Ratatui TUI + CLI</p>
+              </Link>
+              <Link href="/security" className="group">
+                <p className="font-mono text-xs text-[#F07865] group-hover:underline">GOVERNANCE</p>
                 <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">11-stage policy gate</p>
-              </div>
-              <div>
-                <p className="font-mono text-xs text-[#F07865]">PERSISTENCE</p>
-                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">SQLite WAL</p>
-              </div>
-              <div>
-                <p className="font-mono text-xs text-[#F07865]">LICENSE</p>
-                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">MIT</p>
-              </div>
+              </Link>
+              <Link href="/ai-coding-agent-linux" className="group">
+                <p className="font-mono text-xs text-[#F07865] group-hover:underline">CONFINEMENT</p>
+                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">cgroups v2 + rlimits</p>
+              </Link>
+              <Link href="/free-ai-coding-agent" className="group">
+                <p className="font-mono text-xs text-[#F07865] group-hover:underline">LICENSE</p>
+                <p className="mt-1.5 text-sm font-medium text-[#E8E4DF]">MIT / Apache-2.0</p>
+              </Link>
             </div>
           </div>
 
