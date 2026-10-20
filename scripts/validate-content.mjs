@@ -42,6 +42,7 @@ const retired = [
 ];
 for (const file of retired) check(!fs.existsSync(path.join(root, file)), `retired simulated UI removed: ${file}`);
 check(!/HeroTerminal|ProductWorkflow|RepositoryCapabilities|TerminalNative/.test(homepage), 'homepage does not import simulated runtime UI');
+check(read('components/home/hero-section.tsx').includes('Conceptual product illustration'), 'hero demo is explicitly labelled as conceptual');
 check(!cli.includes('CliShowcase'), 'CLI reference does not import simulated output');
 check(fs.existsSync(path.join(root, 'public/favicon.svg')), 'favicon asset exists');
 check(fs.existsSync(path.join(root, 'public/m31a-logo.svg')), 'logo asset exists');
