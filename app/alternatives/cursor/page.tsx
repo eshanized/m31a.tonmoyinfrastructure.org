@@ -157,7 +157,7 @@ export default function CursorAlternativePage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#3ECF8E] font-bold">✓</span>
-                <span>You require 100% open-source software (dual MIT / Apache-2.0) with zero recurring license seat fees.</span>
+                <span>You require open-source software under the MIT License with zero recurring license seat fees.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#3ECF8E] font-bold">✓</span>
@@ -194,7 +194,7 @@ export default function CursorAlternativePage() {
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Software License</td>
                   <td className="p-4">Proprietary Closed-Source</td>
-                  <td className="p-4 text-[#3ECF8E] font-medium">Dual MIT / Apache-2.0 (Open Source)</td>
+                  <td className="p-4 text-[#3ECF8E] font-medium">MIT (Open Source)</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium text-[#F4F4F6]">Primary User Interface</td>
