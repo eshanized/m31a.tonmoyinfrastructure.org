@@ -52,7 +52,7 @@ export default function AlternativesHubPage() {
     {
       tool: 'M31A',
       badge: 'Terminal Runtime',
-      license: 'Dual MIT / Apache-2.0',
+      license: 'MIT License',
       interface: 'Ratatui 0.30 TUI & Headless CLI',
       executionModel: '12-Stage Deterministic Autonomy Loop',
       authority: 'Runtime Decides (Deterministic Policy Gates)',
@@ -267,7 +267,7 @@ export default function AlternativesHubPage() {
                   Rust Native Kernel vs. Node.js Terminal CLI
                 </h3>
                 <p className="text-xs text-[#9E9EA8] leading-relaxed mb-4">
-                  Comparing Anthropic&apos;s interactive CLI tool with M31A&apos;s 11-stage policy gate, cgroups confinement, SQLite WAL persistence, and dual-license open source.
+                  Comparing Anthropic&apos;s interactive CLI tool with M31A&apos;s 11-stage policy gate, cgroups confinement, SQLite WAL persistence, and MIT-licensed open source.
                 </p>
               </div>
               <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#E8523F] font-semibold mt-4">
