@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PRODUCT } from '@/lib/m31a/product';
 
 export interface VersionInfo {
@@ -23,74 +23,88 @@ const FALLBACK_VERSION: VersionInfo = {
   isLoading: true,
 };
 
-// In-memory cache across component mounts in the same session
 let globalCache: VersionInfo | null = null;
 let pendingFetch: Promise<VersionInfo> | null = null;
 
 async function fetchLatestGitHubRelease(): Promise<VersionInfo> {
   if (globalCache) return globalCache;
 
-  // Check sessionStorage if in browser
   if (typeof window !== 'undefined') {
     try {
       const stored = sessionStorage.getItem('m31a_latest_release');
       if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed && parsed.version) {
-          globalCache = parsed;
-          return parsed;
+        const parsed: unknown = JSON.parse(stored);
+        if (
+          typeof parsed === 'object' &&
+          parsed !== null &&
+          'version' in parsed &&
+          'displayVersion' in parsed &&
+          'releaseTag' in parsed &&
+          'releaseUrl' in parsed &&
+          'releaseDate' in parsed &&
+          typeof parsed.version === 'string' &&
+          typeof parsed.displayVersion === 'string' &&
+          typeof parsed.releaseTag === 'string' &&
+          typeof parsed.releaseUrl === 'string' &&
+          typeof parsed.releaseDate === 'string'
+        ) {
+          const cached = parsed as VersionInfo;
+          if (/^\d+\.\d+\.\d+$/.test(cached.version) && /^v?\d+\.\d+\.\d+$/.test(cached.releaseTag)) {
+            globalCache = { ...cached, isDynamic: true, isLoading: false };
+            return globalCache;
+          }
         }
       }
     } catch {
-      /* ignore storage errors */
+      // ignore invalid browser cache
     }
   }
 
   try {
-    const res = await fetch('https://api.github.com/repos/eshanized/M31A/releases/latest', {
+    const response = await fetch('https://api.github.com/repos/eshanized/M31A/releases/latest', {
       headers: { Accept: 'application/vnd.github+json' },
     });
 
-    if (!res.ok) {
-      throw new Error(`GitHub API returned status ${res.status}`);
-    }
+    if (!response.ok) throw new Error(`GitHub API returned status ${response.status}`);
 
-    const data = await res.json();
-    if (typeof data.tag_name === 'string') {
-      const rawTag = data.tag_name.trim();
-      const cleanVer = rawTag.startsWith('v') ? rawTag.slice(1) : rawTag;
-      const formattedDate = data.published_at 
-        ? data.published_at.split('T')[0]
-        : PRODUCT.releaseDate;
+    const data: unknown = await response.json();
+    if (
+      typeof data === 'object' &&
+      data !== null &&
+      'tag_name' in data &&
+      typeof data.tag_name === 'string'
+    ) {
+      const release = data as { tag_name: string; published_at?: string | null; html_url?: string };
+      const rawTag = release.tag_name.trim();
+      const cleanVersion = rawTag.startsWith('v') ? rawTag.slice(1) : rawTag;
+      if (!/^\d+\.\d+\.\d+$/.test(cleanVersion)) throw new Error('Unexpected release tag format');
 
-      const info: VersionInfo = {
-        version: cleanVer,
-        displayVersion: rawTag.startsWith('v') ? rawTag : `v${rawTag}`,
+      const publishedAt = typeof release.published_at === 'string' ? release.published_at : PRODUCT.releaseDate;
+      const formattedDate = /^\d{4}-\d{2}-\d{2}/.exec(publishedAt)?.[0] ?? PRODUCT.releaseDate;
+      const fallbackUrl = `https://github.com/eshanized/M31A/releases/tag/${encodeURIComponent(rawTag)}`;
+      const releaseInfo: VersionInfo = {
+        version: cleanVersion,
+        displayVersion: `v${cleanVersion}`,
         releaseTag: rawTag,
-        releaseUrl: typeof data.html_url === 'string' ? data.html_url : `https://github.com/eshanized/M31A/releases/tag/${rawTag}`,
+        releaseUrl: typeof release.html_url === 'string' ? release.html_url : fallbackUrl,
         releaseDate: formattedDate,
         isDynamic: true,
         isLoading: false,
       };
 
-      globalCache = info;
-      if (typeof window !== 'undefined') {
-        try {
-          sessionStorage.setItem('m31a_latest_release', JSON.stringify(info));
-        } catch {
-          /* ignore */
-        }
+      globalCache = releaseInfo;
+      try {
+        sessionStorage.setItem('m31a_latest_release', JSON.stringify(releaseInfo));
+      } catch {
+        // ignore unavailable browser storage
       }
-      return info;
+      return releaseInfo;
     }
   } catch {
-    // Silently fall back to build-time product info
+    // fall back to the verified version bundled with the deployment
   }
 
-  const fallback: VersionInfo = {
-    ...FALLBACK_VERSION,
-    isLoading: false,
-  };
+  const fallback: VersionInfo = { ...FALLBACK_VERSION, isLoading: false };
   globalCache = fallback;
   return fallback;
 }
@@ -100,22 +114,16 @@ export function useLatestVersion(): VersionInfo {
 
   useEffect(() => {
     let active = true;
-
-    if (!globalCache) {
-      if (!pendingFetch) {
-        pendingFetch = fetchLatestGitHubRelease().finally(() => {
-          pendingFetch = null;
-        });
-      }
-
-      pendingFetch.then((info) => {
-        if (active) {
-          setVersionInfo(info);
-        }
+    if (!pendingFetch && !globalCache) {
+      pendingFetch = fetchLatestGitHubRelease().finally(() => {
+        pendingFetch = null;
       });
-    } else {
-      setVersionInfo(globalCache);
     }
+
+    const request = globalCache ? Promise.resolve(globalCache) : pendingFetch;
+    request?.then((info) => {
+      if (active) setVersionInfo(info);
+    });
 
     return () => {
       active = false;
