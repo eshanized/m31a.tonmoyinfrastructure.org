@@ -39,8 +39,12 @@ export const metadata: Metadata = {
     canonical: PRODUCT.canonicalUrl,
   },
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
+    ],
     shortcut: ['/favicon.svg'],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
@@ -49,12 +53,29 @@ export const metadata: Metadata = {
     siteName: 'M31A',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: `${PRODUCT.canonicalUrl}og-image.png`,
+        width: 1200,
+        height: 630,
+        type: 'image/png',
+        alt: 'M31A — Open-Source Autonomous Coding Agent',
+      },
+      {
+        url: `${PRODUCT.canonicalUrl}og-image.svg`,
+        width: 1200,
+        height: 630,
+        type: 'image/svg+xml',
+        alt: 'M31A — Open-Source Autonomous Coding Agent',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
     description:
       'The autonomous coding agent for serious engineering. The model proposes. The runtime decides.',
+    images: [`${PRODUCT.canonicalUrl}og-image.png`],
   },
   robots: {
     index: true,
@@ -100,7 +121,7 @@ const jsonLd = {
       license: PRODUCT.licenseUrl,
       sameAs: PRODUCT.repositoryUrl,
       downloadUrl: PRODUCT.releasesUrl,
-      image: `${PRODUCT.canonicalUrl}og-image.svg`,
+      image: `${PRODUCT.canonicalUrl}og-image.png`,
       author: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
       publisher: { '@id': 'https://tonmoyinfrastructure.org/#organization' },
     },

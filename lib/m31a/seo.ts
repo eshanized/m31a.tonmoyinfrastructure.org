@@ -12,7 +12,8 @@ interface PageMetadataInput {
   absoluteTitle?: boolean;
 }
 
-const socialImage = '/og-image.svg';
+const socialImagePng = `${PRODUCT.canonicalUrl}og-image.png`;
+const socialImageSvg = `${PRODUCT.canonicalUrl}og-image.svg`;
 const socialImageAlt =
   'M31A, an open-source autonomous coding agent with a Rust-native runtime for controlled execution and verification';
 
@@ -50,9 +51,17 @@ export function createPageMetadata({
       locale: 'en_US',
       images: [
         {
-          url: socialImage,
+          url: socialImagePng,
           width: 1200,
           height: 630,
+          type: 'image/png',
+          alt: socialImageAlt,
+        },
+        {
+          url: socialImageSvg,
+          width: 1200,
+          height: 630,
+          type: 'image/svg+xml',
           alt: socialImageAlt,
         },
       ],
@@ -61,7 +70,7 @@ export function createPageMetadata({
       card: 'summary_large_image',
       title: socialTitle,
       description,
-      images: [socialImage],
+      images: [socialImagePng],
     },
   };
 }

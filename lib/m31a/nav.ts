@@ -9,6 +9,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Security', href: '/security' },
   { label: 'Alternatives', href: '/alternatives' },
   { label: 'Docs', href: '/docs' },
+  { label: 'CLI', href: '/cli' },
   { label: 'GitHub', href: 'https://github.com/eshanized/M31A' },
 ];
 

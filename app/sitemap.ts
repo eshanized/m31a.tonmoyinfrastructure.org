@@ -27,19 +27,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes.map((path) => ({
       url: toCanonicalUrl(path),
-      lastModified: new Date('2026-10-20'),
+      lastModified: new Date('2026-10-21'),
       changeFrequency: 'weekly' as const,
       priority: path === '/' ? 1 : 0.8,
     })),
     ...discoveryLandingRoutes.map((lr) => ({
       url: toCanonicalUrl(lr.path),
-      lastModified: new Date('2026-10-20'),
+      lastModified: new Date('2026-10-21'),
       changeFrequency: lr.changeFrequency,
       priority: lr.priority,
     })),
     ...DOCS.map((doc) => ({
       url: toCanonicalUrl(`/docs/${doc.slug}`),
-      lastModified: new Date('2026-10-20'),
+      lastModified: new Date('2026-10-21'),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
