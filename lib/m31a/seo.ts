@@ -15,7 +15,7 @@ interface PageMetadataInput {
 const socialImagePng = `${PRODUCT.canonicalUrl}og-image.png`;
 const socialImageSvg = `${PRODUCT.canonicalUrl}og-image.svg`;
 const socialImageAlt =
-  'M31A, an open-source autonomous coding agent with a Rust-native runtime for controlled execution and verification';
+  'M31A lightning logo and brand — an open-source autonomous coding agent with a Rust-native runtime';
 
 function getCanonicalUrl(path: string): string {
   if (path === '/') return PRODUCT.canonicalUrl;
