@@ -44,7 +44,7 @@ export const metadata: Metadata = {
       { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
     ],
     shortcut: ['/favicon.svg'],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    apple: [{ url: '/apple-touch-icon.svg', type: 'image/svg+xml' }],
   },
   openGraph: {
     title: 'M31A — Autonomous Coding Agent for Serious Engineering',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: 'image/png',
-        alt: 'M31A — Open-Source Autonomous Coding Agent',
+        alt: 'M31A lightning logo — Open-Source Autonomous Coding Agent',
       },
       {
         url: `${PRODUCT.canonicalUrl}og-image.svg`,
