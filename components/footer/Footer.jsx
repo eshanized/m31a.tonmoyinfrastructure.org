@@ -132,14 +132,23 @@ export default function Footer() {
             <span>Designed for Developer Autonomy</span>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <span>Engineered by</span>
             <a
               href="https://github.com/eshanized"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground-muted hover:text-foreground font-semibold inline-flex items-center gap-1 transition-colors"
+              className="text-foreground-muted hover:text-foreground font-semibold inline-flex items-center gap-1.5 transition-colors"
             >
+              <span className="relative w-4 h-4 rounded-full overflow-hidden border border-border inline-block shrink-0 align-middle">
+                <Image
+                  src={siteConfig.author.avatar || 'https://avatars.githubusercontent.com/u/148610067?v=4'}
+                  alt={siteConfig.author.name}
+                  fill
+                  unoptimized
+                  className="object-cover"
+                />
+              </span>
               <span>Eshan Roy</span>
               <Heart className="w-3 h-3 text-accent-crimson fill-accent-crimson inline" />
             </a>

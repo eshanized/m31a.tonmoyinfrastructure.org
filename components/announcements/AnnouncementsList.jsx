@@ -17,6 +17,7 @@ const CATEGORY_ICONS = {
 
 export default function AnnouncementsList({ announcements = [] }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [avatarError, setAvatarError] = useState(false);
 
   const categories = ['All', ...new Set(announcements.map((a) => a.category).filter(Boolean))];
 
@@ -79,11 +80,12 @@ export default function AnnouncementsList({ announcements = [] }) {
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-8 h-8 rounded-full overflow-hidden border border-border bg-surface-muted">
                     <Image
-                      src={featured.author.avatar || '/brand/m31a-logo.svg'}
+                      src={avatarError ? '/brand/m31a-logo.svg' : (featured.author.avatar || '/brand/m31a-logo.svg')}
                       alt={featured.author.name}
                       fill
                       unoptimized
                       className="object-cover"
+                      onError={() => setAvatarError(true)}
                     />
                   </div>
                   <div className="text-xs">

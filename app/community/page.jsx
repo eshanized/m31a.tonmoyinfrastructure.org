@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Bug,
   MessageSquare,
@@ -138,13 +139,24 @@ export default async function CommunityPage() {
 
         {/* Maintainer Callout */}
         <div className="mt-16 p-8 rounded-large bg-background-soft border border-border flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold text-foreground">
-              Maintainer &amp; Infrastructure
-            </h3>
-            <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
-              M31A is developed and maintained by {siteConfig.author.name} at {siteConfig.author.organization}. Licensed under the permissive MIT license.
-            </p>
+          <div className="flex items-center gap-4">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border border-border bg-surface-muted shrink-0">
+              <Image
+                src={siteConfig.author.avatar || 'https://avatars.githubusercontent.com/u/148610067?v=4'}
+                alt={siteConfig.author.name}
+                fill
+                unoptimized
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-xl font-bold text-foreground">
+                Maintainer &amp; Infrastructure
+              </h3>
+              <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
+                M31A is developed and maintained by {siteConfig.author.name} at {siteConfig.author.organization}. Licensed under the permissive MIT license.
+              </p>
+            </div>
           </div>
 
           <Button
