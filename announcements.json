@@ -1,0 +1,95 @@
+[
+  {
+    "id": "ann-2026-11-06-39-crate-release",
+    "title": "M31A v0.1.13 Released: Sovereign 39-Crate Rust Workspace & Multi-Agent Swarms",
+    "date": "2026-11-06",
+    "category": "Release",
+    "featured": true,
+    "summary": "M31A transitions to a modular 39-crate Cargo monorepo in Rust 2024 edition, introducing distributed task meshes, Bubblewrap namespace isolation, and official Python & TypeScript client SDKs.",
+    "author": {
+      "name": "Eshan Roy",
+      "role": "Lead Architect",
+      "avatar": "https://avatars.githubusercontent.com/u/eshanized"
+    },
+    "badge": "Major Release",
+    "content": [
+      "M31A has undergone a comprehensive architectural evolution, migrating from a monolithic engine to a decoupled 39-crate monorepo under Rust 2024 Edition.",
+      "Key capabilities introduced in this milestone include the speculative parallel reality arena, distributed agent task mesh with path locks, and industrial-grade JSON-RPC 2.0 daemon servers.",
+      "Developer libraries @m31a/sdk for Node.js/TypeScript and m31a for Python are now officially available on npm and PyPI."
+    ],
+    "tags": ["Rust 2024", "Release", "Multi-Agent", "NVIDIA NIM"],
+    "action": {
+      "label": "Read Release Notes",
+      "href": "/changelog"
+    }
+  },
+  {
+    "id": "ann-2026-10-28-nvidia-nim-partnership",
+    "title": "NVIDIA NIM Frontier Model Acceleration Integration",
+    "date": "2026-10-28",
+    "category": "Ecosystem",
+    "featured": false,
+    "summary": "M31A establishes zero-latency SSE token streaming and real-time model discovery across DeepSeek R1, Llama 3.3, and Nemotron through NVIDIA NIM containerized microservices.",
+    "author": {
+      "name": "M31A Systems Core",
+      "role": "Core Team",
+      "avatar": "https://avatars.githubusercontent.com/u/eshanized"
+    },
+    "badge": "Partnership & Infra",
+    "content": [
+      "Through NVIDIA NIM integration, M31A achieves sub-200ms time-to-first-token inference across local RTX hardware and hosted NVIDIA API endpoints.",
+      "Dynamic context window auto-compaction and live /v1/models query endpoints enable seamless model switching directly from the Ratatui TUI cockpit via Ctrl+M."
+    ],
+    "tags": ["NVIDIA NIM", "Inference", "DeepSeek", "Hardware"],
+    "action": {
+      "label": "Explore Architecture",
+      "href": "/architecture"
+    }
+  },
+  {
+    "id": "ann-2026-10-15-security-whitepaper",
+    "title": "Defense-in-Depth Security Model & Sandbox Containment Specification",
+    "date": "2026-10-15",
+    "category": "Security",
+    "featured": false,
+    "summary": "Comprehensive security architecture formalizing unprivileged Linux user namespace containment, non-bypassable read-only filesystem masks, and Guardian circuit breakers.",
+    "author": {
+      "name": "Security Working Group",
+      "role": "AppSec",
+      "avatar": "https://avatars.githubusercontent.com/u/eshanized"
+    },
+    "badge": "Security Advisory",
+    "content": [
+      "All untrusted autonomous code execution is executed within isolated Linux Bubblewrap containers. The filesystem mask permanently defends sensitive paths including .git/, .m31a/, and environment files (.env).",
+      "Guardian circuit breakers automatically intercept high blast-radius commands (destructive rm, system modification) and require explicit human-in-the-loop authorization."
+    ],
+    "tags": ["Security", "Bubblewrap", "Linux Sandbox", "Guardian"],
+    "action": {
+      "label": "Review Security Policy",
+      "href": "https://github.com/eshanized/M31A/blob/main/SECURITY.md"
+    }
+  },
+  {
+    "id": "ann-2026-10-01-sdk-general-availability",
+    "title": "Official TypeScript & Python SDKs Reach General Availability",
+    "date": "2026-10-01",
+    "category": "Developer Tools",
+    "featured": false,
+    "summary": "First-party SDK packages @m31a/sdk on npm and m31a on PyPI provide production-ready bindings for CI/CD pipelines, IDE extensions, and automation scripts.",
+    "author": {
+      "name": "Eshan Roy",
+      "role": "Lead Architect",
+      "avatar": "https://avatars.githubusercontent.com/u/eshanized"
+    },
+    "badge": "Developer Tooling",
+    "content": [
+      "Developers can now orchestrate M31A autonomous agents programmatically in Node.js and Python. The SDKs feature async iterable streaming, approval interception, and multi-transport IPC.",
+      "Mock transport drivers are included out of the box to enable fast, deterministic unit test harnesses in developer CI pipelines."
+    ],
+    "tags": ["SDK", "TypeScript", "Python", "JSON-RPC"],
+    "action": {
+      "label": "View Features & SDK",
+      "href": "/features"
+    }
+  }
+]
