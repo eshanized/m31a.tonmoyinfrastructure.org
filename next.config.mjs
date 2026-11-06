@@ -1,8 +1,12 @@
+const isExport = process.env.NEXT_EXPORT === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...(isExport ? { output: 'export' } : {}),
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
+    unoptimized: true,
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
