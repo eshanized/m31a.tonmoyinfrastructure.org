@@ -58,10 +58,10 @@ const CORE_STACK = [
     link: 'https://www.jsonrpc.org/specification',
   },
   {
-    name: 'Bazel 7',
-    category: 'Hermetic Monorepo Build',
-    description: 'Hermetic, reproducible enterprise build and test automation covering all crates and native platform binaries.',
-    link: 'https://bazel.build/',
+    name: 'Tauri 2',
+    category: 'Desktop Host',
+    description: 'Native desktop shell integrating the Rust runtime with sessions, streaming chat, approvals, settings, and native dialogs.',
+    link: 'https://tauri.app/',
   },
 ];
 
@@ -117,11 +117,11 @@ export default function ArchitectureSection() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <h4 className="text-lg font-bold text-foreground">
-              39 Decoupled Domain Crates
+              41 Workspace Crates
             </h4>
           </div>
           <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
-            From <code className="font-mono">m31a-sandbox</code> to <code className="font-mono">m31a-patch</code> and <code className="font-mono">m31a-app-server</code>, domain boundaries prevent spaghettified logic and ensure individual components can be tested and reused independently.
+            Core runtime domains remain independently testable, with dedicated maintenance and runtime crates plus a Tauri desktop host layered over the same workspace.
           </p>
         </div>
 
