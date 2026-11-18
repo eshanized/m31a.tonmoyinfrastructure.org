@@ -111,13 +111,13 @@ export default function ArchitectureSection() {
         ))}
       </div>
 
-      {/* 39 Crates Monorepo Callout Banner */}
+      {/* Rust workspace and desktop host callout */}
       <div className="mt-10 p-6 sm:p-8 rounded-large bg-surface border border-border flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <h4 className="text-lg font-bold text-foreground">
-              41 Workspace Crates
+              Rust Workspace & Desktop Host
             </h4>
           </div>
           <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
