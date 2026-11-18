@@ -65,7 +65,7 @@ export const metadata = {
         url: '/brand/m31a-logo.svg',
         width: 512,
         height: 512,
-        alt: 'M31A Autonomous Agentic Coding Assistant',
+        alt: 'M31A autonomous engineering system',
       },
     ],
   },

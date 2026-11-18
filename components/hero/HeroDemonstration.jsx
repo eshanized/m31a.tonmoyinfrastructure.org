@@ -61,7 +61,7 @@ export default function HeroDemonstration() {
             <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block" />
             <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block" />
             <span className="ml-2 text-xs font-mono text-gray-400 hidden sm:inline">
-              m31a-tui v0.1.13 — Rust 2024
+              m31a-tui v0.1.15 — Rust 2024
             </span>
           </div>
 

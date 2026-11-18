@@ -18,6 +18,28 @@ import Button from '@/components/ui/Button';
 export default function ProductSurfaces() {
   const surfaces = [
     {
+      id: 'desktop',
+      title: 'M31A Desktop',
+      badge: 'Native Desktop Workspace · Preview',
+      badgeVariant: 'accent',
+      description:
+        'A native desktop application built with Tauri 2 and the Rust runtime. It brings persistent sessions, streaming conversations, tool activity, settings, and explicit approval and question dialogs into a dedicated workspace.',
+      highlights: [
+        'Tauri 2 desktop host integrated with the authoritative Rust runtime',
+        'Session sidebar and persistent conversation timeline',
+        'Visible tool execution, approval cards, and interactive question dialogs',
+        'Workspace settings and native file dialog integration',
+      ],
+      linkText: 'Explore desktop implementation',
+      linkHref: 'https://github.com/eshanized/M31A/tree/master/apps/desktop',
+      codeSnippet: `# Build the desktop workspace
+cargo tauri dev --manifest-path apps/desktop/src-tauri/Cargo.toml
+
+# Desktop host and runtime share the Rust workspace
+cargo check --workspace`,
+      terminalBg: false,
+    },
+    {
       id: 'cli',
       title: 'M31A CLI & TUI',
       badge: 'Terminal-First Interface',
@@ -111,10 +133,10 @@ await thread.run({ prompt: 'Implement SIMD serialization' });`,
           Interaction Surfaces
         </Badge>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
-          Four distinct surfaces. One sovereign engine.
+          Multiple ways to work. One sovereign engine.
         </h2>
         <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          M31A adapts to your engineering workflow—whether you prefer an interactive terminal UI, scriptable CLI automation, or programmatically controlling the runtime via client SDKs.
+          M31A spans an interactive terminal, scriptable CLI, native desktop workspace, and first-party SDKs — all connected to the same Rust runtime.
         </p>
       </div>
 

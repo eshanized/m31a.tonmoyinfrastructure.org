@@ -1,7 +1,7 @@
 {
   "name": "org.tonmoyinfrastructure.m31a",
-  "version": "0.1.13",
-  "description": "Official website for M31A — Open-Source Autonomous Agentic Coding Assistant",
+  "version": "0.1.15",
+  "description": "Official website for M31A — autonomous engineering system built in Rust",
   "private": true,
   "type": "module",
   "scripts": {

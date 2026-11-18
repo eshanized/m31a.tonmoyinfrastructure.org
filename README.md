@@ -1,6 +1,6 @@
 # M31A Official Website
 
-Official website and product showcase for **M31A** (`https://m31a.tonmoyinfrastructure.org`), the open-source sovereign autonomous agentic coding system built in Rust 2024 and powered by NVIDIA NIM frontier intelligence.
+Official website and product showcase for **M31A** (`https://m31a.tonmoyinfrastructure.org`), the open-source autonomous engineering system built in Rust 2024, spanning a CLI, Ratatui TUI, Tauri desktop workspace, SDKs, worktree-first orchestration, and NVIDIA NIM frontier intelligence.
 
 ---
 
@@ -10,6 +10,7 @@ Official website and product showcase for **M31A** (`https://m31a.tonmoyinfrastr
 - **Library**: React 19
 - **Typography**: Google Font **Dosis** globally with **JetBrains Mono** for terminal/code blocks
 - **Language**: **Pure JavaScript (ESM)** — *Strictly no TypeScript per architecture guidelines*
+- **Product Alignment**: M31A Rust workspace v0.1.15, including native Tauri 2 desktop host and worktree-first coordination
 - **Directory Structure**: Root-level App Router (`app/`, `components/`, `lib/`, `styles/`, `tests/`) — *No `src/` directory*
 - **Theme**: Complete **Dark Mode** & **Light Mode** support with anti-FOUC script, system preference synchronization, and localStorage persistence
 - **Styling**: Tailwind CSS 3.4 with custom Antigravity-inspired design tokens
@@ -46,7 +47,7 @@ The visual design is inspired by the **Google Antigravity** visual family (`http
 │   ├── sitemap.js                    # Dynamic XML sitemap generator
 │   ├── robots.js                     # Production robots.txt generator
 │   ├── features/page.jsx             # Dedicated product features deep-dive
-│   ├── architecture/page.jsx         # 39-crate topology & execution pipelines
+│   ├── architecture/page.jsx         # Rust workspace topology & execution pipelines
 │   ├── announcements/page.jsx        # Dedicated announcements & dispatches hub
 │   ├── changelog/page.jsx            # Dynamic releases fetched live from GitHub
 │   └── community/page.jsx            # Open source governance & contribution hub
@@ -66,8 +67,8 @@ The visual design is inspired by the **Google Antigravity** visual family (`http
 │   └── github.js                     # GitHub API client with server caching & fallbacks
 │
 ├── public/                           # Static assets
-│   ├── favicon.svg                   # Brand favicon
-│   ├── brand/m31a-logo.svg           # High-resolution vector logo
+│   ├── favicon.svg                   # M31A violet folded-M favicon
+│   ├── brand/m31a-logo.svg           # Official violet folded-M brand mark
 │   └── images/m31a-tui-preview.png   # Genuine Ratatui TUI captured preview
 │
 ├── styles/

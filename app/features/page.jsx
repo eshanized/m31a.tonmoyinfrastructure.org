@@ -23,11 +23,41 @@ import Button from '@/components/ui/Button';
 export const metadata = {
   title: 'Autonomous Features & Capabilities',
   description:
-    'Comprehensive technical catalog of M31A autonomous capabilities: Vibe Loop, Speculative Arena, Visual TDD, 18-tool suite, and AST Blast Radius Gate.',
+    'Technical catalog of M31A capabilities: native desktop workspace, worktree-first coordination, Vibe Loop, Speculative Arena, Visual TDD, tool orchestration, and AST safety analysis.',
 };
 
 export default function FeaturesPage() {
   const deepFeatures = [
+    {
+      id: 'desktop',
+      title: 'Native Desktop Workspace',
+      crate: 'apps/desktop · Tauri 2',
+      tag: 'Desktop Experience',
+      description:
+        'A native desktop surface connected directly to the M31A Rust runtime. The workspace includes session navigation, streaming chat history, tool-call visibility, approval cards, interactive questions, and runtime settings.',
+      capabilities: [
+        'Tauri 2 host integrated with m31a-runtime and shared workspace crates',
+        'Session sidebar and conversation timeline',
+        'Explicit approval and elicitation dialogs for human-in-the-loop control',
+        'Native dialog integration and configurable runtime settings',
+      ],
+      command: 'cargo tauri dev --manifest-path apps/desktop/src-tauri/Cargo.toml',
+    },
+    {
+      id: 'worktree-coordination',
+      title: 'Worktree-First Autonomous Coordination',
+      crate: 'crates/m31a-agent-engine · m31a-storage',
+      tag: 'Concurrent Execution',
+      description:
+        'Independent Git worktrees are the default isolation boundary for concurrent coding tasks. Coordination activates when shared mutable resources require it, discovers conflicts, replans affected DAG tasks, and integrates verified results with content-addressed deduplication and targeted rollback.',
+      capabilities: [
+        'Isolated worktree per independent task by default',
+        'Demand-driven coordination instead of global locking',
+        'Conflict discovery, cycle detection, and dynamic DAG unblocking',
+        'Durable integration records, stale-base detection, and per-file rollback',
+      ],
+      command: 'm31a workflow run "Implement and verify an isolated feature"',
+    },
     {
       id: 'vibe-loop',
       title: 'Continuous Verification & Vibe Loop',
@@ -191,7 +221,7 @@ export default function FeaturesPage() {
             Ready to test M31A in your repository?
           </h3>
           <p className="text-sm text-foreground-muted max-w-xl mb-6">
-            Get started with our 2-minute quickstart guide or inspect the full 54-command CLI reference.
+            Get started with the quickstart guide or explore the CLI and native desktop workspace.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button
@@ -204,7 +234,7 @@ export default function FeaturesPage() {
               Quickstart Guide
             </Button>
             <Button
-              href="https://github.com/eshanized/M31A/tree/main/docs"
+              href="https://github.com/eshanized/M31A/tree/master/docs"
               target="_blank"
               rel="noopener noreferrer"
               variant="outline"

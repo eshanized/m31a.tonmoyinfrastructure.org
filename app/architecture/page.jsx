@@ -17,9 +17,9 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 
 export const metadata = {
-  title: 'System Architecture & 39-Crate Topology',
+  title: 'System Architecture & Rust Workspace',
   description:
-    'Detailed architectural breakdown of M31A: 39 decoupled Rust crates, multi-turn execution pipelines, Bubblewrap containment, and NVIDIA NIM integration.',
+    'Detailed architectural breakdown of M31A: Rust workspace, native Tauri desktop host, worktree-first task coordination, multi-turn execution, Bubblewrap containment, and NVIDIA NIM integration.',
 };
 
 const ARCHITECTURE_LAYERS = [
@@ -28,6 +28,7 @@ const ARCHITECTURE_LAYERS = [
     crates: [
       { name: 'm31a-cli', desc: '54 headless subcommands, global flags, and environment resolution.' },
       { name: 'm31a-tui', desc: 'Full-screen Ratatui terminal UI with streaming transcripts and fuzzy palette.' },
+      { name: 'M31A Desktop (Tauri 2)', desc: 'Native workspace UI with sessions, conversation timeline, approvals, questions, and settings.' },
       { name: '@m31a/sdk', desc: 'First-party TypeScript / Node.js client library with async iterable streaming.' },
       { name: 'm31a (Python)', desc: 'Pure Python asyncio and synchronous client library (zero external deps).' },
     ],
@@ -43,7 +44,8 @@ const ARCHITECTURE_LAYERS = [
   {
     layer: '3. Autonomous Agent Core & Verification',
     crates: [
-      { name: 'm31a-agent-engine', desc: 'Turn execution loop, context auto-compaction, vibe loop, and speculative arena.' },
+      { name: 'm31a-agent-engine', desc: 'Turn execution loop, context auto-compaction, vibe loop, speculative arena, and task orchestration.' },
+      { name: 'Worktree Coordination', desc: 'Worktree-first task isolation, demand-driven conflict discovery, replanning, durable integration, and rollback.' },
       { name: 'm31a-verify', desc: 'Visual TDD DOM assertion engine and semantic AST blast-radius gate.' },
       { name: 'm31a-browser', desc: 'Headless Chromium CDP connection for zero-console-error frontend verification.' },
       { name: 'm31a-watcher', desc: 'Filesystem event debouncer and workspace state monitor.' },
@@ -98,10 +100,10 @@ export default function ArchitecturePage() {
             System Topology
           </Badge>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground text-balance">
-            Modular 39-crate Rust workspace.
+            Modular Rust workspace. Multiple execution surfaces.
           </h1>
           <p className="mt-6 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-            M31A is decoupled into distinct architectural layers in Rust 2024. Domain boundaries ensure each component—from Bubblewrap container sandboxing to OpenAI Codex multi-file patch generation—remains strictly testable, verifiable, and isolated.
+            M31A is a Rust 2024 workspace spanning the CLI, Ratatui TUI, runtime, JSON-RPC app server, SDK clients, and a Tauri 2 desktop host. Worktree-first execution isolates concurrent tasks; transactional integration and rollback help protect the shared working tree.
           </p>
         </div>
 
@@ -119,6 +121,7 @@ export default function ArchitecturePage() {
               </span>
               <p className="text-foreground-muted">m31a CLI (54 subcommands)</p>
               <p className="text-foreground-muted">m31a-tui (Ratatui / Crossterm)</p>
+              <p className="text-foreground-muted">Tauri 2 desktop workspace</p>
               <p className="text-foreground-muted">TypeScript &amp; Python SDKs</p>
             </div>
 
@@ -126,7 +129,7 @@ export default function ArchitecturePage() {
               <span className="font-bold text-accent block uppercase text-[11px] tracking-wider">
                 Autonomous Core
               </span>
-              <p className="text-foreground">m31a-agent-engine (Turn Loop)</p>
+              <p className="text-foreground">m31a-agent-engine (Turn Loop &amp; Coordination)</p>
               <p className="text-foreground">m31a-provider (NVIDIA NIM SSE)</p>
               <p className="text-foreground">m31a-verify (Visual TDD &amp; AST)</p>
             </div>
