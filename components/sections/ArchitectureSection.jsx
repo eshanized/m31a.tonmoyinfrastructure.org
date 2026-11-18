@@ -121,7 +121,7 @@ export default function ArchitectureSection() {
             </h4>
           </div>
           <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
-            Core runtime domains remain independently testable, with dedicated maintenance and runtime crates plus a Tauri desktop host layered over the same workspace.
+            M31A combines independently testable Rust domains with its runtime, a native Tauri desktop host, and worktree-first coordination for isolated concurrent tasks.
           </p>
         </div>
 
