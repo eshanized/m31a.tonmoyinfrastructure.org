@@ -234,7 +234,7 @@ export default function FeaturesPage() {
               Quickstart Guide
             </Button>
             <Button
-              href="https://github.com/eshanized/M31A/tree/main/docs"
+              href="https://github.com/eshanized/M31A/tree/master/docs"
               target="_blank"
               rel="noopener noreferrer"
               variant="outline"
