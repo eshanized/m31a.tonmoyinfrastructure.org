@@ -5,7 +5,6 @@ import {
   Shield,
   Layers,
   ArrowRight,
-  Sparkles,
   Workflow,
   Code2,
 } from 'lucide-react';
@@ -15,66 +14,66 @@ import Badge from '@/components/ui/Badge';
 
 export default function Introduction() {
   return (
-    <Section id="introduction" spacing="spacious" background="soft">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="accent" className="mb-4">
-          Architectural Foundation
+    <Section id="introduction" spacing="default" background="soft">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
+          Architecture
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
-          Meet M31A.
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
+          Engineered from first principles.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          An autonomous software engineering runtime built from first principles as a modular 39-crate Rust workspace. M31A bridges frontier intelligence with kernel-level container containment to plan, execute, and verify complete developer workflows.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          A sovereign software engineering runtime built as a modular 39-crate Rust workspace. M31A pairs frontier models with kernel-level Linux namespaces to plan, execute, and verify complete developer tasks.
         </p>
       </div>
 
       {/* Asymmetric Product Composition */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
         {/* Core Runtime Hero Card - 7 cols */}
         <Card
           variant="default"
-          className="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between bg-surface border border-border hover:border-border-strong transition-all"
+          className="md:col-span-7 p-6 sm:p-7 flex flex-col justify-between bg-surface border border-border"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-mono font-bold text-accent px-2 py-0.5 rounded bg-accent-subtle">
+              <span className="text-xs font-mono font-medium text-accent px-2 py-0.5 rounded bg-accent-subtle">
                 crates/m31a-agent-engine
               </span>
-              <Cpu className="w-5 h-5 text-accent" />
+              <Cpu className="w-4 h-4 text-foreground-muted" />
             </div>
 
-            <h3 className="text-2xl font-bold text-foreground mb-3">
+            <h3 className="text-xl font-semibold text-foreground mb-2">
               Autonomous Agent Runtime
             </h3>
 
-            <p className="text-sm text-foreground-muted leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-foreground-muted leading-relaxed mb-6">
               Coordinates prompt turn decomposition, dynamic context windows, token budget auto-compaction, and multi-step tool loops. Powered by NVIDIA NIM frontier intelligence including DeepSeek R1 and Nemotron reasoning paths.
             </p>
 
             <div className="grid grid-cols-2 gap-3 pt-4 border-t border-border">
-              <div className="p-3 rounded-small bg-surface-muted">
-                <span className="text-xs font-semibold text-foreground block">
+              <div className="p-3 rounded-md bg-surface-muted border border-border/50">
+                <span className="text-xs font-medium text-foreground block">
                   39-Crate Monorepo
                 </span>
-                <span className="text-xs text-foreground-subtle">
+                <span className="text-[11px] text-foreground-muted">
                   Strictly decoupled domain architecture
                 </span>
               </div>
-              <div className="p-3 rounded-small bg-surface-muted">
-                <span className="text-xs font-semibold text-foreground block">
+              <div className="p-3 rounded-md bg-surface-muted border border-border/50">
+                <span className="text-xs font-medium text-foreground block">
                   Dynamic Discovery
                 </span>
-                <span className="text-xs text-foreground-subtle">
+                <span className="text-[11px] text-foreground-muted">
                   Live NIM model catalog via /v1/models
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 pt-4 flex items-center justify-between">
+          <div className="mt-6 pt-3 flex items-center justify-between">
             <Link
               href="/architecture"
-              className="text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+              className="text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
             >
               Explore Rust workspace architecture
               <ArrowRight className="w-3.5 h-3.5" />
@@ -85,35 +84,44 @@ export default function Introduction() {
         {/* Terminal First Interface - 5 cols */}
         <Card
           variant="terminal"
-          className="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between"
+          className="md:col-span-5 p-6 sm:p-7 flex flex-col justify-between"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-mono font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800">
+              <span className="text-xs font-mono font-medium text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/40 border border-emerald-800">
                 crates/m31a-tui
               </span>
-              <Terminal className="w-5 h-5 text-emerald-400" />
+              <Terminal className="w-4 h-4 text-emerald-400" />
             </div>
 
-            <h3 className="text-xl font-bold text-white mb-3">
+            <h3 className="text-lg font-semibold text-white mb-2">
               Ratatui Terminal UI
             </h3>
 
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed mb-4">
               A full-screen terminal experience featuring streaming markdown transcripts, collapsible DeepSeek R1 reasoning blocks, fuzzy palettes, and SQLite session resumption.
             </p>
 
-            <div className="font-mono text-xs bg-[#06070a] p-3 rounded border border-gray-800 text-gray-400 space-y-1">
-              <div>Tab: [⚡ BUILD] vs [📋 PLAN] modes</div>
-              <div>Ctrl+M: Model switcher dialog</div>
-              <div>Ctrl+P: Fuzzy command palette</div>
+            <div className="font-mono text-xs bg-[#090b10] p-3 rounded border border-[#1e2434] text-gray-300 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span>Modes</span>
+                <span><kbd className="px-1.5 py-0.5 rounded bg-[#161a26] border border-[#262e42] text-gray-300 text-[10px]">Tab</kbd> Build / Plan</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Model switcher</span>
+                <span><kbd className="px-1.5 py-0.5 rounded bg-[#161a26] border border-[#262e42] text-gray-300 text-[10px]">Ctrl+M</kbd></span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Command palette</span>
+                <span><kbd className="px-1.5 py-0.5 rounded bg-[#161a26] border border-[#262e42] text-gray-300 text-[10px]">Ctrl+P</kbd></span>
+              </div>
             </div>
           </div>
 
-          <div className="mt-6 pt-3 border-t border-gray-800">
+          <div className="mt-6 pt-3 border-t border-[#1e2434]">
             <Link
               href="/features"
-              className="text-xs font-semibold text-emerald-400 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-medium text-emerald-400 hover:underline inline-flex items-center gap-1"
             >
               Explore TUI capabilities
               <ArrowRight className="w-3.5 h-3.5" />
@@ -124,13 +132,13 @@ export default function Introduction() {
         {/* Tool Orchestration - 4 cols */}
         <Card
           variant="default"
-          className="md:col-span-4 p-6 flex flex-col justify-between bg-surface"
+          className="md:col-span-4 p-5 flex flex-col justify-between bg-surface border border-border"
         >
           <div>
-            <div className="w-8 h-8 rounded-lg bg-accent-subtle flex items-center justify-center text-accent mb-4">
-              <Workflow className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-md bg-surface-muted border border-border flex items-center justify-center text-foreground-muted mb-3">
+              <Workflow className="w-3.5 h-3.5" />
             </div>
-            <h4 className="text-lg font-bold text-foreground mb-2">
+            <h4 className="text-sm font-semibold text-foreground mb-1.5">
               18-Tool Orchestration
             </h4>
             <p className="text-xs text-foreground-muted leading-relaxed">
@@ -139,7 +147,7 @@ export default function Introduction() {
           </div>
           <Link
             href="/features"
-            className="mt-4 text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+            className="mt-4 text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
           >
             Inspect tool catalog →
           </Link>
@@ -148,13 +156,13 @@ export default function Introduction() {
         {/* Defense-in-Depth Security - 4 cols */}
         <Card
           variant="default"
-          className="md:col-span-4 p-6 flex flex-col justify-between bg-surface"
+          className="md:col-span-4 p-5 flex flex-col justify-between bg-surface border border-border"
         >
           <div>
-            <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-accent-crimson mb-4">
-              <Shield className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-md bg-surface-muted border border-border flex items-center justify-center text-foreground-muted mb-3">
+              <Shield className="w-3.5 h-3.5" />
             </div>
-            <h4 className="text-lg font-bold text-foreground mb-2">
+            <h4 className="text-sm font-semibold text-foreground mb-1.5">
               Defense-in-Depth Security
             </h4>
             <p className="text-xs text-foreground-muted leading-relaxed">
@@ -163,7 +171,7 @@ export default function Introduction() {
           </div>
           <Link
             href="/architecture"
-            className="mt-4 text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+            className="mt-4 text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
           >
             Review security model →
           </Link>
@@ -172,13 +180,13 @@ export default function Introduction() {
         {/* SDK & App Server - 4 cols */}
         <Card
           variant="default"
-          className="md:col-span-4 p-6 flex flex-col justify-between bg-surface"
+          className="md:col-span-4 p-5 flex flex-col justify-between bg-surface border border-border"
         >
           <div>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 mb-4">
-              <Code2 className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-md bg-surface-muted border border-border flex items-center justify-center text-foreground-muted mb-3">
+              <Code2 className="w-3.5 h-3.5" />
             </div>
-            <h4 className="text-lg font-bold text-foreground mb-2">
+            <h4 className="text-sm font-semibold text-foreground mb-1.5">
               JSON-RPC 2.0 &amp; SDKs
             </h4>
             <p className="text-xs text-foreground-muted leading-relaxed">
@@ -187,7 +195,7 @@ export default function Introduction() {
           </div>
           <Link
             href="/features"
-            className="mt-4 text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+            className="mt-4 text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
           >
             Explore client SDKs →
           </Link>

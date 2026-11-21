@@ -6,7 +6,6 @@ import {
   FileCode2,
   ShieldCheck,
   LifeBuoy,
-  Heart,
   Quote,
   ExternalLink,
   ArrowRight,
@@ -47,7 +46,7 @@ export default async function CommunityPage() {
     },
     {
       title: 'Contributing Guide',
-      description: 'Local development setup, Cargo and Bazel build instructions, coding standards, and PR submission guidelines.',
+      description: 'Local development setup, Cargo build instructions, coding standards, and PR submission guidelines.',
       icon: FileCode2,
       href: 'https://github.com/eshanized/M31A/blob/master/CONTRIBUTING.md',
       action: 'Read CONTRIBUTING.md',
@@ -80,39 +79,39 @@ export default async function CommunityPage() {
   ];
 
   return (
-    <div className="w-full bg-background py-16 md:py-24">
+    <div className="w-full bg-background py-12 md:py-16">
       <Container size="default">
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <Badge variant="accent" className="mb-4">
-            Open Source Community
+        <div className="max-w-3xl mb-12">
+          <Badge variant="default" className="mb-3">
+            Open Source
           </Badge>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground text-balance">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground text-balance">
             Engineered openly for sovereign developers.
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-            M31A is an independent open-source project founded by {siteConfig.author.name} under {siteConfig.author.organization}. Join us in building sovereign, verifiable autonomous coding tools without vendor capture.
+          <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+            M31A is an independent open-source project founded by {siteConfig.author.name} under {siteConfig.author.organization}.
           </p>
         </div>
 
         {/* Resources Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {resources.map((res) => {
             const Icon = res.icon;
             return (
               <Card
                 key={res.title}
                 variant="default"
-                className="p-8 bg-surface border border-border flex flex-col justify-between hover:border-border-strong transition-all shadow-xs"
+                className="p-6 bg-surface border border-border flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-surface-muted border border-border flex items-center justify-center text-foreground mb-4">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-md bg-surface-muted border border-border flex items-center justify-center text-foreground-muted mb-3">
+                    <Icon className="w-4 h-4" />
                   </div>
-                  <h2 className="text-lg font-bold text-foreground mb-2">
+                  <h2 className="text-base font-semibold text-foreground mb-1.5">
                     {res.title}
                   </h2>
-                  <p className="text-xs sm:text-sm text-foreground-muted leading-relaxed mb-6">
+                  <p className="text-xs text-foreground-muted leading-relaxed mb-4">
                     {res.description}
                   </p>
                 </div>
@@ -122,13 +121,13 @@ export default async function CommunityPage() {
                     href={res.href}
                     target={res.external ? '_blank' : undefined}
                     rel={res.external ? 'noopener noreferrer' : undefined}
-                    className="text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1.5"
+                    className="text-xs font-medium text-accent hover:underline inline-flex items-center gap-1.5"
                   >
-                    <span>{res.action}</span>
+                    <span className="tabular-nums">{res.action}</span>
                     {res.external ? (
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3 h-3 text-foreground-subtle" />
                     ) : (
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3 h-3" />
                     )}
                   </Link>
                 </div>
@@ -138,9 +137,9 @@ export default async function CommunityPage() {
         </div>
 
         {/* Maintainer Callout */}
-        <div className="mt-16 p-8 rounded-large bg-background-soft border border-border flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border border-border bg-surface-muted shrink-0">
+        <div className="mt-12 p-6 rounded-xl bg-surface-muted border border-border flex flex-col md:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-3.5">
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-border bg-surface shrink-0">
               <Image
                 src={siteConfig.author.avatar || 'https://avatars.githubusercontent.com/u/148610067?v=4'}
                 alt={siteConfig.author.name}
@@ -149,11 +148,11 @@ export default async function CommunityPage() {
                 className="object-cover"
               />
             </div>
-            <div className="space-y-1">
-              <h3 className="text-xl font-bold text-foreground">
+            <div className="space-y-0.5">
+              <h3 className="text-base font-semibold text-foreground">
                 Maintainer &amp; Infrastructure
               </h3>
-              <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
+              <p className="text-xs text-foreground-muted max-w-xl leading-relaxed">
                 M31A is developed and maintained by {siteConfig.author.name} at {siteConfig.author.organization}. Licensed under the permissive MIT license.
               </p>
             </div>

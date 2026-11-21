@@ -4,16 +4,16 @@ import AgentWorkflow from '@/components/demonstrations/AgentWorkflow';
 
 export default function ExecutionWorkflow() {
   return (
-    <Section id="workflow" spacing="spacious" background="soft">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="accent" className="mb-4">
+    <Section id="workflow" spacing="default" background="soft">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
           Lifecycle Pipeline
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
-          From idea to verified implementation.
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
+          From intent to verified execution.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          Unlike conversational chatbots that dump disconnected snippets into a chat window, M31A executes an unbroken, verifiable multi-turn engineering loop.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          M31A executes an unbroken, verifiable multi-turn engineering loop — from symbol graph resolution to containerized compilation checks.
         </p>
       </div>
 

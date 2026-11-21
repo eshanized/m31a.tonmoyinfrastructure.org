@@ -1,20 +1,20 @@
 import '@/styles/globals.css';
-import { Dosis, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { siteConfig } from '@/lib/site-config';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/footer/Footer';
 
-const dosis = Dosis({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-dosis',
-  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-sans',
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
@@ -109,7 +109,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${dosis.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`scroll-smooth ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -130,15 +130,9 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
-      <body className="min-h-screen flex flex-col bg-background text-foreground antialiased font-sans selection:bg-accent-crimson/20 selection:text-accent-crimson transition-colors duration-200">
+      <body className="min-h-screen flex flex-col bg-background text-foreground antialiased font-sans selection:bg-accent/20 selection:text-accent">
         <Navbar />
         <main className="flex-1 w-full">{children}</main>
         <Footer />

@@ -28,7 +28,7 @@ describe('GitHub Integration Module', () => {
     expect(release.assets.length).toBeGreaterThan(0);
 
     const version = await getLatestVersion();
-    expect(version).toBe('0.1.13');
+    expect(version).toBe(FALLBACK_RELEASE.tag_name.replace(/^v/, ''));
 
     const changelog = await getChangelog();
     expect(Array.isArray(changelog)).toBe(true);

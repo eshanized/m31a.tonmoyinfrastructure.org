@@ -7,18 +7,18 @@ export default function Card({
   ...props
 }) {
   const baseClasses =
-    'rounded-medium transition-all duration-300 relative overflow-hidden card-interactive';
+    'rounded-xl relative overflow-hidden transition-colors duration-150';
 
   const variantClasses = {
-    default: 'bg-surface border border-border shadow-sm',
-    soft: 'bg-surface-muted/60 border border-border',
+    default: 'bg-surface border border-border',
+    soft: 'bg-surface-muted/50 border border-border',
     flat: 'bg-surface-muted border border-border-subtle',
-    dark: 'bg-surface-card border border-border-dark text-foreground-inverse shadow-md',
-    terminal: 'bg-[#0d0f14] border border-[#232733] text-gray-200 shadow-xl',
+    dark: 'bg-surface-card border border-border text-foreground',
+    terminal: 'bg-[#0d0f14] border border-[#222836] text-gray-200',
   };
 
   const hoverClasses = hover
-    ? 'hover:border-border-strong hover:shadow-md hover:-translate-y-0.5'
+    ? 'hover:border-border-strong'
     : '';
 
   return (

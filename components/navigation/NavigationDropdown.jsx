@@ -73,9 +73,9 @@ export default function NavigationDropdown({ label, items = [], href = '#' }) {
         <div
           role="menu"
           aria-label={`${label} submenu`}
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[340px] p-2 bg-surface rounded-medium border border-border shadow-xl z-50 animate-fade-in"
+          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[320px] p-1.5 bg-surface rounded-lg border border-border shadow-lg z-50 animate-fade-in"
         >
-          <div className="grid grid-cols-1 gap-1">
+          <div className="grid grid-cols-1 gap-0.5">
             {items.map((item) => {
               if (item.external || item.href.startsWith('http')) {
                 return (
@@ -86,14 +86,14 @@ export default function NavigationDropdown({ label, items = [], href = '#' }) {
                     rel="noopener noreferrer"
                     role="menuitem"
                     onClick={() => setIsOpen(false)}
-                    className="group block p-2.5 rounded-small hover:bg-surface-muted transition-colors text-left"
+                    className="group block p-2 rounded-md hover:bg-surface-muted transition-colors text-left"
                   >
-                    <div className="text-sm font-medium text-foreground group-hover:text-accent transition-colors flex items-center justify-between">
+                    <div className="text-xs font-medium text-foreground group-hover:text-accent transition-colors flex items-center justify-between">
                       <span>{item.name}</span>
                       <ExternalLink className="w-3 h-3 text-foreground-subtle group-hover:text-foreground" />
                     </div>
                     {item.description && (
-                      <p className="text-xs text-foreground-subtle line-clamp-1 mt-0.5">
+                      <p className="text-[11px] text-foreground-subtle line-clamp-1 mt-0.5">
                         {item.description}
                       </p>
                     )}
@@ -107,13 +107,13 @@ export default function NavigationDropdown({ label, items = [], href = '#' }) {
                   href={item.href}
                   role="menuitem"
                   onClick={() => setIsOpen(false)}
-                  className="group block p-2.5 rounded-small hover:bg-surface-muted transition-colors text-left"
+                  className="group block p-2 rounded-md hover:bg-surface-muted transition-colors text-left"
                 >
-                  <div className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                  <div className="text-xs font-medium text-foreground group-hover:text-accent transition-colors">
                     {item.name}
                   </div>
                   {item.description && (
-                    <p className="text-xs text-foreground-subtle line-clamp-1 mt-0.5">
+                    <p className="text-[11px] text-foreground-subtle line-clamp-1 mt-0.5">
                       {item.description}
                     </p>
                   )}

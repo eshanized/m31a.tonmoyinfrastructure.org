@@ -4,7 +4,6 @@ import {
   MessageSquare,
   BookOpen,
   ShieldAlert,
-  Heart,
   ArrowRight,
   ExternalLink,
 } from 'lucide-react';
@@ -37,7 +36,7 @@ export default async function CommunitySection() {
     },
     {
       title: 'Contributing Guide',
-      description: 'Step-by-step instructions on setting up the local Rust workspace, running Bazel checks, and style guides.',
+      description: 'Instructions on setting up the local Rust workspace, running cargo check, and style guidelines.',
       icon: BookOpen,
       link: 'https://github.com/eshanized/M31A/blob/master/CONTRIBUTING.md',
       action: 'Read CONTRIBUTING.md',
@@ -54,36 +53,36 @@ export default async function CommunitySection() {
   ];
 
   return (
-    <Section id="community" spacing="spacious" background="surface">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="default" className="mb-4">
-          Open Source &amp; Sovereign
+    <Section id="community" spacing="default" background="surface">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
+          Open Source
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
           Built in public. Backed by community.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          M31A is an independent, MIT-licensed open-source project created by Eshan Roy under Tonmoy Infrastructure &amp; Vision. We welcome technical contributions, security audits, and real-world feedback.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          M31A is an independent, MIT-licensed open-source project created by Eshan Roy under Tonmoy Infrastructure &amp; Vision.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {channels.map((chan) => {
           const Icon = chan.icon;
           return (
             <Card
               key={chan.title}
               variant="default"
-              className="p-6 bg-surface flex flex-col justify-between hover:border-border-strong transition-all"
+              className="p-5 bg-surface border border-border flex flex-col justify-between"
             >
               <div>
-                <div className="w-9 h-9 rounded-lg bg-surface-muted border border-border flex items-center justify-center text-foreground mb-4">
-                  <Icon className="w-4 h-4" />
+                <div className="w-7 h-7 rounded-md bg-surface-muted border border-border flex items-center justify-center text-foreground-muted mb-3">
+                  <Icon className="w-3.5 h-3.5" />
                 </div>
-                <h3 className="text-base font-bold text-foreground mb-2">
+                <h3 className="text-sm font-semibold text-foreground mb-1.5">
                   {chan.title}
                 </h3>
-                <p className="text-xs text-foreground-muted leading-relaxed mb-6">
+                <p className="text-xs text-foreground-muted leading-relaxed mb-4">
                   {chan.description}
                 </p>
               </div>
@@ -93,11 +92,11 @@ export default async function CommunitySection() {
                   href={chan.link}
                   target={chan.external ? '_blank' : undefined}
                   rel={chan.external ? 'noopener noreferrer' : undefined}
-                  className="text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
                 >
-                  <span>{chan.action}</span>
+                  <span className="tabular-nums">{chan.action}</span>
                   {chan.external ? (
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3 h-3 text-foreground-subtle" />
                   ) : (
                     <ArrowRight className="w-3 h-3" />
                   )}

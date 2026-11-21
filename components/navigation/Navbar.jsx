@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import GithubIcon from '@/components/ui/icons/GithubIcon';
 import { siteConfig } from '@/lib/site-config';
 import { getRepoMetrics, getLatestVersion } from '@/lib/github';
@@ -17,30 +17,30 @@ export default async function Navbar() {
   ]);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-surface/85 backdrop-blur-md border-b border-border/80 transition-all">
-      <Container size="default" className="flex items-center justify-between h-16">
+    <header className="sticky top-0 z-40 w-full glass-nav border-b border-border transition-colors">
+      <Container size="default" className="flex items-center justify-between h-14">
         {/* Brand Logo */}
         <Link
           href="/"
           className="flex items-center gap-2.5 group focus-visible:outline-none"
           aria-label="M31A Homepage"
         >
-          <div className="relative w-8 h-8 flex items-center justify-center rounded-lg bg-surface-muted border border-border group-hover:border-accent-crimson/40 transition-colors overflow-hidden">
+          <div className="relative w-7 h-7 flex items-center justify-center rounded-md bg-surface-muted border border-border group-hover:border-border-strong transition-colors overflow-hidden">
             <Image
               src="/brand/m31a-logo.svg"
               alt="M31A Logo"
-              width={22}
-              height={22}
-              className="w-5 h-5 object-contain"
+              width={18}
+              height={18}
+              className="w-4 h-4 object-contain"
               priority
             />
           </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-lg tracking-tight text-foreground flex items-center gap-1.5 leading-none">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-sm tracking-tight text-foreground leading-none">
               M31A
-              <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-surface-muted text-foreground-subtle border border-border">
-                v{version}
-              </span>
+            </span>
+            <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-surface-muted text-foreground-subtle border border-border tabular-nums">
+              v{version}
             </span>
           </div>
         </Link>
@@ -68,7 +68,7 @@ export default async function Navbar() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-foreground-muted hover:text-foreground transition-colors"
+                  className="text-xs sm:text-sm font-normal text-foreground-muted hover:text-foreground transition-colors"
                 >
                   {item.name}
                 </a>
@@ -78,7 +78,7 @@ export default async function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-foreground-muted hover:text-foreground transition-colors"
+                className="text-xs sm:text-sm font-normal text-foreground-muted hover:text-foreground transition-colors"
               >
                 {item.name}
               </Link>
@@ -87,7 +87,7 @@ export default async function Navbar() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2.5">
           {/* Dark Mode Theme Toggle */}
           <ThemeToggle />
 
@@ -99,9 +99,9 @@ export default async function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`GitHub Repository with ${repoMetrics.stargazers_count} stars`}
-            className="border border-border hover:border-border-strong px-3 py-1.5"
+            className="border border-border hover:border-border-strong px-2.5"
           >
-            <span className="font-semibold text-xs ml-1 font-mono">
+            <span className="font-medium text-xs font-mono tabular-nums">
               ★ {repoMetrics.stargazers_count}
             </span>
           </Button>
@@ -110,7 +110,8 @@ export default async function Navbar() {
             href="/features"
             variant="primary"
             size="sm"
-            icon={Sparkles}
+            icon={ArrowRight}
+            iconPosition="right"
           >
             Get Started
           </Button>

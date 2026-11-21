@@ -11,9 +11,9 @@ describe('Theme Toggle & Site Configuration', () => {
 
   it('validates siteConfig metadata and external links', () => {
     expect(siteConfig.name).toBe('M31A');
-    expect(siteConfig.version).toBe('0.1.13');
+    expect(siteConfig.version).toBe('0.1.15');
     expect(siteConfig.links.github).toBe('https://github.com/eshanized/M31A');
-    expect(siteConfig.links.docs).toBe('https://github.com/eshanized/M31A/tree/main/docs');
+    expect(siteConfig.links.docs).toBe('https://github.com/eshanized/M31A/tree/master/docs');
 
     const navNames = siteConfig.navigation.map((n) => n.name);
     expect(navNames).toContain('Features');

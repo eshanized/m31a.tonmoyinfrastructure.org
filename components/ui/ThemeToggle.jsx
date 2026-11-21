@@ -41,11 +41,9 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
       document.documentElement.style.colorScheme = 'light';
     }
 
-    // Notify any canvas or graphical components of the theme change
     window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: newTheme, isDark: shouldBeDark } }));
   };
 
-  // Listen to system preference changes when in 'system' mode
   useEffect(() => {
     if (!mounted) return;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -67,7 +65,6 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [mounted]);
 
-  // Quick toggle between light and dark
   const handleQuickToggle = () => {
     if (theme === 'dark') {
       applyTheme('light');
@@ -76,10 +73,9 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
     }
   };
 
-  // While mounting on server, render a stable placeholder to avoid hydration mismatch
   if (!mounted) {
     return (
-      <div className={`w-9 h-9 rounded-full border border-border bg-surface-muted/50 ${className}`} aria-hidden="true" />
+      <div className={`w-8 h-8 rounded-md border border-border bg-surface-muted/50 ${className}`} aria-hidden="true" />
     );
   }
 
@@ -98,14 +94,14 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
           setIsOpen(!isOpen);
         }}
         aria-label={`Current theme: ${theme}. Click to switch to ${isDarkActive ? 'light' : 'dark'} mode.`}
-        title={`Theme: ${theme.toUpperCase()} (Click to toggle, right click for menu)`}
-        className="w-9 h-9 rounded-full flex items-center justify-center bg-surface-muted/80 hover:bg-surface border border-border hover:border-border-strong text-foreground-muted hover:text-foreground transition-all duration-200 btn-magnetic focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        title={`Theme: ${theme.toUpperCase()} (Click to toggle, right-click for menu)`}
+        className="w-8 h-8 rounded-md flex items-center justify-center bg-surface-muted hover:bg-surface border border-border hover:border-border-strong text-foreground-muted hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
       >
         <span className="sr-only">Toggle theme</span>
         {isDarkActive ? (
-          <Sun className="w-4 h-4 text-amber-400 rotate-0 scale-100 transition-transform duration-300" />
+          <Sun className="w-3.5 h-3.5 text-foreground-muted" />
         ) : (
-          <Moon className="w-4 h-4 text-slate-700 rotate-0 scale-100 transition-transform duration-300" />
+          <Moon className="w-3.5 h-3.5 text-foreground-muted" />
         )}
       </button>
 
@@ -115,7 +111,7 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
         </span>
       )}
 
-      {/* Dropdown Options Menu for explicit selection */}
+      {/* Dropdown Options Menu */}
       {isOpen && (
         <>
           <div
@@ -123,20 +119,20 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
             onClick={() => setIsOpen(false)}
             aria-hidden="true"
           />
-          <div className="absolute right-0 top-full mt-2 z-50 w-36 rounded-medium bg-surface border border-border shadow-xl p-1.5 animate-fade-in flex flex-col gap-1">
+          <div className="absolute right-0 top-full mt-1.5 z-50 w-32 rounded-lg bg-surface border border-border shadow-md p-1 animate-fade-in flex flex-col gap-0.5">
             <button
               type="button"
               onClick={() => {
                 applyTheme('light');
                 setIsOpen(false);
               }}
-              className={`flex items-center gap-2 px-2.5 py-1.5 text-xs rounded-small font-medium transition-colors ${
+              className={`flex items-center gap-2 px-2 py-1 text-xs rounded-md font-medium transition-colors ${
                 theme === 'light'
                   ? 'bg-accent/10 text-accent font-semibold'
                   : 'text-foreground-muted hover:text-foreground hover:bg-surface-muted'
               }`}
             >
-              <Sun className="w-3.5 h-3.5" />
+              <Sun className="w-3 h-3" />
               <span>Light</span>
             </button>
             <button
@@ -145,13 +141,13 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
                 applyTheme('dark');
                 setIsOpen(false);
               }}
-              className={`flex items-center gap-2 px-2.5 py-1.5 text-xs rounded-small font-medium transition-colors ${
+              className={`flex items-center gap-2 px-2 py-1 text-xs rounded-md font-medium transition-colors ${
                 theme === 'dark'
                   ? 'bg-accent/10 text-accent font-semibold'
                   : 'text-foreground-muted hover:text-foreground hover:bg-surface-muted'
               }`}
             >
-              <Moon className="w-3.5 h-3.5" />
+              <Moon className="w-3 h-3" />
               <span>Dark</span>
             </button>
             <button
@@ -160,13 +156,13 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
                 applyTheme('system');
                 setIsOpen(false);
               }}
-              className={`flex items-center gap-2 px-2.5 py-1.5 text-xs rounded-small font-medium transition-colors ${
+              className={`flex items-center gap-2 px-2 py-1 text-xs rounded-md font-medium transition-colors ${
                 theme === 'system'
                   ? 'bg-accent/10 text-accent font-semibold'
                   : 'text-foreground-muted hover:text-foreground hover:bg-surface-muted'
               }`}
             >
-              <Monitor className="w-3.5 h-3.5" />
+              <Monitor className="w-3 h-3" />
               <span>System</span>
             </button>
           </div>

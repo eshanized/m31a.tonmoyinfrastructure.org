@@ -18,7 +18,7 @@ const CORE_STACK = [
   {
     name: 'Rust 2024 Edition',
     category: 'Core Language',
-    description: 'Zero-cost abstractions, memory safety without garbage collection, and blazing throughput across 39 workspace crates.',
+    description: 'Zero-cost abstractions, memory safety without garbage collection, and high throughput across 39 workspace crates.',
     link: 'https://www.rust-lang.org/',
   },
   {
@@ -67,40 +67,40 @@ const CORE_STACK = [
 
 export default function ArchitectureSection() {
   return (
-    <Section id="architecture" spacing="spacious" background="surface">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="default" className="mb-4">
-          Decoupled Rust Topology
+    <Section id="architecture" spacing="default" background="surface">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
+          Rust Topology
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
-          Built on sovereign, proven technology.
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
+          Built on proven, sovereign systems.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          Every component in M31A is selected for performance, security containment, and sovereign operability. No proprietary wrappers. No hidden cloud dependencies.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          Every component in M31A is selected for performance, security containment, and deterministic execution.
         </p>
       </div>
 
       {/* Technology Stack Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
         {CORE_STACK.map((tech) => (
           <div
             key={tech.name}
-            className="p-5 rounded-medium bg-surface-subtle border border-border hover:border-border-strong transition-all flex flex-col justify-between"
+            className="p-4 rounded-lg bg-surface border border-border flex flex-col justify-between"
           >
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider font-semibold text-accent block mb-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider font-medium text-accent block mb-1">
                 {tech.category}
               </span>
-              <h3 className="text-base font-bold text-foreground mb-2 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5 flex items-center justify-between">
                 <span>{tech.name}</span>
                 <Link
                   href={tech.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground-subtle hover:text-foreground p-1"
+                  className="text-foreground-subtle hover:text-foreground p-0.5"
                   aria-label={`${tech.name} external link`}
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3 h-3" />
                 </Link>
               </h3>
               <p className="text-xs text-foreground-muted leading-relaxed">
@@ -112,22 +112,22 @@ export default function ArchitectureSection() {
       </div>
 
       {/* Rust workspace and desktop host callout */}
-      <div className="mt-10 p-6 sm:p-8 rounded-large bg-surface border border-border flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-        <div className="space-y-2">
+      <div className="mt-8 p-5 sm:p-6 rounded-xl bg-surface-muted border border-border flex flex-col md:flex-row items-center justify-between gap-5">
+        <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <h4 className="text-lg font-bold text-foreground">
-              Rust Workspace & Desktop Host
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <h4 className="text-sm font-semibold text-foreground">
+              Rust Workspace &amp; Desktop Host
             </h4>
           </div>
-          <p className="text-xs sm:text-sm text-foreground-muted max-w-2xl leading-relaxed">
+          <p className="text-xs text-foreground-muted max-w-2xl leading-relaxed">
             M31A combines independently testable Rust domains with its runtime, a native Tauri desktop host, and worktree-first coordination for isolated concurrent tasks.
           </p>
         </div>
 
         <Link
           href="/architecture"
-          className="shrink-0 px-5 py-2.5 rounded-full bg-foreground text-surface text-xs font-semibold hover:bg-black transition-colors inline-flex items-center gap-1.5"
+          className="shrink-0 px-4 py-2 rounded-lg bg-foreground text-background text-xs font-medium hover:bg-foreground/90 transition-colors inline-flex items-center gap-1.5"
         >
           View Full Crate Architecture
           <ArrowRight className="w-3.5 h-3.5" />

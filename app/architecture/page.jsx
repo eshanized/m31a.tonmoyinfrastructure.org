@@ -92,31 +92,31 @@ const ARCHITECTURE_LAYERS = [
 
 export default function ArchitecturePage() {
   return (
-    <div className="w-full bg-background py-16 md:py-24">
+    <div className="w-full bg-background py-12 md:py-16">
       <Container size="default">
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <Badge variant="accent" className="mb-4">
+        <div className="max-w-3xl mb-12">
+          <Badge variant="default" className="mb-3">
             System Topology
           </Badge>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground text-balance">
-            Modular Rust workspace. Multiple execution surfaces.
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground text-balance">
+            Modular 39-crate Rust workspace. Multiple execution surfaces.
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
+          <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
             M31A is a Rust 2024 workspace spanning the CLI, Ratatui TUI, runtime, JSON-RPC app server, SDK clients, and a Tauri 2 desktop host. Worktree-first execution isolates concurrent tasks; transactional integration and rollback help protect the shared working tree.
           </p>
         </div>
 
         {/* High-Level Architecture Flowchart Visual */}
-        <div className="my-12 p-8 rounded-large bg-surface border border-border shadow-xs">
-          <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-            <Workflow className="w-5 h-5 text-accent" />
+        <div className="my-10 p-6 sm:p-7 rounded-xl bg-surface border border-border">
+          <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+            <Workflow className="w-4 h-4 text-accent" />
             Layered Execution Topology
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-            <div className="p-4 rounded-medium bg-surface-muted border border-border space-y-2">
-              <span className="font-bold text-foreground block uppercase text-[11px] tracking-wider">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs font-mono">
+            <div className="p-3.5 rounded-lg bg-surface-muted border border-border space-y-1.5">
+              <span className="font-medium text-foreground block uppercase text-[10px] tracking-wider">
                 Interaction Surfaces
               </span>
               <p className="text-foreground-muted">m31a CLI (54 subcommands)</p>
@@ -125,8 +125,8 @@ export default function ArchitecturePage() {
               <p className="text-foreground-muted">TypeScript &amp; Python SDKs</p>
             </div>
 
-            <div className="p-4 rounded-medium bg-accent-subtle/50 border border-accent/20 space-y-2">
-              <span className="font-bold text-accent block uppercase text-[11px] tracking-wider">
+            <div className="p-3.5 rounded-lg bg-accent-subtle/50 border border-accent/20 space-y-1.5">
+              <span className="font-medium text-accent block uppercase text-[10px] tracking-wider">
                 Autonomous Core
               </span>
               <p className="text-foreground">m31a-agent-engine (Turn Loop &amp; Coordination)</p>
@@ -134,8 +134,8 @@ export default function ArchitecturePage() {
               <p className="text-foreground">m31a-verify (Visual TDD &amp; AST)</p>
             </div>
 
-            <div className="p-4 rounded-medium bg-red-50/60 border border-red-200/80 space-y-2">
-              <span className="font-bold text-accent-crimson block uppercase text-[11px] tracking-wider">
+            <div className="p-3.5 rounded-lg bg-surface-muted border border-border space-y-1.5">
+              <span className="font-medium text-foreground block uppercase text-[10px] tracking-wider">
                 Containment &amp; Storage
               </span>
               <p className="text-foreground">m31a-sandbox (Bubblewrap)</p>
@@ -146,20 +146,20 @@ export default function ArchitecturePage() {
         </div>
 
         {/* Detailed Layer Breakdown */}
-        <div className="space-y-10">
+        <div className="space-y-8">
           {ARCHITECTURE_LAYERS.map((layer) => (
-            <div key={layer.layer} className="space-y-4">
-              <h3 className="text-xl font-bold text-foreground border-b border-border pb-2">
+            <div key={layer.layer} className="space-y-3">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground border-b border-border pb-2">
                 {layer.layer}
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {layer.crates.map((c) => (
                   <div
                     key={c.name}
-                    className="p-4 rounded-medium bg-surface border border-border flex flex-col justify-between hover:border-border-strong transition-all"
+                    className="p-3.5 rounded-lg bg-surface border border-border flex flex-col justify-between"
                   >
                     <div>
-                      <span className="text-xs font-mono font-bold text-accent block mb-1">
+                      <span className="text-xs font-mono font-medium text-accent block mb-1">
                         {c.name}
                       </span>
                       <p className="text-xs text-foreground-muted leading-relaxed">
@@ -174,12 +174,12 @@ export default function ArchitecturePage() {
         </div>
 
         {/* Next Steps */}
-        <div className="mt-16 p-8 rounded-large bg-background-soft border border-border flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-12 p-6 rounded-xl bg-surface-muted border border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h4 className="text-lg font-bold text-foreground">
+            <h4 className="text-sm font-semibold text-foreground">
               Deepen your understanding
             </h4>
-            <p className="text-xs text-foreground-muted mt-1">
+            <p className="text-xs text-foreground-muted mt-0.5">
               Read the complete system architecture manual and sequence diagrams in the docs.
             </p>
           </div>

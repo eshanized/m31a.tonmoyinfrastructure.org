@@ -50,12 +50,12 @@ const USE_CASES = [
     title: 'Continuous Background Vibe Coding',
     icon: RefreshCw,
     command: 'm31a vibe --visual-url http://localhost:3000',
-    summary: 'Zero-babysitter auto-healing loop while you focus on high-level design.',
+    summary: 'Automated compiler repair loop while you focus on architecture.',
     workflow: [
       'Passively observes workspace files with configurable debounce',
-      'Instantly catches compiler errors or broken imports in real-time',
+      'Catches compiler diagnostics and broken imports in real time',
       'Generates and applies minimal single-turn Codex auto-repairs',
-      'Keeps your dev server running without context-switching',
+      'Keeps dev server running without context switching',
     ],
   },
   {
@@ -76,7 +76,7 @@ const USE_CASES = [
     title: 'Semantic Code Review & Blast Radius Gate',
     icon: CheckCircle,
     command: 'm31a review --against origin/master',
-    summary: 'Evaluates pending diffs against AST symbol relationships and data-flow taint invariants.',
+    summary: 'Evaluates pending diffs against AST symbol relationships and data-flow invariants.',
     workflow: [
       'Calculates blast radius score (0-100) across downstream dependents',
       'Audits untrusted inputs flowing into security-sensitive sinks',
@@ -103,20 +103,20 @@ export default function UseCases() {
   const [selectedCase, setSelectedCase] = useState(USE_CASES[0]);
 
   return (
-    <Section id="use-cases" spacing="spacious" background="surface">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="default" className="mb-4">
+    <Section id="use-cases" spacing="default" background="surface">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
           Practical Workflows
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
-          Real engineering tasks. Zero synthetic benchmarks.
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
+          Real engineering tasks.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          M31A is built for software engineers who need autonomous assistance on substantive problems—from full-stack features to speculative performance experiments.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          M31A executes substantive developer tasks — from full-stack features to speculative performance experiments.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Navigation Selector Buttons - 5 cols */}
         <div className="lg:col-span-5 space-y-2">
           {USE_CASES.map((item) => {
@@ -127,30 +127,30 @@ export default function UseCases() {
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedCase(item)}
-                className={`w-full text-left p-4 rounded-medium border transition-all flex items-center gap-3.5 ${
+                className={`w-full text-left p-3.5 rounded-lg border transition-colors flex items-center gap-3 ${
                   isSelected
-                    ? 'bg-surface border-accent shadow-sm'
-                    : 'bg-surface-muted/50 border-border hover:border-border-strong text-foreground-muted'
+                    ? 'bg-surface border-accent'
+                    : 'bg-surface-muted border-border hover:border-border-strong text-foreground-muted'
                 }`}
               >
                 <div
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                  className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 ${
                     isSelected
                       ? 'bg-accent text-white'
                       : 'bg-surface border border-border text-foreground-muted'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3
-                    className={`text-sm font-semibold truncate ${
-                      isSelected ? 'text-foreground' : 'text-foreground-muted'
+                    className={`text-xs sm:text-sm font-medium truncate ${
+                      isSelected ? 'text-foreground font-semibold' : 'text-foreground-muted'
                     }`}
                   >
                     {item.title}
                   </h3>
-                  <p className="text-xs text-foreground-subtle truncate mt-0.5">
+                  <p className="text-[11px] text-foreground-subtle truncate mt-0.5">
                     {item.summary}
                   </p>
                 </div>
@@ -163,25 +163,25 @@ export default function UseCases() {
         <div className="lg:col-span-7">
           <Card
             variant="default"
-            className="p-6 sm:p-8 bg-surface border border-border shadow-sm space-y-6"
+            className="p-5 sm:p-7 bg-surface border border-border space-y-5"
           >
             <div>
-              <span className="text-xs font-mono font-bold text-accent bg-accent-subtle px-2 py-0.5 rounded">
+              <span className="text-xs font-mono font-medium text-accent bg-accent-subtle px-2 py-0.5 rounded border border-accent/20">
                 Workflow Specification
               </span>
-              <h3 className="text-2xl font-bold text-foreground mt-2">
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mt-2">
                 {selectedCase.title}
               </h3>
-              <p className="text-sm text-foreground-muted mt-2 leading-relaxed">
+              <p className="text-xs sm:text-sm text-foreground-muted mt-1 leading-relaxed">
                 {selectedCase.summary}
               </p>
             </div>
 
             {/* CLI Command Example */}
-            <div className="rounded-medium bg-[#0d0f14] border border-[#232733] p-4 text-xs font-mono text-gray-200">
-              <div className="text-gray-500 mb-1.5 flex items-center justify-between">
-                <span>Terminal Execution Syntax</span>
-                <Terminal className="w-3.5 h-3.5 text-gray-400" />
+            <div className="rounded-lg bg-[#0b0d13] border border-[#222838] p-3.5 text-xs font-mono text-gray-200">
+              <div className="text-gray-500 mb-1 flex items-center justify-between text-[11px]">
+                <span>Terminal Command</span>
+                <Terminal className="w-3 h-3 text-gray-500" />
               </div>
               <div className="text-emerald-400 break-all leading-relaxed">
                 $ {selectedCase.command}
@@ -189,17 +189,17 @@ export default function UseCases() {
             </div>
 
             {/* Step-by-Step Autonomous Workflow */}
-            <div className="space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+            <div className="space-y-2.5">
+              <span className="text-xs font-medium text-foreground block">
                 Autonomous Execution Steps:
               </span>
-              <ol className="space-y-2.5">
+              <ol className="space-y-2">
                 {selectedCase.workflow.map((step, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-3 text-xs sm:text-sm text-foreground-muted"
+                    className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground-muted"
                   >
-                    <span className="w-5 h-5 rounded-full bg-surface-muted border border-border text-foreground font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="w-4 h-4 rounded bg-surface-muted border border-border text-foreground font-mono text-[10px] font-medium flex items-center justify-center shrink-0 mt-0.5 tabular-nums">
                       {idx + 1}
                     </span>
                     <span className="leading-snug">{step}</span>
@@ -208,12 +208,12 @@ export default function UseCases() {
               </ol>
             </div>
 
-            <div className="pt-4 border-t border-border flex items-center justify-between">
+            <div className="pt-3 border-t border-border flex items-center justify-between">
               <a
                 href="https://github.com/eshanized/M31A#quickstart"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+                className="text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
               >
                 Try this workflow in Quickstart
                 <ArrowRight className="w-3.5 h-3.5" />

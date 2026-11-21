@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import {
-  Sparkles,
   GitBranch,
   Terminal,
   Shield,
@@ -151,61 +150,61 @@ export default function FeaturesPage() {
   ];
 
   return (
-    <div className="w-full bg-background py-16 md:py-24">
+    <div className="w-full bg-background py-12 md:py-16">
       <Container size="default">
         {/* Header */}
-        <div className="max-w-3xl mb-16">
-          <Badge variant="accent" className="mb-4">
-            Product Features
+        <div className="max-w-3xl mb-12">
+          <Badge variant="default" className="mb-3">
+            Features
           </Badge>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground text-balance">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground text-balance">
             Autonomous capabilities built for sovereign engineering.
           </h1>
-          <p className="mt-6 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
+          <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
             Every feature in M31A is backed by a modular Rust crate designed for predictable, verifiable execution inside kernel-level container boundaries.
           </p>
         </div>
 
         {/* Deep Dive Features */}
-        <div className="space-y-12">
+        <div className="space-y-6">
           {deepFeatures.map((feat) => (
             <Card
               key={feat.id}
               variant="default"
-              className="p-8 sm:p-10 bg-surface border border-border shadow-xs"
+              className="p-6 sm:p-7 bg-surface border border-border"
             >
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-6 border-b border-border">
-                <div className="space-y-2">
+              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 border-b border-border">
+                <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-accent bg-accent-subtle px-2 py-0.5 rounded">
+                    <span className="text-xs font-mono font-medium text-accent bg-accent-subtle px-2 py-0.5 rounded border border-accent/20">
                       {feat.tag}
                     </span>
                     <span className="text-xs font-mono text-foreground-subtle">
                       {feat.crate}
                     </span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
                     {feat.title}
                   </h2>
                 </div>
 
-                <div className="rounded-medium bg-[#0d0f14] border border-[#232733] px-3.5 py-2 font-mono text-xs text-emerald-400 shrink-0 self-start">
+                <div className="rounded-lg bg-[#0b0d13] border border-[#222838] px-3 py-1.5 font-mono text-xs text-emerald-400 shrink-0 self-start">
                   $ {feat.command}
                 </div>
               </div>
 
-              <div className="mt-6 space-y-6">
-                <p className="text-sm sm:text-base text-foreground-muted leading-relaxed">
+              <div className="mt-4 space-y-4">
+                <p className="text-xs sm:text-sm text-foreground-muted leading-relaxed">
                   {feat.description}
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                   {feat.capabilities.map((cap, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start gap-2.5 text-xs sm:text-sm text-foreground bg-surface-muted/50 p-3 rounded-medium border border-border/70"
+                      className="flex items-start gap-2 text-xs text-foreground bg-surface-muted/50 p-2.5 rounded-md border border-border"
                     >
-                      <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                       <span>{cap}</span>
                     </div>
                   ))}
@@ -216,14 +215,14 @@ export default function FeaturesPage() {
         </div>
 
         {/* Bottom CTA Card */}
-        <div className="mt-16 p-8 rounded-large bg-background-soft border border-border text-center flex flex-col items-center">
-          <h3 className="text-2xl font-bold text-foreground mb-3">
+        <div className="mt-12 p-6 sm:p-8 rounded-xl bg-surface-muted border border-border text-center flex flex-col items-center">
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
             Ready to test M31A in your repository?
           </h3>
-          <p className="text-sm text-foreground-muted max-w-xl mb-6">
+          <p className="text-xs sm:text-sm text-foreground-muted max-w-lg mb-5">
             Get started with the quickstart guide or explore the CLI and native desktop workspace.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <Button
               href="https://github.com/eshanized/M31A#quickstart"
               target="_blank"

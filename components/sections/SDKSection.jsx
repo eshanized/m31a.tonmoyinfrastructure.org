@@ -108,23 +108,23 @@ export default function SDKSection() {
   };
 
   return (
-    <Section id="sdk" spacing="spacious" background="soft">
-      <div className="max-w-3xl mb-12 md:mb-16">
-        <Badge variant="accent" className="mb-4">
+    <Section id="sdk" spacing="default" background="soft">
+      <div className="max-w-3xl mb-10 md:mb-12">
+        <Badge variant="default" className="mb-3">
           Client Libraries
         </Badge>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground text-balance">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
           Build on the M31A runtime.
         </h2>
-        <p className="mt-4 text-base sm:text-lg text-foreground-muted leading-relaxed text-balance">
-          Control the M31A agent runtime programmatically. Our official TypeScript and Python SDKs provide clean, typed interfaces over JSON-RPC 2.0 with native streaming and approval hooks.
+        <p className="mt-3 text-sm sm:text-base text-foreground-muted leading-relaxed text-balance">
+          Control the M31A agent runtime programmatically. Official TypeScript and Python SDKs provide typed interfaces over JSON-RPC 2.0 with streaming and approval callbacks.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Info & Transport Details - 5 cols */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="flex items-center gap-2 p-1 bg-surface rounded-medium border border-border">
+        <div className="lg:col-span-5 space-y-4">
+          <div className="flex items-center gap-1.5 p-1 bg-surface rounded-lg border border-border">
             {SDK_TABS.map((tab) => {
               const isActive = activeTab.id === tab.id;
               return (
@@ -132,9 +132,9 @@ export default function SDKSection() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 py-2 px-3 text-xs font-semibold rounded-small transition-all ${
+                  className={`flex-1 py-1.5 px-3 text-xs font-medium rounded-md transition-colors ${
                     isActive
-                      ? 'bg-foreground text-surface shadow-xs'
+                      ? 'bg-foreground text-background font-semibold'
                       : 'text-foreground-muted hover:text-foreground'
                   }`}
                 >
@@ -144,9 +144,9 @@ export default function SDKSection() {
             })}
           </div>
 
-          <div className="p-6 rounded-medium bg-surface border border-border space-y-4">
+          <div className="p-5 rounded-lg bg-surface border border-border space-y-3.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-bold text-accent">
+              <span className="text-xs font-mono font-medium text-accent">
                 Package: {activeTab.package}
               </span>
               <button
@@ -154,18 +154,18 @@ export default function SDKSection() {
                 onClick={() => handleCopy(activeTab.install)}
                 className="text-xs text-foreground-subtle hover:text-foreground inline-flex items-center gap-1 font-mono"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{activeTab.install}</span>
               </button>
             </div>
 
-            <ul className="space-y-2 pt-2 border-t border-border">
+            <ul className="space-y-1.5 pt-2 border-t border-border">
               {activeTab.highlights.map((item, i) => (
                 <li
                   key={i}
                   className="text-xs text-foreground flex items-start gap-2"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -174,7 +174,7 @@ export default function SDKSection() {
             <div className="pt-2">
               <Link
                 href={activeTab.href}
-                className="text-xs font-semibold text-accent hover:underline inline-flex items-center gap-1"
+                className="text-xs font-medium text-accent hover:underline inline-flex items-center gap-1"
               >
                 View full {activeTab.name} SDK reference
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -183,18 +183,18 @@ export default function SDKSection() {
           </div>
 
           {/* Supported Transports Box */}
-          <div className="p-4 rounded-medium bg-surface-muted border border-border space-y-2 text-xs">
-            <span className="font-semibold text-foreground uppercase tracking-wider block">
+          <div className="p-3.5 rounded-lg bg-surface-muted border border-border space-y-1.5 text-xs">
+            <span className="font-medium text-foreground block">
               Interchangeable IPC Transports
             </span>
             <div className="grid grid-cols-3 gap-2 pt-1 font-mono text-[11px] text-foreground-muted">
-              <div className="p-2 rounded bg-surface border border-border text-center">
+              <div className="p-1.5 rounded bg-surface border border-border text-center">
                 Stdio
               </div>
-              <div className="p-2 rounded bg-surface border border-border text-center">
+              <div className="p-1.5 rounded bg-surface border border-border text-center">
                 Unix Socket
               </div>
-              <div className="p-2 rounded bg-surface border border-border text-center">
+              <div className="p-1.5 rounded bg-surface border border-border text-center">
                 HTTP / SSE
               </div>
             </div>
@@ -203,10 +203,10 @@ export default function SDKSection() {
 
         {/* Right Code Example Card - 7 cols */}
         <div className="lg:col-span-7">
-          <div className="rounded-large bg-[#0d0f14] border border-[#232733] shadow-xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 bg-[#13161f] border-b border-[#232733] text-xs font-mono text-gray-400">
+          <div className="rounded-xl bg-[#0b0d13] border border-[#222838] overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2.5 bg-[#121622] border-b border-[#222838] text-xs font-mono text-gray-400">
               <div className="flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-accent" />
+                <Code2 className="w-3.5 h-3.5 text-gray-400" />
                 <span>example.{activeTab.id === 'typescript' ? 'ts' : 'py'}</span>
               </div>
               <button
@@ -215,10 +215,10 @@ export default function SDKSection() {
                 className="hover:text-gray-200 transition-colors inline-flex items-center gap-1 text-[11px]"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'Copied' : 'Copy Code'}</span>
+                <span>{copied ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
-            <pre className="p-5 text-xs font-mono text-gray-200 leading-relaxed overflow-x-auto whitespace-pre">
+            <pre className="p-4 sm:p-5 text-xs font-mono text-gray-200 leading-relaxed overflow-x-auto whitespace-pre">
               <code>{activeTab.code}</code>
             </pre>
           </div>

@@ -51,7 +51,7 @@ export default function MobileNavigation({ navigation, siteConfig, repoMetrics }
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"
-          className="fixed inset-0 top-[65px] bg-surface/98 backdrop-blur-xl z-50 flex flex-col p-6 overflow-y-auto border-t border-border animate-fade-in"
+          className="fixed inset-0 top-14 bg-surface/98 backdrop-blur-xl z-50 flex flex-col p-6 overflow-y-auto border-t border-border animate-fade-in"
         >
           <div className="flex flex-col space-y-4 py-4 flex-1">
             {navigation.map((item) => (

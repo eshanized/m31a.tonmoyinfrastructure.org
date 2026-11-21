@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Terminal, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowRight, Terminal, ShieldCheck, Cpu } from 'lucide-react';
 import GithubIcon from '@/components/ui/icons/GithubIcon';
 import { siteConfig } from '@/lib/site-config';
 import { getRepoMetrics, getLatestVersion } from '@/lib/github';
@@ -17,46 +17,44 @@ export default async function HeroSection() {
   ]);
 
   return (
-    <section className="relative w-full overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32 bg-background">
-      {/* Custom Canvas Particle Field Background */}
+    <section className="relative w-full overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 bg-background">
+      {/* Subtle Hairline Background Grid */}
       <ParticleField />
 
-      {/* Subtle radial ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-radial-glow pointer-events-none z-0" />
-
       <Container size="default" className="relative z-10 flex flex-col items-center text-center">
-        {/* Category Badge */}
-        <div className="inline-flex items-center mb-6 animate-fade-in">
+        {/* Category Announcement Tag */}
+        <div className="inline-flex items-center mb-6">
           <Link
             href="/announcements"
-            className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-border hover:border-accent-crimson/40 transition-all duration-200 shadow-xs text-xs font-medium text-foreground-muted hover:text-foreground btn-magnetic"
+            className="group flex items-center gap-2 px-3 py-1 rounded-md bg-surface border border-border hover:border-border-strong transition-colors text-xs text-foreground-muted hover:text-foreground"
           >
-            <span className="w-2 h-2 rounded-full bg-accent-crimson animate-pulse" />
-            <span className="font-semibold text-foreground">M31A v{version}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            <span className="font-medium text-foreground">M31A v{version}</span>
             <span className="text-foreground-subtle">•</span>
             <span>Latest Announcements</span>
-            <ArrowRight className="w-3.5 h-3.5 text-foreground-subtle group-hover:translate-x-1 transition-transform duration-200" />
+            <ArrowRight className="w-3.5 h-3.5 text-foreground-subtle group-hover:text-foreground transition-colors" />
           </Link>
         </div>
 
         {/* Hero Dominant Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold tracking-tight text-foreground max-w-5xl leading-[1.06] text-balance animate-fade-up">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-semibold tracking-tight text-foreground max-w-4xl leading-[1.08] text-balance">
           {siteConfig.headline}
         </h1>
 
         {/* Supporting Paragraph */}
-        <p className="mt-6 text-base sm:text-xl text-foreground-muted max-w-2xl font-normal leading-relaxed text-balance animate-fade-up [animation-delay:150ms]">
-          {siteConfig.subheadline} Powered by NVIDIA NIM frontier intelligence and Linux Bubblewrap isolation.
+        <p className="mt-5 text-sm sm:text-lg text-foreground-muted max-w-2xl font-normal leading-relaxed text-balance">
+          {siteConfig.subheadline}
         </p>
 
-        {/* Prominent CTA Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto animate-fade-up [animation-delay:250ms]">
+        {/* Action Controls */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
           <Button
             href="/features"
             variant="primary"
             size="lg"
-            icon={Sparkles}
-            className="w-full sm:w-auto shadow-md hover:shadow-xl"
+            icon={ArrowRight}
+            iconPosition="right"
+            className="w-full sm:w-auto"
           >
             Get Started
           </Button>
@@ -71,24 +69,22 @@ export default async function HeroSection() {
             className="w-full sm:w-auto"
           >
             Explore on GitHub
-            <span className="ml-1 text-xs px-2 py-0.5 rounded-full bg-surface-muted text-foreground-muted font-mono border border-border">
+            <span className="ml-1.5 text-xs px-2 py-0.5 rounded bg-surface-muted text-foreground-muted font-mono border border-border tabular-nums">
               ★ {repoMetrics.stargazers_count}
             </span>
           </Button>
         </div>
 
-        {/* Interactive Quick Install Pill */}
-        <div className="animate-fade-up [animation-delay:350ms]">
-          <QuickInstallPill command={siteConfig.installCommand} />
-        </div>
+        {/* Quick Install Bar */}
+        <QuickInstallPill command={siteConfig.installCommand} />
 
-        {/* Feature Badges Bar */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-foreground-muted animate-fade-up [animation-delay:400ms]">
+        {/* Architecture Badges Bar */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-2 text-xs text-foreground-muted">
           <Badge variant="default" icon={Cpu}>
-            NVIDIA NIM Low-Latency Frontier Models
+            NVIDIA NIM Low-Latency Inference
           </Badge>
           <Badge variant="default" icon={ShieldCheck}>
-            Bubblewrap Linux Container Isolation
+            Bubblewrap Linux Container Sandbox
           </Badge>
           <Badge variant="default" icon={Terminal}>
             Ratatui Full-Screen TUI

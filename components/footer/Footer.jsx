@@ -54,49 +54,49 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-background-soft border-t border-border mt-auto">
-      <Container size="default" className="py-16 md:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+      <Container size="default" className="py-12 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-10">
           {/* Brand Column */}
-          <div className="col-span-2 md:col-span-1 flex flex-col space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-surface border border-border shadow-xs">
+          <div className="col-span-2 md:col-span-1 flex flex-col space-y-3">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-6 h-6 flex items-center justify-center rounded-md bg-surface border border-border">
                 <Image
                   src="/brand/m31a-logo.svg"
                   alt="M31A Logo"
-                  width={22}
-                  height={22}
-                  className="w-5 h-5 object-contain"
+                  width={16}
+                  height={16}
+                  className="w-3.5 h-3.5 object-contain"
                 />
               </div>
-              <span className="font-bold text-lg text-foreground tracking-tight">
+              <span className="font-semibold text-sm text-foreground tracking-tight">
                 M31A
               </span>
             </Link>
 
             <p className="text-xs text-foreground-muted leading-relaxed">
-              Open-source autonomous coding system built with Rust 2024 and powered by NVIDIA NIM frontier models.
+              Open-source autonomous coding runtime built in Rust 2024 and powered by NVIDIA NIM frontier intelligence.
             </p>
 
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2 pt-1">
               <Link
                 href={siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Repository"
-                className="p-2 rounded-full bg-surface border border-border text-foreground-muted hover:text-foreground hover:border-border-strong transition-all"
+                className="p-1.5 rounded-md bg-surface border border-border text-foreground-muted hover:text-foreground transition-colors"
               >
-                <GithubIcon className="w-4 h-4" />
+                <GithubIcon className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
           {/* Links Columns */}
           {footerGroups.map((group) => (
-            <div key={group.title} className="flex flex-col space-y-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+            <div key={group.title} className="flex flex-col space-y-2.5">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-foreground-subtle">
                 {group.title}
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     {link.external ? (
@@ -125,11 +125,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-foreground-subtle">
-          <div className="flex flex-wrap items-center gap-4">
-            <span>© {currentYear} Tonmoy Infrastructure & Vision. MIT Licensed.</span>
+        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-foreground-subtle">
+          <div className="flex flex-wrap items-center gap-3">
+            <span>© {currentYear} Tonmoy Infrastructure &amp; Vision. MIT Licensed.</span>
             <span>•</span>
-            <span>Designed for Developer Autonomy</span>
+            <span>Sovereign Systems Runtime</span>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -138,7 +138,7 @@ export default function Footer() {
               href="https://github.com/eshanized"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground-muted hover:text-foreground font-semibold inline-flex items-center gap-1.5 transition-colors"
+              className="text-foreground-muted hover:text-foreground font-medium inline-flex items-center gap-1.5 transition-colors"
             >
               <span className="relative w-4 h-4 rounded-full overflow-hidden border border-border inline-block shrink-0 align-middle">
                 <Image
@@ -150,7 +150,6 @@ export default function Footer() {
                 />
               </span>
               <span>Eshan Roy</span>
-              <Heart className="w-3 h-3 text-accent-crimson fill-accent-crimson inline" />
             </a>
           </div>
         </div>

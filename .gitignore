@@ -21,3 +21,6 @@ coverage/
 # OS Files
 .DS_Store
 *.pem
+.agents/
+skills-lock.json
+.pnpm-store/

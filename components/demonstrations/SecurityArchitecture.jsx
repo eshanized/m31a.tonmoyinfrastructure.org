@@ -88,14 +88,14 @@ export default function SecurityArchitecture() {
   const [activeLayer, setActiveLayer] = useState(SECURITY_LAYERS[0]);
 
   return (
-    <div className="w-full bg-surface rounded-large border border-border p-6 md:p-10 shadow-sm space-y-8">
+    <div className="w-full bg-surface rounded-xl border border-border p-5 md:p-8 space-y-6">
       {/* Visual Execution Pipeline Flow */}
       <div className="space-y-3">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground-muted">
-          Defense-in-Depth Execution Pipeline
+        <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-foreground-subtle">
+          Defense-in-Depth Gates
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-2.5 relative">
           {SECURITY_LAYERS.map((layer, index) => {
             const Icon = layer.icon;
             const isSelected = activeLayer.id === layer.id;
@@ -104,32 +104,32 @@ export default function SecurityArchitecture() {
                 key={layer.id}
                 type="button"
                 onClick={() => setActiveLayer(layer)}
-                className={`p-4 rounded-medium text-left transition-all duration-200 border relative flex flex-col justify-between ${
+                className={`p-3.5 rounded-lg text-left transition-colors border relative flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-accent-subtle/80 border-accent shadow-md -translate-y-1 ring-1 ring-accent/30'
-                    : 'bg-surface-muted/40 border-border hover:border-border-strong hover:-translate-y-0.5 hover:bg-surface'
+                    ? 'bg-accent-subtle border-accent text-accent'
+                    : 'bg-surface border-border hover:border-border-strong text-foreground-muted hover:text-foreground'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-mono font-bold text-foreground-subtle">
+                    <span className="text-[10px] font-mono text-foreground-subtle">
                       GATE 0{index + 1}
                     </span>
                     <div
-                      className={`p-1.5 rounded-full transition-colors ${
+                      className={`p-1 rounded ${
                         isSelected ? 'bg-accent text-white' : 'text-foreground-muted'
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                     </div>
                   </div>
-                  <h4 className="text-xs font-bold text-foreground leading-snug">
+                  <h4 className="text-xs font-medium text-foreground leading-snug">
                     {layer.name}
                   </h4>
                 </div>
 
-                <div className="mt-4 pt-2 border-t border-border/60">
-                  <span className="text-[10px] font-mono font-medium text-foreground-subtle block truncate">
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <span className="text-[10px] font-mono text-foreground-subtle block truncate">
                     {layer.status}
                   </span>
                 </div>
@@ -140,14 +140,14 @@ export default function SecurityArchitecture() {
       </div>
 
       {/* Deep-Dive Inspection Card */}
-      <div className="p-6 rounded-medium bg-background-soft border border-border">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-border">
+      <div className="p-5 rounded-lg bg-surface-muted border border-border">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-border">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-accent bg-accent-subtle px-2 py-0.5 rounded">
+              <span className="text-xs font-mono font-medium text-accent bg-accent-subtle px-2 py-0.5 rounded border border-accent/20">
                 Active Policy Gate
               </span>
-              <h4 className="text-base font-bold text-foreground">
+              <h4 className="text-sm font-semibold text-foreground">
                 {activeLayer.name}
               </h4>
             </div>
@@ -155,27 +155,27 @@ export default function SecurityArchitecture() {
               Source Crate: {activeLayer.tag}
             </p>
           </div>
-          <span className="text-xs px-2.5 py-1 rounded-full bg-surface border border-border text-foreground font-medium self-start md:self-auto">
+          <span className="text-xs px-2 py-0.5 rounded bg-surface border border-border text-foreground font-mono self-start md:self-auto">
             {activeLayer.status}
           </span>
         </div>
 
-        <div className="mt-4 space-y-4">
-          <p className="text-sm text-foreground leading-relaxed">
+        <div className="mt-3.5 space-y-3">
+          <p className="text-xs sm:text-sm text-foreground leading-relaxed">
             {activeLayer.description}
           </p>
 
-          <div className="space-y-2">
-            <span className="text-xs font-semibold text-foreground uppercase tracking-wider">
+          <div className="space-y-1.5">
+            <span className="text-xs font-medium text-foreground block">
               Enforcement Mechanisms:
             </span>
-            <ul className="space-y-1.5">
+            <ul className="space-y-1">
               {activeLayer.mechanisms.map((mech, i) => (
                 <li
                   key={i}
                   className="text-xs text-foreground-muted flex items-center gap-2"
                 >
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                   <span>{mech}</span>
                 </li>
               ))}
@@ -185,10 +185,10 @@ export default function SecurityArchitecture() {
       </div>
 
       {/* Linux Sandbox Notice */}
-      <div className="p-4 rounded-medium bg-surface-muted border border-border-subtle flex items-start gap-3 text-xs text-foreground-muted">
-        <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+      <div className="p-3.5 rounded-lg bg-surface border border-border flex items-start gap-2.5 text-xs text-foreground-muted">
+        <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
         <p>
-          <strong>Platform Isolation Transparency:</strong> Bubblewrap kernel namespace isolation requires a Linux host with unprivileged user namespaces enabled. On macOS and Windows, M31A enforces strict path filtering and Guardian supervision, while native seatbelt profiles (<code className="font-mono">sandbox-exec</code>) and Windows AppContainer isolation remain in development for Phase 3 on the roadmap.
+          <strong>Platform Isolation:</strong> Bubblewrap kernel namespace isolation requires a Linux host with unprivileged user namespaces enabled. On macOS and Windows, M31A enforces strict path filtering and Guardian supervision, while native seatbelt profiles (<code className="font-mono">sandbox-exec</code>) and Windows AppContainer isolation are scheduled for Phase 3.
         </p>
       </div>
     </div>
